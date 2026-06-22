@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import Link from "next/link";
 import { SiteLayout } from "@/components/SiteLayout";
 import { LeadForm } from "@/components/LeadForm";
 import { FAQ, type FAQItem } from "@/components/FAQ";
@@ -24,7 +24,7 @@ export function ServicePage({
         <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-primary-soft/40 to-background" />
         <div className="container-page pt-10 pb-6">
           <nav className="text-sm text-muted-foreground">
-            <Link to="/" className="hover:text-primary">Home</Link>
+            <Link href="/" className="hover:text-primary">Home</Link>
             <span className="mx-2">/</span>
             <span className="text-foreground">{eyebrow}</span>
           </nav>

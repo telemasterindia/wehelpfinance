@@ -1,21 +1,18 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Thank You — We'll Be in Touch | WeHelpFinance",
+  description: "Thanks for reaching out. A specialist will contact you shortly to discuss your free, no-obligation options.",
+  alternates: { canonical: "/thank-you" },
+  openGraph: { title: "Thank You — We'll Be in Touch | WeHelpFinance", description: "Thanks for reaching out. A specialist will contact you shortly to discuss your free, no-obligation options.", url: "/thank-you", type: "website" },
+  robots: { index: false, follow: false },
+};
+
+import Link from "next/link";
 import { SiteLayout } from "@/components/SiteLayout";
 import { CheckCircle2, Phone, Mail, ArrowRight } from "lucide-react";
 
-export const Route = createFileRoute("/thank-you")({
-  head: () => ({
-    meta: [
-      { title: "Thank You — We'll Be in Touch | WeHelpFinance" },
-      { name: "description", content: "Thanks for reaching out. A specialist will contact you shortly to discuss your free, no-obligation options." },
-      { property: "og:url", content: "https://wehelpfinance.com/thank-you" },
-      { name: "robots", content: "noindex, nofollow" },
-    ],
-    links: [{ rel: "canonical", href: "https://wehelpfinance.com/thank-you" }],
-  }),
-  component: ThankYou,
-});
-
-function ThankYou() {
+export default function ThankYou() {
   return (
     <SiteLayout>
       <section className="container-page py-20">
@@ -45,7 +42,7 @@ function ThankYou() {
             </div>
           </div>
 
-          <Link to="/" className="btn-ghost-pill mt-10 inline-flex">
+          <Link href="/" className="btn-ghost-pill mt-10 inline-flex">
             Back to home <ArrowRight className="h-4 w-4" />
           </Link>
         </div>

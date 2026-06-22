@@ -1,4 +1,7 @@
-import { Link } from "@tanstack/react-router";
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState, type ReactNode } from "react";
 import { Menu, X, ShieldCheck, Phone } from "lucide-react";
 
@@ -15,11 +18,12 @@ const NAV: NavItem[] = [
 
 export function SiteLayout({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
   return (
     <div className="flex min-h-screen flex-col">
       <header className="sticky top-0 z-40 border-b border-border/70 bg-background/85 backdrop-blur">
         <div className="container-page flex h-16 items-center justify-between gap-4">
-          <Link to="/" className="flex items-center gap-2 font-display text-lg font-semibold text-primary">
+          <Link href="/" className="flex items-center gap-2 font-display text-lg font-semibold text-primary">
             <span className="grid h-9 w-9 place-items-center rounded-xl bg-primary text-primary-foreground">
               <ShieldCheck className="h-5 w-5" />
             </span>
@@ -29,9 +33,8 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             {NAV.map((n) => (
               <Link
                 key={n.to}
-                to={n.to as any}
-                className="rounded-full px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground"
-                activeProps={{ className: "rounded-full px-3 py-2 text-sm font-medium text-primary bg-primary-soft" }}
+                href={n.to}
+                className={`rounded-full px-3 py-2 text-sm font-medium hover:bg-muted ${pathname === n.to ? "bg-primary-soft text-primary" : "text-muted-foreground hover:text-foreground"}`}
               >
                 {n.label}
                 {n.soon && <span className="ml-1 text-[10px] uppercase tracking-wide text-gold">Soon</span>}
@@ -47,7 +50,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               <Phone className="h-4 w-4" />
               <span className="hidden sm:inline">(718) 360-4806</span>
             </a>
-            <Link to="/get-help" className="btn-cta hidden h-11 min-h-0 px-5 text-sm sm:inline-flex">
+            <Link href="/get-help" className="btn-cta hidden h-11 min-h-0 px-5 text-sm sm:inline-flex">
               Get Free Help
             </Link>
             <button
@@ -66,7 +69,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               {NAV.map((n) => (
                 <Link
                   key={n.to}
-                  to={n.to as any}
+                  href={n.to}
                   onClick={() => setOpen(false)}
                   className="flex min-h-12 items-center justify-between rounded-xl px-3 text-base font-medium text-foreground hover:bg-muted"
                 >
@@ -74,7 +77,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
                   {n.soon && <span className="text-xs uppercase tracking-wide text-gold">Coming soon</span>}
                 </Link>
               ))}
-              <Link to="/get-help" onClick={() => setOpen(false)} className="btn-cta mt-2">
+              <Link href="/get-help" onClick={() => setOpen(false)} className="btn-cta mt-2">
                 Get Free Help Now
               </Link>
             </div>
@@ -143,7 +146,7 @@ function FooterCol({ title, links }: { title: string; links: { to: string; label
       <ul className="mt-4 space-y-2 text-sm">
         {links.map((l) => (
           <li key={l.to}>
-            <Link to={l.to as any} className="text-muted-foreground hover:text-primary">
+            <Link href={l.to} className="text-muted-foreground hover:text-primary">
               {l.label}
             </Link>
           </li>

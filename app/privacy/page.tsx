@@ -1,19 +1,15 @@
-import { createFileRoute } from "@tanstack/react-router";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Privacy Policy | WeHelpFinance",
+  description: "How WeHelpFinance collects, uses, and protects your information.",
+  alternates: { canonical: "/privacy" },
+  openGraph: { title: "Privacy Policy | WeHelpFinance", description: "How WeHelpFinance collects, uses, and protects your information.", url: "/privacy", type: "website" },
+};
+
 import { SiteLayout } from "@/components/SiteLayout";
 
-export const Route = createFileRoute("/privacy")({
-  head: () => ({
-    meta: [
-      { title: "Privacy Policy | WeHelpFinance" },
-      { name: "description", content: "How WeHelpFinance collects, uses, and protects your information." },
-      { property: "og:url", content: "https://wehelpfinance.com/privacy" },
-    ],
-    links: [{ rel: "canonical", href: "https://wehelpfinance.com/privacy" }],
-  }),
-  component: Privacy,
-});
-
-function Privacy() {
+export default function Privacy() {
   return (
     <SiteLayout>
       <article className="container-page mx-auto max-w-3xl py-14 prose-page">

@@ -1,6 +1,15 @@
-import { createFileRoute } from "@tanstack/react-router";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Personal Loans — Compare Options | WeHelpFinance",
+  description: "Compare personal loan options and debt consolidation opportunities with trusted lending partners. Free, no-obligation matching.",
+  alternates: { canonical: "/personal-loans" },
+  openGraph: { title: "Personal Loans — Compare Options | WeHelpFinance", description: "Compare personal loan options and debt consolidation opportunities with trusted lending partners. Free, no-obligation matching.", url: "/personal-loans", type: "website" },
+};
+
 import { ServicePage } from "@/components/ServicePage";
-import { faqJsonLd, breadcrumbJsonLd, type FAQItem } from "@/components/FAQ";
+import type { FAQItem } from "@/components/FAQ";
+import { faqJsonLd, breadcrumbJsonLd } from "@/lib/schema";
 
 const FAQS: FAQItem[] = [
   { q: "What can I use a personal loan for?", a: "Personal loans are commonly used for debt consolidation, unexpected expenses, home improvements, or major purchases. Uses vary by lender." },
@@ -10,25 +19,11 @@ const FAQS: FAQItem[] = [
   { q: "How fast can I get funded?", a: "Once approved, many personal loans fund within 1–5 business days, though timing depends on the lender and your bank." },
 ];
 
-export const Route = createFileRoute("/personal-loans")({
-  head: () => ({
-    meta: [
-      { title: "Personal Loans — Compare Options | WeHelpFinance" },
-      { name: "description", content: "Compare personal loan options and debt consolidation opportunities with trusted lending partners. Free, no-obligation matching." },
-      { property: "og:title", content: "Personal Loans | WeHelpFinance" },
-      { property: "og:description", content: "Compare personal loan options with trusted partners. Free and confidential." },
-      { property: "og:url", content: "https://wehelpfinance.com/personal-loans" },
-    ],
-    links: [{ rel: "canonical", href: "https://wehelpfinance.com/personal-loans" }],
-    scripts: [
-      { type: "application/ld+json", children: JSON.stringify(faqJsonLd(FAQS)) },
-      { type: "application/ld+json", children: JSON.stringify(breadcrumbJsonLd([
-        { name: "Home", path: "/" }, { name: "Personal Loans", path: "/personal-loans" },
-      ])) },
-    ],
-  }),
-  component: () => (
-    <ServicePage
+export default function Page() {
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(FAQS)) }} />
+<ServicePage
       eyebrow="Personal Loans"
       title={<>Personal loans, <span className="italic text-primary">simplified.</span></>}
       lede="Consolidate high-interest debt or cover a major expense with a single fixed monthly payment. We'll match your request to lending partners who fit your profile."
@@ -41,5 +36,6 @@ export const Route = createFileRoute("/personal-loans")({
       faqs={FAQS}
       category="personal-loan"
     />
-  ),
-});
+    </>
+  );
+}

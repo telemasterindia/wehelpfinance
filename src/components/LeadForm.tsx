@@ -1,10 +1,13 @@
+"use client";
+
 import { useState, useEffect, type FormEvent } from "react";
-import { Link, useNavigate } from "@tanstack/react-router";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { ArrowRight, ArrowLeft, Phone, Lock } from "lucide-react";
 
 declare global {
   interface Window {
-    gtag?: (...args: any[]) => void;
+    gtag?: (...args: unknown[]) => void;
   }
 }
 
@@ -42,14 +45,18 @@ function getUtm(): Record<string, string> {
 async function savePartialLead(data: LeadData) {
   // Placeholder for partial lead capture (e.g. after phone entered). Wire to CRM later.
   if (typeof window !== "undefined") {
-    try { sessionStorage.setItem("whf:lead:partial", JSON.stringify(data)); } catch {}
+    try { sessionStorage.setItem("whf:lead:partial", JSON.stringify(data)); } catch {
+      // Storage can be unavailable in privacy-restricted browsers.
+    }
   }
 }
 
 async function submitLead(data: LeadData) {
   // Placeholder for final submission. Wire to CRM/edge endpoint later.
   if (typeof window !== "undefined") {
-    try { sessionStorage.setItem("whf:lead:final", JSON.stringify(data)); } catch {}
+    try { sessionStorage.setItem("whf:lead:final", JSON.stringify(data)); } catch {
+      // Storage can be unavailable in privacy-restricted browsers.
+    }
   }
 }
 
@@ -60,7 +67,7 @@ const CAT_LABEL: Record<Category, string> = {
 };
 
 export function LeadForm({ defaultCategory }: { defaultCategory?: Category }) {
-  const navigate = useNavigate();
+  const router = useRouter();
   const [step, setStep] = useState(defaultCategory ? 2 : 1);
   const [data, setData] = useState<LeadData>({ category: defaultCategory, utm: getUtm() });
   const [submitting, setSubmitting] = useState(false);
@@ -74,7 +81,9 @@ export function LeadForm({ defaultCategory }: { defaultCategory?: Category }) {
         const utm = { ...(JSON.parse(stored) as Record<string, string>), ...(data.utm || {}) };
         setData((d) => ({ ...d, utm }));
       }
-    } catch {}
+    } catch {
+      // Ignore malformed or unavailable campaign storage.
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -99,8 +108,10 @@ export function LeadForm({ defaultCategory }: { defaultCategory?: Category }) {
         event_category: "Lead Form",
         event_label: data.category,
       });
-    } catch {}
-    navigate({ to: "/thank-you" });
+    } catch {
+      // Analytics must never block the form redirect.
+    }
+    router.push("/thank-you");
   }
 
   return (
@@ -145,7 +156,7 @@ export function LeadForm({ defaultCategory }: { defaultCategory?: Category }) {
                   <p className="mt-2 rounded-lg bg-primary-soft/60 p-3 text-xs text-foreground">
                     Debt settlement programs typically require $7,500 or more. You may be a better
                     fit for a{" "}
-                    <Link to="/personal-loans" className="font-semibold text-primary underline">
+                    <Link href="/personal-loans" className="font-semibold text-primary underline">
                       Personal Loan
                     </Link>
                     .
@@ -248,7 +259,7 @@ export function LeadForm({ defaultCategory }: { defaultCategory?: Category }) {
             By submitting this form, you agree to be contacted by WeHelpFinance and its specialist
             partners by phone, text, or email regarding your inquiry. Message and data rates may
             apply. You may opt out at any time. View our{" "}
-            <Link to="/privacy" className="text-primary underline">Privacy Policy</Link>.
+            <Link href="/privacy" className="text-primary underline">Privacy Policy</Link>.
           </p>
 
           <p className="flex items-center justify-center gap-2 text-xs text-muted-foreground">

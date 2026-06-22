@@ -1,6 +1,15 @@
-import { createFileRoute } from "@tanstack/react-router";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Debt Relief Help — Explore Your Options | WeHelpFinance",
+  description: "Struggling with credit card or unsecured debt? Connect with vetted debt relief specialists for a free, no-obligation consultation.",
+  alternates: { canonical: "/debt-relief" },
+  openGraph: { title: "Debt Relief Help — Explore Your Options | WeHelpFinance", description: "Struggling with credit card or unsecured debt? Connect with vetted debt relief specialists for a free, no-obligation consultation.", url: "/debt-relief", type: "website" },
+};
+
 import { ServicePage } from "@/components/ServicePage";
-import { faqJsonLd, breadcrumbJsonLd, type FAQItem } from "@/components/FAQ";
+import type { FAQItem } from "@/components/FAQ";
+import { faqJsonLd, breadcrumbJsonLd } from "@/lib/schema";
 
 const FAQS: FAQItem[] = [
   { q: "What is debt relief?", a: "Debt relief is an umbrella term for programs that help reduce, restructure, or pay off unsecured debt — including debt settlement, consolidation, and management plans." },
@@ -10,25 +19,11 @@ const FAQS: FAQItem[] = [
   { q: "Is WeHelpFinance a debt relief company?", a: "No. We're a free matching service. We connect you with vetted, independent debt relief specialists who provide the actual services." },
 ];
 
-export const Route = createFileRoute("/debt-relief")({
-  head: () => ({
-    meta: [
-      { title: "Debt Relief Help — Explore Your Options | WeHelpFinance" },
-      { name: "description", content: "Struggling with credit card or unsecured debt? Connect with vetted debt relief specialists for a free, no-obligation consultation. Settlement, consolidation, and more." },
-      { property: "og:title", content: "Debt Relief Help | WeHelpFinance" },
-      { property: "og:description", content: "Explore debt relief options with trusted specialists. Free, confidential, no obligation." },
-      { property: "og:url", content: "https://wehelpfinance.com/debt-relief" },
-    ],
-    links: [{ rel: "canonical", href: "https://wehelpfinance.com/debt-relief" }],
-    scripts: [
-      { type: "application/ld+json", children: JSON.stringify(faqJsonLd(FAQS)) },
-      { type: "application/ld+json", children: JSON.stringify(breadcrumbJsonLd([
-        { name: "Home", path: "/" }, { name: "Debt Relief", path: "/debt-relief" },
-      ])) },
-    ],
-  }),
-  component: () => (
-    <ServicePage
+export default function Page() {
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(FAQS)) }} />
+<ServicePage
       eyebrow="Debt Relief"
       title={<>A clearer path out of <span className="italic text-primary">unsecured debt.</span></>}
       lede="If credit cards, medical bills, or personal loans feel like they're stacking faster than you can pay them down, you have options — and a specialist can help you find the right one."
@@ -41,5 +36,6 @@ export const Route = createFileRoute("/debt-relief")({
       faqs={FAQS}
       category="debt-relief"
     />
-  ),
-});
+    </>
+  );
+}

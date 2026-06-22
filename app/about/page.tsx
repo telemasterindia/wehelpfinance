@@ -1,21 +1,16 @@
-import { createFileRoute } from "@tanstack/react-router";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About WeHelpFinance — Who We Are",
+  description: "WeHelpFinance connects Americans with vetted specialists for debt relief, tax relief, and personal loans. Free, confidential, no obligation.",
+  alternates: { canonical: "/about" },
+  openGraph: { title: "About WeHelpFinance — Who We Are", description: "WeHelpFinance connects Americans with vetted specialists for debt relief, tax relief, and personal loans. Free, confidential, no obligation.", url: "/about", type: "website" },
+};
+
 import { SiteLayout } from "@/components/SiteLayout";
 import { HeartHandshake, ShieldCheck, Users, Sparkles } from "lucide-react";
 
-export const Route = createFileRoute("/about")({
-  head: () => ({
-    meta: [
-      { title: "About WeHelpFinance — Who We Are" },
-      { name: "description", content: "WeHelpFinance connects Americans with vetted specialists for debt relief, tax relief, and personal loans. Free, confidential, no obligation. Founded by Amit Chadha with 21+ years in US financial services." },
-      { property: "og:title", content: "About WeHelpFinance" },
-      { property: "og:url", content: "https://wehelpfinance.com/about" },
-    ],
-    links: [{ rel: "canonical", href: "https://wehelpfinance.com/about" }],
-  }),
-  component: About,
-});
-
-function About() {
+export default function About() {
   return (
     <SiteLayout>
       <section className="container-page pt-14 pb-10">

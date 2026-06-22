@@ -1,7 +1,18 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "WeHelpFinance — Debt Relief, Tax Relief & Personal Loan Help",
+  description: "Making good money but still struggling with debt? WeHelpFinance connects you with trusted specialists for debt relief, tax relief, and personal loans. Free, confidential, no obligation.",
+  alternates: { canonical: "/" },
+  openGraph: { title: "WeHelpFinance — Debt Relief, Tax Relief & Personal Loan Help", description: "Making good money but still struggling with debt? WeHelpFinance connects you with trusted specialists for debt relief, tax relief, and personal loans. Free, confidential, no obligation.", url: "/", type: "website" },
+};
+
+import Link from "next/link";
+import Image from "next/image";
 import { SiteLayout } from "@/components/SiteLayout";
 import { LeadForm } from "@/components/LeadForm";
-import { FAQ, faqJsonLd, breadcrumbJsonLd, type FAQItem } from "@/components/FAQ";
+import { FAQ, type FAQItem } from "@/components/FAQ";
+import { faqJsonLd, breadcrumbJsonLd } from "@/lib/schema";
 import { ShieldCheck, Lock, Clock, HeartHandshake, ArrowRight, CheckCircle2, Sparkles } from "lucide-react";
 import heroImg from "@/assets/hero.jpg";
 
@@ -14,31 +25,7 @@ const FAQS: FAQItem[] = [
   { q: "How quickly will someone contact me?", a: "Most consultations are scheduled within one business day. You're never obligated to move forward — the call is free and judgment-free." },
 ];
 
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "WeHelpFinance — Debt Relief, Tax Relief & Personal Loan Help" },
-      { name: "description", content: "Making good money but still struggling with debt? WeHelpFinance connects you with trusted specialists for debt relief, tax relief, and personal loans. Free, confidential, no obligation." },
-      { property: "og:title", content: "WeHelpFinance — Trusted Financial Recovery Help" },
-      { property: "og:description", content: "Explore debt relief, tax relief, and personal loan options with vetted specialists. Free consultation. No obligation." },
-      { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://wehelpfinance.com/" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-    links: [{ rel: "canonical", href: "https://wehelpfinance.com/" }],
-    scripts: [
-      { type: "application/ld+json", children: JSON.stringify(faqJsonLd(FAQS)) },
-      { type: "application/ld+json", children: JSON.stringify({
-        "@context": "https://schema.org", "@type": "Organization",
-        name: "WeHelpFinance", url: "https://wehelpfinance.com",
-        description: "Free service that connects consumers with vetted debt relief, tax relief, and personal loan specialists.",
-      }) },
-    ],
-  }),
-  component: HomePage,
-});
-
-function HomePage() {
+export default function HomePage() {
   return (
     <SiteLayout>
       {/* HERO */}
@@ -69,7 +56,7 @@ function HomePage() {
             </ul>
 
             <div className="mt-7 flex flex-wrap gap-3">
-              <Link to="/get-help" className="btn-cta">
+              <Link href="/get-help" className="btn-cta">
                 Get Free Help Now <ArrowRight className="h-4 w-4" />
               </Link>
               <a href="#how-it-works" className="btn-ghost-pill">How it works</a>
@@ -77,7 +64,7 @@ function HomePage() {
           </div>
 
           <div className="relative">
-            <img
+            <Image
               src={heroImg}
               alt="A woman reviewing her finances at a sunlit table, looking relieved"
               loading="eager"
@@ -191,7 +178,7 @@ function HomePage() {
           <p className="mx-auto mt-3 max-w-xl text-primary-foreground/85">
             A short conversation can open the door to real options. It's free, confidential, and no obligation.
           </p>
-          <Link to="/get-help" className="btn-gold mt-7 inline-flex">
+          <Link href="/get-help" className="btn-gold mt-7 inline-flex">
             Get Free Help Now <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
@@ -207,7 +194,7 @@ function CategoryCard({ tag, title, href, cta }: { tag: string; title: string; h
         {tag}
       </span>
       <p className="mt-4 flex-1 font-display text-xl text-foreground">{title}</p>
-      <Link to={href as any} className="mt-6 inline-flex items-center gap-2 font-semibold text-primary">
+      <Link href={href} className="mt-6 inline-flex items-center gap-2 font-semibold text-primary">
         {cta} <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
       </Link>
     </div>

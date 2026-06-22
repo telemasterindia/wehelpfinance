@@ -1,19 +1,15 @@
-import { createFileRoute } from "@tanstack/react-router";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Terms of Service | WeHelpFinance",
+  description: "The terms and conditions for using WeHelpFinance.",
+  alternates: { canonical: "/terms" },
+  openGraph: { title: "Terms of Service | WeHelpFinance", description: "The terms and conditions for using WeHelpFinance.", url: "/terms", type: "website" },
+};
+
 import { SiteLayout } from "@/components/SiteLayout";
 
-export const Route = createFileRoute("/terms")({
-  head: () => ({
-    meta: [
-      { title: "Terms of Service | WeHelpFinance" },
-      { name: "description", content: "The terms and conditions for using WeHelpFinance." },
-      { property: "og:url", content: "https://wehelpfinance.com/terms" },
-    ],
-    links: [{ rel: "canonical", href: "https://wehelpfinance.com/terms" }],
-  }),
-  component: Terms,
-});
-
-function Terms() {
+export default function Terms() {
   return (
     <SiteLayout>
       <article className="container-page mx-auto max-w-3xl py-14">

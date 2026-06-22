@@ -1,23 +1,6 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import Link from "next/link";
 import { SiteLayout } from "@/components/SiteLayout";
 import { Clock, ArrowRight } from "lucide-react";
-
-function makeRoute(slug: string, name: string, description: string) {
-  return createFileRoute(slug as any)({
-    head: () => ({
-      meta: [
-        { title: `${name} — Coming Soon | WeHelpFinance` },
-        { name: "description", content: description },
-        { property: "og:title", content: `${name} — Coming Soon | WeHelpFinance` },
-        { property: "og:description", content: description },
-        { property: "og:url", content: slug },
-        { name: "robots", content: "noindex" },
-      ],
-      links: [{ rel: "canonical", href: slug }],
-    }),
-    component: () => <ComingSoonPage name={name} description={description} />,
-  });
-}
 
 export function ComingSoonPage({ name, description }: { name: string; description: string }) {
   return (
@@ -32,7 +15,7 @@ export function ComingSoonPage({ name, description }: { name: string; descriptio
           <p className="mt-3 text-muted-foreground">
             In the meantime, we can still help with debt relief, personal loans, and tax relief.
           </p>
-          <Link to="/" className="btn-cta mt-8 inline-flex">
+          <Link href="/" className="btn-cta mt-8 inline-flex">
             See current services <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
@@ -41,4 +24,3 @@ export function ComingSoonPage({ name, description }: { name: string; descriptio
   );
 }
 
-export { makeRoute };

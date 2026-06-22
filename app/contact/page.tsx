@@ -1,22 +1,17 @@
-import { createFileRoute } from "@tanstack/react-router";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Contact WeHelpFinance",
+  description: "Get in touch with WeHelpFinance. Start a free consultation or send us a message — we respond within one business day.",
+  alternates: { canonical: "/contact" },
+  openGraph: { title: "Contact WeHelpFinance", description: "Get in touch with WeHelpFinance. Start a free consultation or send us a message — we respond within one business day.", url: "/contact", type: "website" },
+};
+
 import { SiteLayout } from "@/components/SiteLayout";
 import { LeadForm } from "@/components/LeadForm";
 import { Mail, Clock } from "lucide-react";
 
-export const Route = createFileRoute("/contact")({
-  head: () => ({
-    meta: [
-      { title: "Contact WeHelpFinance" },
-      { name: "description", content: "Get in touch with WeHelpFinance. Start a free consultation or send us a message — we respond within one business day." },
-      { property: "og:title", content: "Contact WeHelpFinance" },
-      { property: "og:url", content: "https://wehelpfinance.com/contact" },
-    ],
-    links: [{ rel: "canonical", href: "https://wehelpfinance.com/contact" }],
-  }),
-  component: Contact,
-});
-
-function Contact() {
+export default function Contact() {
   return (
     <SiteLayout>
       <section className="container-page py-14">
