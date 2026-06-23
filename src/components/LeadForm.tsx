@@ -112,7 +112,7 @@ async function sendPartialLead(data: LeadData): Promise<void> {
       headers: { "Content-Type": "application/json", Accept: "application/json" },
       body: JSON.stringify({
         access_key: W3F_KEY,
-        subject: `Partial Lead - Phone Captured (${CAT_LABEL[data.category ?? "debt-relief"]})`,
+        subject: `⚡ Partial Lead — Phone Captured (${CAT_LABEL[data.category ?? "debt-relief"]})`,
         from_name: "WeHelpFinance Partial Lead",
         phone: data.phone ?? "",
         category: CAT_LABEL[data.category ?? "debt-relief"] ?? "",
@@ -149,7 +149,7 @@ async function sendFinalLead(data: LeadData): Promise<{ ok: boolean; error?: str
       headers: { "Content-Type": "application/json", Accept: "application/json" },
       body: JSON.stringify({
         access_key: W3F_KEY,
-        subject: `New Lead - ${CAT_LABEL[data.category ?? "debt-relief"]} | ${data.state ?? ""}`,
+        subject: `🎯 New ${CAT_LABEL[data.category ?? "debt-relief"]} Lead — ${data.state ?? ""} — ${qualifier}`,
         from_name: "WeHelpFinance Lead",
         first_name: data.firstName ?? "",
         last_name: data.lastName ?? "",
@@ -182,7 +182,7 @@ async function sendFinalLead(data: LeadData): Promise<{ ok: boolean; error?: str
     if (!res.ok || !json.success) return { ok: false, error: json.message ?? "Submission failed" };
     return { ok: true };
   } catch {
-    return { ok: false, error: "Network error - please try again." };
+    return { ok: false, error: "Network error — please try again." };
   }
 }
 
@@ -300,7 +300,7 @@ export function LeadForm({ defaultCategory }: { defaultCategory?: Category }) {
                 <Select
                   value={data.debtAmount}
                   onChange={(v) => update({ debtAmount: v })}
-                  options={["Under $7,500", "$7,500 - $10,000", "$10,000 - $25,000", "$25,000 - $50,000", "$50,000 - $100,000", "$100,000+"]}
+                  options={["Under $7,500", "$7,500 – $10,000", "$10,000 – $25,000", "$25,000 – $50,000", "$50,000 – $100,000", "$100,000+"]}
                 />
                 {data.debtAmount === "Under $7,500" && (
                   <p className="mt-2 rounded-lg bg-primary-soft/60 p-3 text-xs text-foreground">
@@ -325,14 +325,14 @@ export function LeadForm({ defaultCategory }: { defaultCategory?: Category }) {
                 <Select
                   value={data.loanAmount}
                   onChange={(v) => update({ loanAmount: v })}
-                  options={["Under $5,000", "$5,000 - $15,000", "$15,000 - $35,000", "$35,000 - $50,000", "$50,000+"]}
+                  options={["Under $5,000", "$5,000 – $15,000", "$15,000 – $35,000", "$35,000 – $50,000", "$50,000+"]}
                 />
               </Field>
               <Field label="Credit score range">
                 <Select
                   value={data.creditScore}
                   onChange={(v) => update({ creditScore: v })}
-                  options={["Excellent (720+)", "Good (660-719)", "Fair (600-659)", "Poor (below 600)", "Not sure"]}
+                  options={["Excellent (720+)", "Good (660–719)", "Fair (600–659)", "Poor (below 600)", "Not sure"]}
                 />
               </Field>
             </>
@@ -344,7 +344,7 @@ export function LeadForm({ defaultCategory }: { defaultCategory?: Category }) {
                 <Select
                   value={data.taxDebt}
                   onChange={(v) => update({ taxDebt: v })}
-                  options={["Under $10,000", "$10,000 - $25,000", "$25,000 - $50,000", "$50,000 - $100,000", "$100,000+"]}
+                  options={["Under $10,000", "$10,000 – $25,000", "$25,000 – $50,000", "$50,000 – $100,000", "$100,000+"]}
                 />
               </Field>
               <Field label="Have you received an IRS notice?">
@@ -398,7 +398,7 @@ export function LeadForm({ defaultCategory }: { defaultCategory?: Category }) {
             />
           </Field>
 
-          <Field label="Phone number" hint="A specialist will call you - usually within 1 business day." error={phoneError}>
+          <Field label="Phone number" hint="A specialist will call you — usually within 1 business day." error={phoneError}>
             <div className="relative">
               <Phone className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-primary" aria-hidden="true" />
               <input
@@ -419,7 +419,7 @@ export function LeadForm({ defaultCategory }: { defaultCategory?: Category }) {
 
           <Field label="Are any of your accounts currently in collections?">
             <div className="flex gap-3">
-              {["Yes", "No"].map((opt) => (
+              {["Yes", "No", "Not Sure"].map((opt) => (
                 <button
                   key={opt}
                   type="button"
