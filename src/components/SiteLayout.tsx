@@ -3,13 +3,21 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, type ReactNode } from "react";
-import { Menu, X, ShieldCheck, Phone } from "lucide-react";
+import { ChevronDown, Menu, Phone, ShieldCheck, X } from "lucide-react";
 
 type NavItem = { to: string; label: string; soon?: boolean };
-const NAV: NavItem[] = [
+const SERVICES: NavItem[] = [
   { to: "/debt-relief", label: "Debt Relief" },
+  { to: "/credit-card-debt-relief", label: "Credit Card Debt Relief" },
+  { to: "/debt-settlement", label: "Debt Settlement" },
+  { to: "/debt-consolidation", label: "Debt Consolidation" },
   { to: "/personal-loans", label: "Personal Loans" },
   { to: "/tax-relief", label: "Tax Relief" },
+  { to: "/irs-debt-relief", label: "IRS Debt Relief" },
+  { to: "/back-taxes-help", label: "Back Taxes Help" },
+];
+
+const NAV: NavItem[] = [
   { to: "/credit-repair", label: "Credit Repair", soon: true },
   { to: "/consumer-rights", label: "Consumer Rights", soon: true },
   { to: "/about", label: "About" },
@@ -19,6 +27,8 @@ const NAV: NavItem[] = [
 export function SiteLayout({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const servicesActive = SERVICES.some((service) => pathname === service.to);
+
   return (
     <div className="flex min-h-screen flex-col">
       <header className="sticky top-0 z-40 border-b border-border/70 bg-background/85 backdrop-blur">
@@ -30,6 +40,27 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             <span>WeHelpFinance</span>
           </Link>
           <nav className="hidden items-center gap-1 lg:flex">
+            <div className="group relative">
+              <button
+                type="button"
+                className={`flex items-center gap-1 rounded-full px-3 py-2 text-sm font-medium hover:bg-muted ${servicesActive ? "bg-primary-soft text-primary" : "text-muted-foreground hover:text-foreground"}`}
+                aria-haspopup="true"
+              >
+                Services
+                <ChevronDown className="h-4 w-4 transition group-hover:rotate-180" aria-hidden="true" />
+              </button>
+              <div className="invisible absolute left-0 top-full z-50 w-72 translate-y-2 rounded-2xl border border-border bg-background p-2 opacity-0 shadow-xl transition group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
+                {SERVICES.map((service) => (
+                  <Link
+                    key={service.to}
+                    href={service.to}
+                    className={`block rounded-xl px-4 py-3 text-sm font-medium transition hover:bg-muted ${pathname === service.to ? "bg-primary-soft text-primary" : "text-foreground"}`}
+                  >
+                    {service.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
             {NAV.map((n) => (
               <Link
                 key={n.to}
@@ -66,6 +97,22 @@ export function SiteLayout({ children }: { children: ReactNode }) {
         {open && (
           <div className="border-t border-border bg-background lg:hidden">
             <div className="container-page flex flex-col gap-1 py-3">
+              <div className="px-3 pt-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                Services
+              </div>
+              {SERVICES.map((service) => (
+                <Link
+                  key={service.to}
+                  href={service.to}
+                  onClick={() => setOpen(false)}
+                  className={`flex min-h-11 items-center rounded-xl px-3 text-base font-medium hover:bg-muted ${pathname === service.to ? "bg-primary-soft text-primary" : "text-foreground"}`}
+                >
+                  {service.label}
+                </Link>
+              ))}
+              <div className="mt-2 px-3 pt-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                Company
+              </div>
               {NAV.map((n) => (
                 <Link
                   key={n.to}
@@ -106,11 +153,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               <a href="tel:+17183604806" className="hover:text-primary">(718) 360-4806</a>
             </address>
           </div>
-          <FooterCol title="Services" links={[
-            { to: "/debt-relief", label: "Debt Relief" },
-            { to: "/personal-loans", label: "Personal Loans" },
-            { to: "/tax-relief", label: "Tax Relief" },
-          ]} />
+          <FooterCol title="Services" links={SERVICES} />
           <FooterCol title="Coming Soon" links={[
             { to: "/credit-repair", label: "Credit Repair" },
             { to: "/consumer-rights", label: "Consumer Rights" },
