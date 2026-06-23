@@ -25,8 +25,27 @@ export type LeadData = {
   lastName?: string;
   email?: string;
   phone?: string;
+  notes?: string;
+  inCollections?: string;
   utm?: Record<string, string>;
 };
+
+function stripPhone(raw: string): string {
+  return raw.replace(/\D/g, "");
+}
+
+function validatePhone(raw: string): string | null {
+  const digits = stripPhone(raw);
+  if (digits.length !== 10) return "Please enter a valid 10-digit phone number.";
+  if (/^(\d)\1{9}$/.test(digits)) return "Please enter a valid phone number.";
+  return null;
+}
+
+function validateEmail(raw: string): string | null {
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  if (!re.test(raw.trim())) return "Please enter a valid email address.";
+  return null;
+}
 
 const STATES = [
   "AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA",
@@ -43,13 +62,16 @@ const CAT_LABEL: Record<Category, string> = {
 
 const W3F_KEY = "19b473ef-4a3d-4d3e-807d-82ed6bb3be99";
 const W3F_URL = "https://api.web3forms.com/submit";
+const NOTES_MAX = 500;
 
 function getUtm(): Record<string, string> {
   if (typeof window === "undefined") return {};
   const p = new URLSearchParams(window.location.search);
   const out: Record<string, string> = {};
-  ["utm_source","utm_medium","utm_campaign","utm_term","utm_content","gclid","fbclid"]
-    .forEach((k) => { const v = p.get(k); if (v) out[k] = v; });
+  ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "gclid", "fbclid"].forEach((k) => {
+    const v = p.get(k);
+    if (v) out[k] = v;
+  });
   try {
     const stored = sessionStorage.getItem("whf_utm");
     if (stored) Object.assign(out, JSON.parse(stored) as Record<string, string>);
@@ -61,20 +83,26 @@ function getUtm(): Record<string, string> {
 
 function getLandingPage(): string {
   if (typeof window === "undefined") return "";
-  try { return sessionStorage.getItem("whf_landing") ?? window.location.href; } catch {
+  try {
+    return sessionStorage.getItem("whf_landing") ?? window.location.href;
+  } catch {
     // Fall back to the current URL when session storage is blocked.
   }
   return window.location.href;
 }
 
 function track(event: string, params?: Record<string, string | undefined>) {
-  try { window.gtag?.("event", event, { event_category: "Lead Form", ...params }); } catch {
+  try {
+    window.gtag?.("event", event, { event_category: "Lead Form", ...params });
+  } catch {
     // Analytics errors should never block the form.
   }
 }
 
 async function sendPartialLead(data: LeadData): Promise<void> {
-  try { sessionStorage.setItem("whf:lead:partial", JSON.stringify(data)); } catch {
+  try {
+    sessionStorage.setItem("whf:lead:partial", JSON.stringify(data));
+  } catch {
     // Keep submitting even when local storage is unavailable.
   }
   const utm = data.utm ?? {};
@@ -88,6 +116,7 @@ async function sendPartialLead(data: LeadData): Promise<void> {
         from_name: "WeHelpFinance Partial Lead",
         phone: data.phone ?? "",
         category: CAT_LABEL[data.category ?? "debt-relief"] ?? "",
+        state: data.state ?? "",
         page_url: getLandingPage(),
         timestamp: new Date().toISOString(),
         utm_source: utm.utm_source ?? "",
@@ -104,7 +133,9 @@ async function sendPartialLead(data: LeadData): Promise<void> {
 }
 
 async function sendFinalLead(data: LeadData): Promise<{ ok: boolean; error?: string }> {
-  try { sessionStorage.setItem("whf:lead:final", JSON.stringify(data)); } catch {
+  try {
+    sessionStorage.setItem("whf:lead:final", JSON.stringify(data));
+  } catch {
     // Keep the final submission path available in privacy-restricted browsers.
   }
   const utm = data.utm ?? {};
@@ -133,6 +164,8 @@ async function sendFinalLead(data: LeadData): Promise<{ ok: boolean; error?: str
         employment: data.employment ?? "",
         irs_notice: data.irsNotice ?? "",
         state: data.state ?? "",
+        in_collections: data.inCollections ?? "",
+        notes: data.notes ?? "",
         utm_source: utm.utm_source ?? "",
         utm_medium: utm.utm_medium ?? "",
         utm_campaign: utm.utm_campaign ?? "",
@@ -159,6 +192,8 @@ export function LeadForm({ defaultCategory }: { defaultCategory?: Category }) {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [phoneError, setPhoneError] = useState<string | null>(null);
+  const [emailError, setEmailError] = useState<string | null>(null);
   const partialSentRef = useRef(false);
 
   useEffect(() => {
@@ -191,16 +226,31 @@ export function LeadForm({ defaultCategory }: { defaultCategory?: Category }) {
   }
 
   async function onPhoneBlur() {
-    if (!partialSentRef.current && data.phone && data.phone.replace(/\D/g, "").length >= 10) {
+    const err = validatePhone(data.phone ?? "");
+    setPhoneError(err);
+    if (!err && !partialSentRef.current) {
       partialSentRef.current = true;
       track("phone_entered", { event_label: data.category });
       await sendPartialLead({ ...data });
     }
   }
 
+  function onEmailBlur() {
+    if (data.email) {
+      setEmailError(validateEmail(data.email));
+    }
+  }
+
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
     if (submitted || submitting) return;
+
+    const pErr = validatePhone(data.phone ?? "");
+    const eErr = data.email ? validateEmail(data.email) : null;
+    setPhoneError(pErr);
+    setEmailError(eErr);
+    if (pErr || eErr) return;
+
     setSubmitError(null);
     setSubmitting(true);
     const result = await sendFinalLead({ ...data });
@@ -233,7 +283,7 @@ export function LeadForm({ defaultCategory }: { defaultCategory?: Category }) {
                 className="flex min-h-14 items-center justify-between rounded-2xl border border-border bg-background px-5 text-left text-base font-medium transition hover:border-primary hover:bg-primary-soft/40"
               >
                 {CAT_LABEL[c]}
-                <ArrowRight className="h-5 w-5 text-primary" />
+                <ArrowRight className="h-5 w-5 text-primary" aria-hidden="true" />
               </button>
             ))}
           </div>
@@ -242,10 +292,7 @@ export function LeadForm({ defaultCategory }: { defaultCategory?: Category }) {
 
       {step === 2 && data.category && (
         <form onSubmit={(e) => { e.preventDefault(); next2(); }} className="space-y-4">
-          <StepHeader
-            title={`A few quick details (${CAT_LABEL[data.category]})`}
-            onBack={() => setStep(1)}
-          />
+          <StepHeader title={`A few quick details (${CAT_LABEL[data.category]})`} onBack={() => setStep(1)} />
 
           {data.category === "debt-relief" && (
             <>
@@ -253,7 +300,7 @@ export function LeadForm({ defaultCategory }: { defaultCategory?: Category }) {
                 <Select
                   value={data.debtAmount}
                   onChange={(v) => update({ debtAmount: v })}
-                  options={["Under $7,500","$7,500 - $10,000","$10,000 - $25,000","$25,000 - $50,000","$50,000 - $100,000","$100,000+"]}
+                  options={["Under $7,500", "$7,500 - $10,000", "$10,000 - $25,000", "$25,000 - $50,000", "$50,000 - $100,000", "$100,000+"]}
                 />
                 {data.debtAmount === "Under $7,500" && (
                   <p className="mt-2 rounded-lg bg-primary-soft/60 p-3 text-xs text-foreground">
@@ -266,7 +313,7 @@ export function LeadForm({ defaultCategory }: { defaultCategory?: Category }) {
                 <Select
                   value={data.employment}
                   onChange={(v) => update({ employment: v })}
-                  options={["Employed full-time","Employed part-time","Self-employed","Unemployed","Retired"]}
+                  options={["Employed full-time", "Employed part-time", "Self-employed", "Unemployed", "Retired"]}
                 />
               </Field>
             </>
@@ -278,14 +325,14 @@ export function LeadForm({ defaultCategory }: { defaultCategory?: Category }) {
                 <Select
                   value={data.loanAmount}
                   onChange={(v) => update({ loanAmount: v })}
-                  options={["Under $5,000","$5,000 - $15,000","$15,000 - $35,000","$35,000 - $50,000","$50,000+"]}
+                  options={["Under $5,000", "$5,000 - $15,000", "$15,000 - $35,000", "$35,000 - $50,000", "$50,000+"]}
                 />
               </Field>
               <Field label="Credit score range">
                 <Select
                   value={data.creditScore}
                   onChange={(v) => update({ creditScore: v })}
-                  options={["Excellent (720+)","Good (660-719)","Fair (600-659)","Poor (below 600)","Not sure"]}
+                  options={["Excellent (720+)", "Good (660-719)", "Fair (600-659)", "Poor (below 600)", "Not sure"]}
                 />
               </Field>
             </>
@@ -297,21 +344,17 @@ export function LeadForm({ defaultCategory }: { defaultCategory?: Category }) {
                 <Select
                   value={data.taxDebt}
                   onChange={(v) => update({ taxDebt: v })}
-                  options={["Under $10,000","$10,000 - $25,000","$25,000 - $50,000","$50,000 - $100,000","$100,000+"]}
+                  options={["Under $10,000", "$10,000 - $25,000", "$25,000 - $50,000", "$50,000 - $100,000", "$100,000+"]}
                 />
               </Field>
               <Field label="Have you received an IRS notice?">
-                <Select
-                  value={data.irsNotice}
-                  onChange={(v) => update({ irsNotice: v })}
-                  options={["Yes","No","Not sure"]}
-                />
+                <Select value={data.irsNotice} onChange={(v) => update({ irsNotice: v })} options={["Yes", "No", "Not sure"]} />
               </Field>
               <Field label="Current employment status">
                 <Select
                   value={data.employment}
                   onChange={(v) => update({ employment: v })}
-                  options={["Employed full-time","Employed part-time","Self-employed","1099","Unemployed","Retired"]}
+                  options={["Employed full-time", "Employed part-time", "Self-employed", "1099", "Unemployed", "Retired"]}
                 />
               </Field>
             </>
@@ -322,7 +365,7 @@ export function LeadForm({ defaultCategory }: { defaultCategory?: Category }) {
           </Field>
 
           <button type="submit" className="btn-cta w-full">
-            Continue <ArrowRight className="h-4 w-4" />
+            Continue <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </button>
         </form>
       )}
@@ -340,13 +383,24 @@ export function LeadForm({ defaultCategory }: { defaultCategory?: Category }) {
             </Field>
           </div>
 
-          <Field label="Email">
-            <Input type="email" value={data.email} onChange={(v) => update({ email: v })} autoComplete="email" required />
+          <Field label="Email" error={emailError}>
+            <input
+              type="email"
+              required
+              autoComplete="email"
+              placeholder="you@example.com"
+              value={data.email ?? ""}
+              onChange={(e) => { update({ email: e.target.value }); setEmailError(null); }}
+              onBlur={onEmailBlur}
+              className={`h-12 w-full rounded-xl border bg-background px-4 text-base focus:outline-none focus:ring-2 focus:ring-primary/20 ${
+                emailError ? "border-destructive focus:border-destructive" : "border-input focus:border-primary"
+              }`}
+            />
           </Field>
 
-          <Field label="Phone number" hint="A specialist will call you - usually within 1 business day.">
+          <Field label="Phone number" hint="A specialist will call you - usually within 1 business day." error={phoneError}>
             <div className="relative">
-              <Phone className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-primary" />
+              <Phone className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-primary" aria-hidden="true" />
               <input
                 type="tel"
                 required
@@ -354,11 +408,46 @@ export function LeadForm({ defaultCategory }: { defaultCategory?: Category }) {
                 autoComplete="tel"
                 placeholder="(555) 123-4567"
                 value={data.phone ?? ""}
-                onChange={(e) => update({ phone: e.target.value })}
+                onChange={(e) => { update({ phone: e.target.value }); setPhoneError(null); }}
                 onBlur={onPhoneBlur}
-                className="h-14 w-full rounded-2xl border-2 border-primary/40 bg-background pl-12 pr-4 text-lg font-semibold tracking-wide focus:border-primary focus:outline-none"
+                className={`h-14 w-full rounded-2xl border-2 bg-background pl-12 pr-4 text-lg font-semibold tracking-wide focus:outline-none ${
+                  phoneError ? "border-destructive focus:border-destructive" : "border-primary/40 focus:border-primary"
+                }`}
               />
             </div>
+          </Field>
+
+          <Field label="Are any of your accounts currently in collections?">
+            <div className="flex gap-3">
+              {["Yes", "No"].map((opt) => (
+                <button
+                  key={opt}
+                  type="button"
+                  onClick={() => update({ inCollections: opt })}
+                  className={`flex-1 rounded-xl border py-3 text-sm font-medium transition ${
+                    data.inCollections === opt
+                      ? "border-primary bg-primary-soft text-primary"
+                      : "border-border bg-background text-foreground hover:border-primary/50"
+                  }`}
+                >
+                  {opt}
+                </button>
+              ))}
+            </div>
+          </Field>
+
+          <Field label="Tell us more about your situation (optional)">
+            <textarea
+              maxLength={NOTES_MAX}
+              rows={3}
+              placeholder="E.g. I have 3 credit cards maxed out and a medical bill in collections..."
+              value={data.notes ?? ""}
+              onChange={(e) => update({ notes: e.target.value })}
+              className="w-full resize-none rounded-xl border border-input bg-background px-4 py-3 text-base focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+            />
+            <span className="mt-1 block text-right text-xs text-muted-foreground">
+              {(data.notes ?? "").length}/{NOTES_MAX}
+            </span>
           </Field>
 
           <input type="text" name="botcheck" defaultValue="" style={{ display: "none" }} tabIndex={-1} autoComplete="off" aria-hidden="true" />
@@ -372,7 +461,9 @@ export function LeadForm({ defaultCategory }: { defaultCategory?: Category }) {
           {submitError && (
             <div className="rounded-xl border border-destructive/30 bg-destructive/10 px-4 py-3 text-sm text-destructive">
               {submitError}{" "}
-              <a href="tel:+17183604806" className="font-semibold underline">Call (718) 360-4806</a>
+              <a href="tel:+17183604806" className="font-semibold underline">
+                Call (718) 360-4806
+              </a>
             </div>
           )}
 
@@ -390,7 +481,7 @@ export function LeadForm({ defaultCategory }: { defaultCategory?: Category }) {
                 Submitting...
               </span>
             ) : (
-              <>Get My Free Consultation <ArrowRight className="h-4 w-4" /></>
+              <>Get My Free Consultation <ArrowRight className="h-4 w-4" aria-hidden="true" /></>
             )}
           </button>
 
@@ -402,7 +493,7 @@ export function LeadForm({ defaultCategory }: { defaultCategory?: Category }) {
           </p>
 
           <p className="flex items-center justify-center gap-2 text-xs text-muted-foreground">
-            <Lock className="h-3.5 w-3.5" />
+            <Lock className="h-3.5 w-3.5" aria-hidden="true" />
             Your information is kept private and confidential.
           </p>
         </form>
@@ -420,7 +511,7 @@ function StepHeader({ title, onBack }: { title: string; onBack: () => void }) {
         onClick={onBack}
         className="inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-sm text-muted-foreground hover:bg-muted"
       >
-        <ArrowLeft className="h-4 w-4" /> Back
+        <ArrowLeft className="h-4 w-4" aria-hidden="true" /> Back
       </button>
     </div>
   );
@@ -430,25 +521,55 @@ function ProgressBar({ step }: { step: number }) {
   return (
     <div className="mb-5 flex items-center gap-2">
       {[1, 2, 3].map((i) => (
-        <div key={i} className={`h-1.5 flex-1 rounded-full transition-colors ${i <= step ? "bg-primary" : "bg-muted"}`} />
+        <div
+          key={i}
+          className={`h-1.5 flex-1 rounded-full transition-colors ${i <= step ? "bg-primary" : "bg-muted"}`}
+        />
       ))}
       <span className="ml-2 text-xs font-medium text-muted-foreground">Step {step} of 3</span>
     </div>
   );
 }
 
-function Field({ label, children, hint }: { label: string; children: ReactNode; hint?: string }) {
+function Field({
+  label,
+  children,
+  hint,
+  error,
+}: {
+  label: string;
+  children: ReactNode;
+  hint?: string;
+  error?: string | null;
+}) {
   return (
-    <label className="block">
+    <div className="block">
       <span className="mb-1.5 block text-sm font-medium text-foreground">{label}</span>
       {children}
-      {hint && <span className="mt-1 block text-xs text-muted-foreground">{hint}</span>}
-    </label>
+      {hint && !error && (
+        <span className="mt-1 block text-xs text-muted-foreground">{hint}</span>
+      )}
+      {error && (
+        <span className="mt-1 block text-xs font-medium text-destructive" role="alert">
+          {error}
+        </span>
+      )}
+    </div>
   );
 }
 
-function Input({ value, onChange, type = "text", required, autoComplete }: {
-  value?: string; onChange: (v: string) => void; type?: string; required?: boolean; autoComplete?: string;
+function Input({
+  value,
+  onChange,
+  type = "text",
+  required,
+  autoComplete,
+}: {
+  value?: string;
+  onChange: (v: string) => void;
+  type?: string;
+  required?: boolean;
+  autoComplete?: string;
 }) {
   return (
     <input
@@ -462,7 +583,15 @@ function Input({ value, onChange, type = "text", required, autoComplete }: {
   );
 }
 
-function Select({ value, onChange, options }: { value?: string; onChange: (v: string) => void; options: string[] }) {
+function Select({
+  value,
+  onChange,
+  options,
+}: {
+  value?: string;
+  onChange: (v: string) => void;
+  options: string[];
+}) {
   return (
     <select
       required
