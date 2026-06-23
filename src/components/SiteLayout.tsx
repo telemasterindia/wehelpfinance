@@ -20,6 +20,7 @@ const SERVICES: NavItem[] = [
 const NAV: NavItem[] = [
   { to: "/credit-repair", label: "Credit Repair", soon: true },
   { to: "/consumer-rights", label: "Consumer Rights", soon: true },
+  { to: "/blog", label: "Blog" },
   { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },
 ];
@@ -159,8 +160,10 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             { to: "/consumer-rights", label: "Consumer Rights" },
           ]} />
           <FooterCol title="Company" links={[
+            { to: "/blog", label: "Blog" },
             { to: "/about", label: "About" },
             { to: "/contact", label: "Contact" },
+            { to: "/editorial-policy", label: "Editorial Policy" },
             { to: "/privacy", label: "Privacy Policy" },
             { to: "/terms", label: "Terms of Service" },
           ]} />
