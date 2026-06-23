@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import Script from "next/script";
+import { Analytics } from "@/components/Analytics";
 import "@/styles.css";
 
 const title = "WeHelpFinance — Debt Relief, Tax Relief & Personal Loan Help";
@@ -31,18 +31,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       </head>
       <body>
         {children}
-        <Script src="https://www.googletagmanager.com/gtag/js?id=G-B9PXMRG885" strategy="afterInteractive" />
-        <Script id="google-analytics" strategy="afterInteractive">{`
-          window.dataLayer=window.dataLayer||[];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js',new Date());
-          gtag('config','G-B9PXMRG885');
-          try {
-            var p=new URLSearchParams(window.location.search),utm={};
-            ['utm_source','utm_medium','utm_campaign','utm_term','utm_content'].forEach(function(k){if(p.get(k))utm[k]=p.get(k)});
-            if(Object.keys(utm).length)sessionStorage.setItem('whf_utm',JSON.stringify(utm));
-          } catch(e) {}
-        `}</Script>
+        <Analytics />
       </body>
     </html>
   );
