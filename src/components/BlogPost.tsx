@@ -37,6 +37,7 @@ export type BlogPostProps = {
   author: Author;
   category: string;
   slug: string;
+  canonicalPath?: string;
   toc: TocItem[];
   content: ReactNode;
   faqs?: FAQItem[];
@@ -70,13 +71,14 @@ export function BlogPost({
   author,
   category,
   slug,
+  canonicalPath,
   toc,
   content,
   faqs,
   relatedArticles,
   relatedServices,
 }: BlogPostProps) {
-  const canonicalUrl = `https://wehelpfinance.com/blog/${slug}`;
+  const canonicalUrl = `https://wehelpfinance.com${canonicalPath ?? `/blog/${slug}`}`;
 
   return (
     <article className="pb-24" itemScope itemType="https://schema.org/Article">

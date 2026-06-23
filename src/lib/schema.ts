@@ -36,6 +36,7 @@ export function articleJsonLd({
   updated,
   slug,
   author,
+  path,
 }: {
   title: string;
   excerpt: string;
@@ -43,7 +44,10 @@ export function articleJsonLd({
   updated?: string;
   slug: string;
   author: string;
+  path?: string;
 }) {
+  const url = `https://wehelpfinance.com${path ?? `/blog/${slug}`}`;
+
   return {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -51,7 +55,7 @@ export function articleJsonLd({
     description: excerpt,
     datePublished: published,
     dateModified: updated ?? published,
-    url: `https://wehelpfinance.com/blog/${slug}`,
+    url,
     author: {
       "@type": "Organization",
       name: author,
@@ -68,7 +72,7 @@ export function articleJsonLd({
     },
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `https://wehelpfinance.com/blog/${slug}`,
+      "@id": url,
     },
   };
 }
