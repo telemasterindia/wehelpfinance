@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 
 const GA4_ID = process.env.NEXT_PUBLIC_GA4_ID || "G-RJPC8GPSCK";
-const CLARITY_ID = process.env.NEXT_PUBLIC_CLARITY_ID || "";
+const CLARITY_ID = process.env.NEXT_PUBLIC_CLARITY_ID || "xc61d5pjzb";
 
 export function Analytics() {
   useEffect(() => {
