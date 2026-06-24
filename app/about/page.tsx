@@ -6,11 +6,11 @@ import { ShieldCheck, Users, BookOpen, Phone } from "lucide-react";
 export const metadata: Metadata = {
   title: "About WeHelpFinance — Who We Are & How We Help | WeHelpFinance",
   description: "WeHelpFinance is a consumer financial education and connection platform operated by Telemaster India (TMI). We connect Americans with vetted specialists for debt relief, tax relief, and personal loans.",
-  alternates: { canonical: "https://wehelpfinance.com/about" },
+  alternates: { canonical: "https://www.wehelpfinance.com/about" },
   openGraph: {
     title: "About WeHelpFinance | WeHelpFinance",
     description: "Learn who we are, how we help Americans navigate financial hardship, and our commitment to consumer-first transparency.",
-    url: "https://wehelpfinance.com/about",
+    url: "https://www.wehelpfinance.com/about",
     type: "website",
   },
 };
@@ -19,14 +19,14 @@ export default function Page() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd([
-        { name: "Home", path: "https://wehelpfinance.com/" },
-        { name: "About", path: "https://wehelpfinance.com/about" },
+        { name: "Home", path: "https://www.wehelpfinance.com/" },
+        { name: "About", path: "https://www.wehelpfinance.com/about" },
       ])) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org",
         "@type": "Organization",
         "name": "WeHelpFinance",
-        "url": "https://wehelpfinance.com",
+        "url": "https://www.wehelpfinance.com",
         "description": "Consumer financial education and connection platform operated by Telemaster India (TMI)",
         "foundingDate": "2005",
         "address": {
@@ -203,3 +203,4 @@ export default function Page() {
     </>
   );
 }
+

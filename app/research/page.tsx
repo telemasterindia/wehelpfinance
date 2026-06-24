@@ -11,11 +11,11 @@ import {
 export const metadata: Metadata = {
   title: "Research Center — Consumer Debt & Financial Hardship Reports | WeHelpFinance",
   description: "Original research on consumer debt trends, credit card APRs, household debt, inflation impact, and financial hardship. Data-driven reports for consumers and media.",
-  alternates: { canonical: "https://wehelpfinance.com/research" },
+  alternates: { canonical: "https://www.wehelpfinance.com/research" },
   openGraph: {
     title: "Research Center | WeHelpFinance",
     description: "Original research reports on consumer debt, credit card statistics, inflation impact, and financial hardship trends in America.",
-    url: "https://wehelpfinance.com/research",
+    url: "https://www.wehelpfinance.com/research",
     type: "website",
   },
   twitter: {
@@ -45,8 +45,8 @@ export default function ResearchIndex() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
             breadcrumbJsonLd([
-              { name: "Home", path: "https://wehelpfinance.com/" },
-              { name: "Research Center", path: "https://wehelpfinance.com/research" },
+              { name: "Home", path: "https://www.wehelpfinance.com/" },
+              { name: "Research Center", path: "https://www.wehelpfinance.com/research" },
             ])
           ),
         }}
@@ -188,4 +188,5 @@ function ReportCard({
     </Link>
   );
 }
+
 

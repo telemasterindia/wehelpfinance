@@ -146,7 +146,7 @@ export function BlogPost({
   relatedArticles,
   relatedServices,
 }: BlogPostProps) {
-  const canonicalUrl = `https://wehelpfinance.com${canonicalPath ?? `/blog/${slug}`}`;
+  const canonicalUrl = `https://www.wehelpfinance.com${canonicalPath ?? `/blog/${slug}`}`;
   const authorInitials = author.name.split(" ").slice(0, 2).map((word) => word[0]).join("");
 
   return (
@@ -158,7 +158,7 @@ export function BlogPost({
       <meta itemProp="url" content={canonicalUrl} />
       <div itemProp="publisher" itemScope itemType="https://schema.org/Organization" className="hidden">
         <meta itemProp="name" content="WeHelpFinance" />
-        <meta itemProp="url" content="https://wehelpfinance.com" />
+        <meta itemProp="url" content="https://www.wehelpfinance.com" />
       </div>
       <div itemProp="author" itemScope itemType="https://schema.org/Organization" className="hidden">
         <meta itemProp="name" content={author.name} />
@@ -337,3 +337,4 @@ function formatDate(iso: string): string {
     day: "numeric",
   });
 }
+

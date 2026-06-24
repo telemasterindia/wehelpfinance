@@ -5,7 +5,7 @@ import { faqJsonLd, breadcrumbJsonLd } from "@/lib/schema";
 import { STATES } from "@/lib/stateData";
 
 const SF = STATES.florida;
-const CANONICAL_FL = "https://wehelpfinance.com/personal-loans/florida";
+const CANONICAL_FL = "https://www.wehelpfinance.com/personal-loans/florida";
 
 export const metadata: Metadata = {
   title: "Personal Loans in Florida — Options for FL Residents | WeHelpFinance",
@@ -36,8 +36,8 @@ export default function Page() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(FAQS_FL)) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd([
-        { name: "Home", path: "https://wehelpfinance.com/" },
-        { name: "Personal Loans", path: "https://wehelpfinance.com/personal-loans" },
+        { name: "Home", path: "https://www.wehelpfinance.com/" },
+        { name: "Personal Loans", path: "https://www.wehelpfinance.com/personal-loans" },
         { name: "Florida", path: CANONICAL_FL },
       ])) }} />
       <StateServicePage
@@ -72,3 +72,4 @@ export default function Page() {
     </>
   );
 }
+

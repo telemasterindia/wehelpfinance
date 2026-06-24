@@ -6,11 +6,11 @@ import { faqJsonLd, breadcrumbJsonLd } from "@/lib/schema";
 export const metadata: Metadata = {
   title: "IRS Debt Relief — Stop Collections & Resolve Tax Debt | WeHelpFinance",
   description: "Received an IRS notice or facing wage garnishment? Explore IRS debt relief options including Offer in Compromise, payment plans, and penalty abatement. Free consultation.",
-  alternates: { canonical: "https://wehelpfinance.com/irs-debt-relief" },
+  alternates: { canonical: "https://www.wehelpfinance.com/irs-debt-relief" },
   openGraph: {
     title: "IRS Debt Relief — Stop Collections & Resolve Tax Debt | WeHelpFinance",
     description: "Resolve IRS tax debt with a vetted specialist. Offer in Compromise, payment plans, levy release and more. Free, confidential consultation.",
-    url: "https://wehelpfinance.com/irs-debt-relief",
+    url: "https://www.wehelpfinance.com/irs-debt-relief",
     type: "website",
   },
   twitter: {
@@ -56,9 +56,9 @@ const FAQS: FAQItem[] = [
 ];
 
 const BREADCRUMBS = [
-  { name: "Home", path: "https://wehelpfinance.com/" },
-  { name: "Tax Relief", path: "https://wehelpfinance.com/tax-relief" },
-  { name: "IRS Debt Relief", path: "https://wehelpfinance.com/irs-debt-relief" },
+  { name: "Home", path: "https://www.wehelpfinance.com/" },
+  { name: "Tax Relief", path: "https://www.wehelpfinance.com/tax-relief" },
+  { name: "IRS Debt Relief", path: "https://www.wehelpfinance.com/irs-debt-relief" },
 ];
 
 export default function Page() {
@@ -95,3 +95,4 @@ export default function Page() {
     </>
   );
 }
+

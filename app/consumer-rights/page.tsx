@@ -6,12 +6,12 @@ export const metadata: Metadata = {
   title: "Consumer Rights — Debt Collection & FDCPA Guides | WeHelpFinance",
   description:
     "Learn your rights around debt validation, debt collection agencies, and the FDCPA. Free educational guides from WeHelpFinance.",
-  alternates: { canonical: "https://wehelpfinance.com/consumer-rights" },
+  alternates: { canonical: "https://www.wehelpfinance.com/consumer-rights" },
   openGraph: {
     title: "Consumer Rights — Debt Collection & FDCPA Guides | WeHelpFinance",
     description:
       "Understand debt validation, FDCPA rights, collection agency limits, and how to respond when collectors contact you.",
-    url: "https://wehelpfinance.com/consumer-rights",
+    url: "https://www.wehelpfinance.com/consumer-rights",
     type: "website",
   },
 };
@@ -85,3 +85,4 @@ export default function Page() {
     </>
   );
 }
+

@@ -6,11 +6,11 @@ import { faqJsonLd, breadcrumbJsonLd } from "@/lib/schema";
 export const metadata: Metadata = {
   title: "Financial Education Blog — Debt Relief, Tax & Loans | WeHelpFinance",
   description: "Research-backed articles on debt relief, credit card debt, inflation, layoffs, and tax problems. Written to help Americans understand their financial options.",
-  alternates: { canonical: "https://wehelpfinance.com/blog" },
+  alternates: { canonical: "https://www.wehelpfinance.com/blog" },
   openGraph: {
     title: "Financial Education Blog | WeHelpFinance",
     description: "Research-backed articles to help Americans understand debt relief, tax relief, and personal loan options.",
-    url: "https://wehelpfinance.com/blog",
+    url: "https://www.wehelpfinance.com/blog",
     type: "website",
   },
   twitter: {
@@ -96,8 +96,8 @@ const ARTICLES = [
 ];
 
 const BREADCRUMBS = [
-  { name: "Home", path: "https://wehelpfinance.com/" },
-  { name: "Blog", path: "https://wehelpfinance.com/blog" },
+  { name: "Home", path: "https://www.wehelpfinance.com/" },
+  { name: "Blog", path: "https://www.wehelpfinance.com/blog" },
 ];
 
 export default function BlogIndex() {
@@ -217,3 +217,4 @@ function ArticleCard({
     </Link>
   );
 }
+

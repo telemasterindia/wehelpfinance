@@ -4,7 +4,7 @@ import { faqJsonLd, breadcrumbJsonLd } from "@/lib/schema";
 import { STATES } from "@/lib/stateData";
 
 const S = STATES.california;
-const CANONICAL = "https://wehelpfinance.com/debt-relief/california";
+const CANONICAL = "https://www.wehelpfinance.com/debt-relief/california";
 
 export const metadata: Metadata = {
   title: "Debt Relief in California — Free Consultation for CA Residents | WeHelpFinance",
@@ -35,8 +35,8 @@ export default function Page() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(FAQS)) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd([
-        { name: "Home", path: "https://wehelpfinance.com/" },
-        { name: "Debt Relief", path: "https://wehelpfinance.com/debt-relief" },
+        { name: "Home", path: "https://www.wehelpfinance.com/" },
+        { name: "Debt Relief", path: "https://www.wehelpfinance.com/debt-relief" },
         { name: "California", path: CANONICAL },
       ])) }} />
       <StateServicePage
@@ -85,3 +85,4 @@ export default function Page() {
     </>
   );
 }
+

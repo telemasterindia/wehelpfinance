@@ -4,7 +4,7 @@ import { faqJsonLd, breadcrumbJsonLd, articleJsonLd } from "@/lib/schema";
 import { RESEARCH_REPORTS } from "@/lib/researchData";
 
 const META = RESEARCH_REPORTS.find((r) => r.slug === "credit-card-interest-rate-report")!;
-const CANONICAL = `https://wehelpfinance.com/research/${META.slug}`;
+const CANONICAL = `https://www.wehelpfinance.com/research/${META.slug}`;
 
 export const metadata: Metadata = {
   title: `${META.title} | WeHelpFinance Research`,
@@ -44,8 +44,8 @@ export default function Page() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd({ title: META.title, excerpt: META.excerpt, published: META.publishedDate, slug: META.slug, path: `/research/${META.slug}`, author: "WeHelpFinance Research Team" })) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(FAQS)) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd([
-        { name: "Home", path: "https://wehelpfinance.com/" },
-        { name: "Research Center", path: "https://wehelpfinance.com/research" },
+        { name: "Home", path: "https://www.wehelpfinance.com/" },
+        { name: "Research Center", path: "https://www.wehelpfinance.com/research" },
         { name: META.title, path: CANONICAL },
       ])) }} />
       <ResearchReport
@@ -101,4 +101,5 @@ export default function Page() {
     </>
   );
 }
+
 

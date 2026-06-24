@@ -11,11 +11,11 @@ const AUTHOR = AUTHORS.financial_education;
 export const metadata: Metadata = {
   title: `${TITLE} | WeHelpFinance`,
   description: EXCERPT,
-  alternates: { canonical: `https://wehelpfinance.com/blog/${SLUG}` },
+  alternates: { canonical: `https://www.wehelpfinance.com/blog/${SLUG}` },
   openGraph: {
     title: TITLE,
     description: EXCERPT,
-    url: `https://wehelpfinance.com/blog/${SLUG}`,
+    url: `https://www.wehelpfinance.com/blog/${SLUG}`,
     type: "article",
   },
   twitter: { card: "summary_large_image", title: TITLE, description: EXCERPT },
@@ -84,9 +84,9 @@ export default function Page() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd({ title: TITLE, excerpt: EXCERPT, published: PUBLISHED, slug: SLUG, author: AUTHOR.name })) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(FAQS)) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd([
-        { name: "Home", path: "https://wehelpfinance.com/" },
-        { name: "Blog", path: "https://wehelpfinance.com/blog" },
-        { name: TITLE, path: `https://wehelpfinance.com/blog/${SLUG}` },
+        { name: "Home", path: "https://www.wehelpfinance.com/" },
+        { name: "Blog", path: "https://www.wehelpfinance.com/blog" },
+        { name: TITLE, path: `https://www.wehelpfinance.com/blog/${SLUG}` },
       ])) }} />
       <BlogPost
         title={TITLE}
@@ -278,3 +278,4 @@ function Content() {
     </>
   );
 }
+

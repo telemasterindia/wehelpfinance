@@ -6,11 +6,11 @@ import { faqJsonLd, breadcrumbJsonLd } from "@/lib/schema";
 export const metadata: Metadata = {
   title: "Debt Settlement — Negotiate What You Owe | WeHelpFinance",
   description: "Debt settlement lets you pay less than you owe on unsecured debt. Connect with a vetted specialist for a free consultation and see how much you could save.",
-  alternates: { canonical: "https://wehelpfinance.com/debt-settlement" },
+  alternates: { canonical: "https://www.wehelpfinance.com/debt-settlement" },
   openGraph: {
     title: "Debt Settlement — Negotiate What You Owe | WeHelpFinance",
     description: "Debt settlement lets you pay less than you owe on unsecured debt. Connect with a vetted specialist for a free consultation and see how much you could save.",
-    url: "https://wehelpfinance.com/debt-settlement",
+    url: "https://www.wehelpfinance.com/debt-settlement",
     type: "website",
   },
   twitter: {
@@ -56,9 +56,9 @@ const FAQS: FAQItem[] = [
 ];
 
 const BREADCRUMBS = [
-  { name: "Home", path: "https://wehelpfinance.com/" },
-  { name: "Debt Relief", path: "https://wehelpfinance.com/debt-relief" },
-  { name: "Debt Settlement", path: "https://wehelpfinance.com/debt-settlement" },
+  { name: "Home", path: "https://www.wehelpfinance.com/" },
+  { name: "Debt Relief", path: "https://www.wehelpfinance.com/debt-relief" },
+  { name: "Debt Settlement", path: "https://www.wehelpfinance.com/debt-settlement" },
 ];
 
 export default function Page() {
@@ -95,3 +95,4 @@ export default function Page() {
     </>
   );
 }
+

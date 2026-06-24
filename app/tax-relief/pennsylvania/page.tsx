@@ -4,7 +4,7 @@ import { faqJsonLd, breadcrumbJsonLd } from "@/lib/schema";
 import { STATES } from "@/lib/stateData";
 
 const S = STATES.pennsylvania;
-const CANONICAL = "https://wehelpfinance.com/tax-relief/pennsylvania";
+const CANONICAL = "https://www.wehelpfinance.com/tax-relief/pennsylvania";
 
 export const metadata: Metadata = {
   title: "Tax Relief in Pennsylvania — IRS & PA DOR Debt Help for PA Residents | WeHelpFinance",
@@ -35,8 +35,8 @@ export default function Page() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(FAQS)) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd([
-        { name: "Home", path: "https://wehelpfinance.com/" },
-        { name: "Tax Relief", path: "https://wehelpfinance.com/tax-relief" },
+        { name: "Home", path: "https://www.wehelpfinance.com/" },
+        { name: "Tax Relief", path: "https://www.wehelpfinance.com/tax-relief" },
         { name: "Pennsylvania", path: CANONICAL },
       ])) }} />
       <StateServicePage
@@ -82,3 +82,4 @@ export default function Page() {
     </>
   );
 }
+

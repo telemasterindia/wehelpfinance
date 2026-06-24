@@ -6,11 +6,11 @@ import { faqJsonLd, breadcrumbJsonLd } from "@/lib/schema";
 export const metadata: Metadata = {
   title: "Credit Card Debt Relief — Stop the Interest Cycle | WeHelpFinance",
   description: "Trapped paying minimum payments that never reduce your balance? Explore credit card debt relief options with a vetted specialist. Free consultation, no obligation.",
-  alternates: { canonical: "https://wehelpfinance.com/credit-card-debt-relief" },
+  alternates: { canonical: "https://www.wehelpfinance.com/credit-card-debt-relief" },
   openGraph: {
     title: "Credit Card Debt Relief — Stop the Interest Cycle | WeHelpFinance",
     description: "Explore options to break free from credit card debt. Connect with a vetted specialist for a free, no-obligation consultation.",
-    url: "https://wehelpfinance.com/credit-card-debt-relief",
+    url: "https://www.wehelpfinance.com/credit-card-debt-relief",
     type: "website",
   },
   twitter: {
@@ -56,9 +56,9 @@ const FAQS: FAQItem[] = [
 ];
 
 const BREADCRUMBS = [
-  { name: "Home", path: "https://wehelpfinance.com/" },
-  { name: "Debt Relief", path: "https://wehelpfinance.com/debt-relief" },
-  { name: "Credit Card Debt Relief", path: "https://wehelpfinance.com/credit-card-debt-relief" },
+  { name: "Home", path: "https://www.wehelpfinance.com/" },
+  { name: "Debt Relief", path: "https://www.wehelpfinance.com/debt-relief" },
+  { name: "Credit Card Debt Relief", path: "https://www.wehelpfinance.com/credit-card-debt-relief" },
 ];
 
 export default function Page() {
@@ -95,3 +95,4 @@ export default function Page() {
     </>
   );
 }
+

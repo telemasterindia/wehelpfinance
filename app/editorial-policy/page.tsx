@@ -4,11 +4,11 @@ import { breadcrumbJsonLd } from "@/lib/schema";
 export const metadata: Metadata = {
   title: "Editorial Policy — How We Create and Review Content | WeHelpFinance",
   description: "WeHelpFinance's editorial standards, fact-checking process, content review guidelines, and corrections policy. We are committed to accurate, independent, consumer-first financial education.",
-  alternates: { canonical: "https://wehelpfinance.com/editorial-policy" },
+  alternates: { canonical: "https://www.wehelpfinance.com/editorial-policy" },
   openGraph: {
     title: "Editorial Policy | WeHelpFinance",
     description: "Our commitment to accurate, independent, consumer-first financial education content.",
-    url: "https://wehelpfinance.com/editorial-policy",
+    url: "https://www.wehelpfinance.com/editorial-policy",
     type: "website",
   },
 };
@@ -17,8 +17,8 @@ export default function Page() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd([
-        { name: "Home", path: "https://wehelpfinance.com/" },
-        { name: "Editorial Policy", path: "https://wehelpfinance.com/editorial-policy" },
+        { name: "Home", path: "https://www.wehelpfinance.com/" },
+        { name: "Editorial Policy", path: "https://www.wehelpfinance.com/editorial-policy" },
       ])) }} />
 
       <div className="bg-gradient-to-b from-primary-soft/30 to-background">
@@ -84,3 +84,4 @@ export default function Page() {
     </>
   );
 }
+

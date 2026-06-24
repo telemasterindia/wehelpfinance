@@ -6,11 +6,11 @@ import { faqJsonLd, breadcrumbJsonLd } from "@/lib/schema";
 export const metadata: Metadata = {
   title: "Debt Consolidation — One Payment, Lower Stress | WeHelpFinance",
   description: "Combine multiple debts into one manageable monthly payment. Explore debt consolidation options with a vetted specialist — free consultation, no obligation.",
-  alternates: { canonical: "https://wehelpfinance.com/debt-consolidation" },
+  alternates: { canonical: "https://www.wehelpfinance.com/debt-consolidation" },
   openGraph: {
     title: "Debt Consolidation — One Payment, Lower Stress | WeHelpFinance",
     description: "Combine multiple debts into one manageable monthly payment. Free consultation with a vetted specialist.",
-    url: "https://wehelpfinance.com/debt-consolidation",
+    url: "https://www.wehelpfinance.com/debt-consolidation",
     type: "website",
   },
   twitter: {
@@ -56,9 +56,9 @@ const FAQS: FAQItem[] = [
 ];
 
 const BREADCRUMBS = [
-  { name: "Home", path: "https://wehelpfinance.com/" },
-  { name: "Debt Relief", path: "https://wehelpfinance.com/debt-relief" },
-  { name: "Debt Consolidation", path: "https://wehelpfinance.com/debt-consolidation" },
+  { name: "Home", path: "https://www.wehelpfinance.com/" },
+  { name: "Debt Relief", path: "https://www.wehelpfinance.com/debt-relief" },
+  { name: "Debt Consolidation", path: "https://www.wehelpfinance.com/debt-consolidation" },
 ];
 
 export default function Page() {
@@ -95,3 +95,4 @@ export default function Page() {
     </>
   );
 }
+

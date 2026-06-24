@@ -4,7 +4,7 @@ import { faqJsonLd, breadcrumbJsonLd } from "@/lib/schema";
 import { STATES } from "@/lib/stateData";
 
 const S = STATES.pennsylvania;
-const CANONICAL = "https://wehelpfinance.com/personal-loans/pennsylvania";
+const CANONICAL = "https://www.wehelpfinance.com/personal-loans/pennsylvania";
 
 export const metadata: Metadata = {
   title: "Personal Loans in Pennsylvania — Options for PA Residents | WeHelpFinance",
@@ -35,8 +35,8 @@ export default function Page() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(FAQS)) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd([
-        { name: "Home", path: "https://wehelpfinance.com/" },
-        { name: "Personal Loans", path: "https://wehelpfinance.com/personal-loans" },
+        { name: "Home", path: "https://www.wehelpfinance.com/" },
+        { name: "Personal Loans", path: "https://www.wehelpfinance.com/personal-loans" },
         { name: "Pennsylvania", path: CANONICAL },
       ])) }} />
       <StateServicePage
@@ -81,3 +81,4 @@ export default function Page() {
     </>
   );
 }
+

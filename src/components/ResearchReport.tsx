@@ -53,13 +53,13 @@ export function ResearchReport({
       <meta itemProp="description" content={meta.excerpt} />
       <meta itemProp="datePublished" content={meta.publishedDate} />
       {meta.updatedDate && <meta itemProp="dateModified" content={meta.updatedDate} />}
-      <meta itemProp="url" content={`https://wehelpfinance.com/research/${meta.slug}`} />
+      <meta itemProp="url" content={`https://www.wehelpfinance.com/research/${meta.slug}`} />
       <div itemProp="author" itemScope itemType="https://schema.org/Organization" className="hidden">
         <meta itemProp="name" content={RESEARCH_AUTHOR.name} />
       </div>
       <div itemProp="publisher" itemScope itemType="https://schema.org/Organization" className="hidden">
         <meta itemProp="name" content="WeHelpFinance" />
-        <meta itemProp="url" content="https://wehelpfinance.com" />
+        <meta itemProp="url" content="https://www.wehelpfinance.com" />
       </div>
 
       {/* ── Hero ── */}
@@ -319,3 +319,4 @@ function formatDate(iso: string): string {
     day: "numeric",
   });
 }
+

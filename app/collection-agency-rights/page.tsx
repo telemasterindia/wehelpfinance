@@ -11,11 +11,11 @@ const AUTHOR = AUTHORS.financial_education;
 export const metadata: Metadata = {
   title: `${TITLE} | WeHelpFinance`,
   description: EXCERPT,
-  alternates: { canonical: `https://wehelpfinance.com/collection-agency-rights` },
+  alternates: { canonical: `https://www.wehelpfinance.com/collection-agency-rights` },
   openGraph: {
     title: TITLE,
     description: EXCERPT,
-    url: `https://wehelpfinance.com/collection-agency-rights`,
+    url: `https://www.wehelpfinance.com/collection-agency-rights`,
     type: "article",
   },
   twitter: { card: "summary_large_image", title: TITLE, description: EXCERPT },
@@ -99,9 +99,9 @@ export default function Page() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd({ title: TITLE, excerpt: EXCERPT, published: PUBLISHED, slug: SLUG, author: AUTHOR.name, path: "/collection-agency-rights" })) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(FAQS)) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd([
-        { name: "Home", path: "https://wehelpfinance.com/" },
-        { name: "Consumer Rights", path: "https://wehelpfinance.com/consumer-rights" },
-        { name: "Collection Agency Rights", path: "https://wehelpfinance.com/collection-agency-rights" },
+        { name: "Home", path: "https://www.wehelpfinance.com/" },
+        { name: "Consumer Rights", path: "https://www.wehelpfinance.com/consumer-rights" },
+        { name: "Collection Agency Rights", path: "https://www.wehelpfinance.com/collection-agency-rights" },
       ])) }} />
       <BlogPost
         
@@ -375,3 +375,4 @@ function Content() {
     </>
   );
 }
+

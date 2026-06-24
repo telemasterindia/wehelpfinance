@@ -46,7 +46,7 @@ export function articleJsonLd({
   author: string;
   path?: string;
 }) {
-  const url = `https://wehelpfinance.com${path ?? `/blog/${slug}`}`;
+  const url = `https://www.wehelpfinance.com${path ?? `/blog/${slug}`}`;
 
   return {
     "@context": "https://schema.org",
@@ -59,15 +59,15 @@ export function articleJsonLd({
     author: {
       "@type": "Organization",
       name: author,
-      url: "https://wehelpfinance.com",
+      url: "https://www.wehelpfinance.com",
     },
     publisher: {
       "@type": "Organization",
       name: "WeHelpFinance",
-      url: "https://wehelpfinance.com",
+      url: "https://www.wehelpfinance.com",
       logo: {
         "@type": "ImageObject",
-        url: "https://wehelpfinance.com/assets/logo.png",
+        url: "https://www.wehelpfinance.com/assets/logo.png",
       },
     },
     mainEntityOfPage: {
@@ -76,3 +76,4 @@ export function articleJsonLd({
     },
   };
 }
+

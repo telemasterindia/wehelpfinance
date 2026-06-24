@@ -11,8 +11,8 @@ const AUTHOR = AUTHORS.financial_education;
 export const metadata: Metadata = {
   title: `${TITLE} | WeHelpFinance`,
   description: EXCERPT,
-  alternates: { canonical: "https://wehelpfinance.com/debt-relief-vs-personal-loan" },
-  openGraph: { title: TITLE, description: EXCERPT, url: "https://wehelpfinance.com/debt-relief-vs-personal-loan", type: "article" },
+  alternates: { canonical: "https://www.wehelpfinance.com/debt-relief-vs-personal-loan" },
+  openGraph: { title: TITLE, description: EXCERPT, url: "https://www.wehelpfinance.com/debt-relief-vs-personal-loan", type: "article" },
   twitter: { card: "summary_large_image", title: TITLE, description: EXCERPT },
 };
 
@@ -58,9 +58,9 @@ export default function Page() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd({ title: TITLE, excerpt: EXCERPT, published: PUBLISHED, slug: SLUG, author: AUTHOR.name, path: "/debt-relief-vs-personal-loan" })) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(FAQS)) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd([
-        { name: "Home", path: "https://wehelpfinance.com/" },
-        { name: "Debt Relief", path: "https://wehelpfinance.com/debt-relief" },
-        { name: "Debt Relief vs. Personal Loan", path: "https://wehelpfinance.com/debt-relief-vs-personal-loan" },
+        { name: "Home", path: "https://www.wehelpfinance.com/" },
+        { name: "Debt Relief", path: "https://www.wehelpfinance.com/debt-relief" },
+        { name: "Debt Relief vs. Personal Loan", path: "https://www.wehelpfinance.com/debt-relief-vs-personal-loan" },
       ])) }} />
       <BlogPost canonicalPath="/debt-relief-vs-personal-loan" title={TITLE} excerpt={EXCERPT} publishedDate={PUBLISHED} readingTime={10} author={AUTHOR} category="Debt Relief" slug={SLUG} toc={TOC} faqs={FAQS} relatedArticles={RELATED_ARTICLES} relatedServices={RELATED_SERVICES} content={<Content />} />
     </>
@@ -182,3 +182,4 @@ function Content() {
     </>
   );
 }
+

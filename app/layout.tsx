@@ -7,7 +7,7 @@ const title = "WeHelpFinance — Debt Relief, Tax Relief & Personal Loan Help";
 const description = "WeHelpFinance connects Americans with trusted specialists for debt relief, tax relief, and personal loans. Free, confidential, no obligation.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://wehelpfinance.com"),
+  metadataBase: new URL("https://www.wehelpfinance.com"),
   title,
   description,
   verification: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
@@ -40,3 +40,4 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     </html>
   );
 }
+

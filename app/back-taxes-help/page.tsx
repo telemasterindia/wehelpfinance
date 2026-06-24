@@ -6,11 +6,11 @@ import { faqJsonLd, breadcrumbJsonLd } from "@/lib/schema";
 export const metadata: Metadata = {
   title: "Back Taxes Help — Resolve Unfiled & Unpaid Tax Debt | WeHelpFinance",
   description: "Owe back taxes to the IRS? Whether you have unfiled returns or unpaid balances, a vetted tax specialist can help you resolve your situation. Free consultation.",
-  alternates: { canonical: "https://wehelpfinance.com/back-taxes-help" },
+  alternates: { canonical: "https://www.wehelpfinance.com/back-taxes-help" },
   openGraph: {
     title: "Back Taxes Help — Resolve Unfiled & Unpaid Tax Debt | WeHelpFinance",
     description: "Get help resolving back taxes, unfiled returns, and IRS debt. Free consultation with vetted tax relief specialists.",
-    url: "https://wehelpfinance.com/back-taxes-help",
+    url: "https://www.wehelpfinance.com/back-taxes-help",
     type: "website",
   },
   twitter: {
@@ -56,9 +56,9 @@ const FAQS: FAQItem[] = [
 ];
 
 const BREADCRUMBS = [
-  { name: "Home", path: "https://wehelpfinance.com/" },
-  { name: "Tax Relief", path: "https://wehelpfinance.com/tax-relief" },
-  { name: "Back Taxes Help", path: "https://wehelpfinance.com/back-taxes-help" },
+  { name: "Home", path: "https://www.wehelpfinance.com/" },
+  { name: "Tax Relief", path: "https://www.wehelpfinance.com/tax-relief" },
+  { name: "Back Taxes Help", path: "https://www.wehelpfinance.com/back-taxes-help" },
 ];
 
 export default function Page() {
@@ -95,3 +95,4 @@ export default function Page() {
     </>
   );
 }
+
