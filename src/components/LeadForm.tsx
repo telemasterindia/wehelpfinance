@@ -38,12 +38,14 @@ function validatePhone(raw: string): string | null {
   const digits = stripPhone(raw);
   if (digits.length !== 10) return "Please enter a valid 10-digit phone number.";
   if (/^(\d)\1{9}$/.test(digits)) return "Please enter a valid phone number.";
+  if (digits === "1234567890" || digits === "0123456789") return "Please enter a valid phone number.";
+  if (!/^[2-9]\d{2}[2-9]\d{6}$/.test(digits)) return "Please enter a valid U.S. phone number.";
   return null;
 }
 
 function validateEmail(raw: string): string | null {
   const re = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-  if (!re.test(raw.trim())) return "Please enter a valid email address.";
+  if (!raw.trim() || !re.test(raw.trim())) return "Please enter a valid email address.";
   return null;
 }
 
@@ -60,7 +62,7 @@ const CAT_LABEL: Record<Category, string> = {
   "tax-relief": "Tax Relief",
 };
 
-const W3F_KEY = "19b473ef-4a3d-4d3e-807d-82ed6bb3be99";
+const W3F_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || "19b473ef-4a3d-4d3e-807d-82ed6bb3be99";
 const W3F_URL = "https://api.web3forms.com/submit";
 const NOTES_MAX = 500;
 
@@ -246,7 +248,7 @@ export function LeadForm({ defaultCategory }: { defaultCategory?: Category }) {
     if (submitted || submitting) return;
 
     const pErr = validatePhone(data.phone ?? "");
-    const eErr = data.email ? validateEmail(data.email) : null;
+    const eErr = validateEmail(data.email ?? "");
     setPhoneError(pErr);
     setEmailError(eErr);
     if (pErr || eErr) return;
@@ -455,6 +457,8 @@ export function LeadForm({ defaultCategory }: { defaultCategory?: Category }) {
           <input type="hidden" name="utm_source" value={data.utm?.utm_source ?? ""} readOnly />
           <input type="hidden" name="utm_medium" value={data.utm?.utm_medium ?? ""} readOnly />
           <input type="hidden" name="utm_campaign" value={data.utm?.utm_campaign ?? ""} readOnly />
+          <input type="hidden" name="utm_term" value={data.utm?.utm_term ?? ""} readOnly />
+          <input type="hidden" name="utm_content" value={data.utm?.utm_content ?? ""} readOnly />
           <input type="hidden" name="gclid" value={data.utm?.gclid ?? ""} readOnly />
           <input type="hidden" name="fbclid" value={data.utm?.fbclid ?? ""} readOnly />
 

@@ -10,6 +10,9 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://wehelpfinance.com"),
   title,
   description,
+  verification: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+    ? { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION }
+    : undefined,
   openGraph: {
     siteName: "WeHelpFinance",
     type: "website",
