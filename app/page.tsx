@@ -9,7 +9,6 @@ export const metadata: Metadata = {
 
 import Link from "next/link";
 import Image from "next/image";
-import { SiteLayout } from "@/components/SiteLayout";
 import { LeadForm } from "@/components/LeadForm";
 import { FAQ, type FAQItem } from "@/components/FAQ";
 import { faqJsonLd, breadcrumbJsonLd } from "@/lib/schema";
@@ -27,7 +26,7 @@ const FAQS: FAQItem[] = [
 
 export default function HomePage() {
   return (
-    <SiteLayout>
+    <>
       {/* HERO */}
       <section className="relative overflow-hidden">
         <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-primary-soft/50 via-cream to-background" />
@@ -183,7 +182,7 @@ export default function HomePage() {
           </Link>
         </div>
       </section>
-    </SiteLayout>
+    </>
   );
 }
 

@@ -7,11 +7,10 @@ export const metadata: Metadata = {
   openGraph: { title: "Terms of Service | WeHelpFinance", description: "The terms and conditions for using WeHelpFinance.", url: "/terms", type: "website" },
 };
 
-import { SiteLayout } from "@/components/SiteLayout";
 
 export default function Terms() {
   return (
-    <SiteLayout>
+    <>
       <article className="container-page mx-auto max-w-3xl py-14">
         <span className="inline-flex rounded-full bg-primary-soft px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary">Legal</span>
         <h1 className="mt-4">Terms of Service</h1>
@@ -82,6 +81,6 @@ export default function Terms() {
           <p>Email <a href="mailto:hello@wehelpfinance.com" className="text-primary underline">hello@wehelpfinance.com</a> with questions.</p>
         </div>
       </article>
-    </SiteLayout>
+    </>
   );
 }

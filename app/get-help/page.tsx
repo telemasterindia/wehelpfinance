@@ -8,12 +8,11 @@ export const metadata: Metadata = {
 };
 
 import Link from "next/link";
-import { SiteLayout } from "@/components/SiteLayout";
 import { LeadForm } from "@/components/LeadForm";
 
 export default function GetHelpPage() {
   return (
-    <SiteLayout>
+    <>
       <section className="container-page py-14">
         <div className="mx-auto max-w-xl text-center">
           <Link href="/" className="text-sm text-muted-foreground hover:text-primary">← Back home</Link>
@@ -26,6 +25,6 @@ export default function GetHelpPage() {
           <LeadForm />
         </div>
       </section>
-    </SiteLayout>
+    </>
   );
 }

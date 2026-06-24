@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { SiteLayout } from "@/components/SiteLayout";
 import { LeadForm, type Category } from "@/components/LeadForm";
 import { FAQ, type FAQItem } from "@/components/FAQ";
 import { ArrowRight, CheckCircle2, User } from "lucide-react";
@@ -40,17 +39,10 @@ export function ServicePage({
   relatedLinks?: RelatedLink[];
 }) {
   return (
-    <SiteLayout>
+    <>
       <section className="relative">
         <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-primary-soft/40 to-background" />
-        <div className="container-page pt-10 pb-6">
-          <nav className="text-sm text-muted-foreground" aria-label="Breadcrumb">
-            <Link href="/" className="hover:text-primary">Home</Link>
-            <span className="mx-2">/</span>
-            <span className="text-foreground">{eyebrow}</span>
-          </nav>
-        </div>
-        <div className="container-page grid gap-10 pb-16 lg:grid-cols-[1.1fr_1fr] lg:items-start lg:gap-12">
+        <div className="container-page grid gap-10 py-16 lg:grid-cols-[1.1fr_1fr] lg:items-start lg:gap-12">
           <div>
             <span className="inline-flex rounded-full bg-primary-soft px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary">
               {eyebrow}
@@ -141,6 +133,6 @@ export function ServicePage({
           </a>
         </div>
       </section>
-    </SiteLayout>
+    </>
   );
 }

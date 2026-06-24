@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { breadcrumbJsonLd } from "@/lib/schema";
-import { SiteLayout } from "@/components/SiteLayout";
 
 export const metadata: Metadata = {
   title: "Editorial Policy — How We Create and Review Content | WeHelpFinance",
@@ -17,7 +15,7 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <SiteLayout>
+    <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd([
         { name: "Home", path: "https://wehelpfinance.com/" },
         { name: "Editorial Policy", path: "https://wehelpfinance.com/editorial-policy" },
@@ -25,11 +23,6 @@ export default function Page() {
 
       <div className="bg-gradient-to-b from-primary-soft/30 to-background">
         <div className="container-page max-w-3xl py-14 lg:py-20">
-          <nav className="mb-6 text-sm text-muted-foreground" aria-label="Breadcrumb">
-            <Link href="/" className="hover:text-primary">Home</Link>
-            <span className="mx-2">/</span>
-            <span className="text-foreground">Editorial Policy</span>
-          </nav>
           <h1>Editorial Policy</h1>
           <p className="mt-4 text-lg text-muted-foreground">
             WeHelpFinance is committed to providing accurate, transparent, and consumer-first financial education content.
@@ -88,6 +81,6 @@ export default function Page() {
           <p>We welcome feedback from readers, financial professionals, and consumer advocates. Our editorial standards are improved by thoughtful engagement with the people who use our content.</p>
         </div>
       </div>
-    </SiteLayout>
+    </>
   );
 }

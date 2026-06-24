@@ -7,11 +7,10 @@ export const metadata: Metadata = {
   openGraph: { title: "Privacy Policy | WeHelpFinance", description: "How WeHelpFinance collects, uses, and protects your information.", url: "/privacy", type: "website" },
 };
 
-import { SiteLayout } from "@/components/SiteLayout";
 
 export default function Privacy() {
   return (
-    <SiteLayout>
+    <>
       <article className="container-page mx-auto max-w-3xl py-14 prose-page">
         <span className="inline-flex rounded-full bg-primary-soft px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary">Legal</span>
         <h1 className="mt-4">Privacy Policy</h1>
@@ -73,6 +72,6 @@ export default function Privacy() {
           <p>Questions? Email <a href="mailto:hello@wehelpfinance.com" className="text-primary underline">hello@wehelpfinance.com</a>.</p>
         </div>
       </article>
-    </SiteLayout>
+    </>
   );
 }

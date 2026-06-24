@@ -9,12 +9,11 @@ export const metadata: Metadata = {
 };
 
 import Link from "next/link";
-import { SiteLayout } from "@/components/SiteLayout";
 import { CheckCircle2, Phone, Mail, ArrowRight } from "lucide-react";
 
 export default function ThankYou() {
   return (
-    <SiteLayout>
+    <>
       <section className="container-page py-20">
         <div className="mx-auto max-w-2xl text-center">
           <div className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-success/15 text-success">
@@ -47,6 +46,6 @@ export default function ThankYou() {
           </Link>
         </div>
       </section>
-    </SiteLayout>
+    </>
   );
 }

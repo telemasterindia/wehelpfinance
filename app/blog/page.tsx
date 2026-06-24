@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Clock, Calendar } from "lucide-react";
 import { faqJsonLd, breadcrumbJsonLd } from "@/lib/schema";
-import { SiteLayout } from "@/components/SiteLayout";
 
 export const metadata: Metadata = {
   title: "Financial Education Blog — Debt Relief, Tax & Loans | WeHelpFinance",
@@ -106,7 +105,7 @@ export default function BlogIndex() {
   const rest = ARTICLES.filter((a) => !a.featured);
 
   return (
-    <SiteLayout>
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(BREADCRUMBS)) }}
@@ -115,11 +114,6 @@ export default function BlogIndex() {
       {/* Hero */}
       <section className="bg-gradient-to-b from-primary-soft/40 to-background">
         <div className="container-page max-w-4xl py-14 lg:py-20">
-          <nav className="mb-6 text-sm text-muted-foreground" aria-label="Breadcrumb">
-            <Link href="/" className="hover:text-primary">Home</Link>
-            <span className="mx-2">/</span>
-            <span className="text-foreground">Blog</span>
-          </nav>
           <h1>Financial Education &amp; Research</h1>
           <p className="mt-4 max-w-2xl text-lg text-muted-foreground">
             Research-backed articles on debt relief, credit card debt, inflation, layoffs, and tax problems —
@@ -180,7 +174,7 @@ export default function BlogIndex() {
           </div>
         </section>
       </div>
-    </SiteLayout>
+    </>
   );
 }
 

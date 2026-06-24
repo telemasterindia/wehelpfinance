@@ -2,7 +2,6 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { LeadForm } from "@/components/LeadForm";
 import { FAQ, type FAQItem } from "@/components/FAQ";
-import { SiteLayout } from "@/components/SiteLayout";
 import { Clock, Calendar, ArrowRight, BookOpen } from "lucide-react";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -86,7 +85,6 @@ export function BlogPost({
   const canonicalUrl = `https://wehelpfinance.com${canonicalPath ?? `/blog/${slug}`}`;
 
   return (
-    <SiteLayout>
     <article className="pb-24" itemScope itemType="https://schema.org/Article">
       {/* Hidden schema fields */}
       <meta itemProp="headline" content={title} />
@@ -105,15 +103,6 @@ export function BlogPost({
       {/* ── Hero ── */}
       <header className="relative bg-gradient-to-b from-primary-soft/40 to-background">
         <div className="container-page max-w-4xl py-12 lg:py-16">
-          {/* Breadcrumb */}
-          <nav className="mb-6 text-sm text-muted-foreground" aria-label="Breadcrumb">
-            <Link href="/" className="hover:text-primary">Home</Link>
-            <span className="mx-2">/</span>
-            <Link href={sectionHref} className="hover:text-primary">{sectionLabel}</Link>
-            <span className="mx-2">/</span>
-            <span className="text-foreground line-clamp-1">{title}</span>
-          </nav>
-
           <span className="inline-flex rounded-full bg-primary-soft px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary">
             {category}
           </span>
@@ -275,7 +264,6 @@ export function BlogPost({
         </div>
       </div>
     </article>
-    </SiteLayout>
   );
 }
 

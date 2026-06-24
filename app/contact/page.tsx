@@ -47,11 +47,6 @@ export default function ContactPage() {
       {/* Hero */}
       <section className="bg-gradient-to-b from-primary-soft/40 to-background">
         <div className="container-page max-w-4xl py-14 lg:py-20">
-          <nav className="mb-6 text-sm text-muted-foreground" aria-label="Breadcrumb">
-            <Link href="/" className="hover:text-primary">Home</Link>
-            <span className="mx-2">/</span>
-            <span className="text-foreground">Contact</span>
-          </nav>
           <h1>Get in touch</h1>
           <p className="mt-4 max-w-xl text-lg text-muted-foreground">
             We respond to all messages within one business day. For faster service, call us directly

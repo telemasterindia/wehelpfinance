@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, ShieldCheck } from "lucide-react";
-import { SiteLayout } from "@/components/SiteLayout";
 
 export const metadata: Metadata = {
   title: "Consumer Rights — Debt Collection & FDCPA Guides | WeHelpFinance",
@@ -46,7 +45,7 @@ const GUIDES = [
 
 export default function Page() {
   return (
-    <SiteLayout>
+    <>
       <section className="relative">
         <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-primary-soft/40 to-background" />
         <div className="container-page py-16">
@@ -83,6 +82,6 @@ export default function Page() {
           </div>
         </div>
       </section>
-    </SiteLayout>
+    </>
   );
 }

@@ -48,11 +48,6 @@ export default function Page() {
       {/* Hero */}
       <section className="bg-gradient-to-b from-primary-soft/40 to-background">
         <div className="container-page max-w-4xl py-14 lg:py-20">
-          <nav className="mb-6 text-sm text-muted-foreground" aria-label="Breadcrumb">
-            <Link href="/" className="hover:text-primary">Home</Link>
-            <span className="mx-2">/</span>
-            <span className="text-foreground">About</span>
-          </nav>
           <h1>We exist because financial hardship deserves a human response.</h1>
           <p className="mt-5 max-w-2xl text-lg text-muted-foreground">
             WeHelpFinance is a consumer financial education and connection platform. We help Americans

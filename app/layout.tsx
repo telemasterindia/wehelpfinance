@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Analytics } from "@/components/Analytics";
+import { SiteLayout } from "@/components/SiteLayout";
 import "@/styles.css";
 
 const title = "WeHelpFinance — Debt Relief, Tax Relief & Personal Loan Help";
@@ -30,7 +31,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" />
       </head>
       <body>
-        {children}
+        <SiteLayout>{children}</SiteLayout>
         <Analytics />
       </body>
     </html>
