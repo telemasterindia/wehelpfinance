@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Clock, Calendar } from "lucide-react";
 import { faqJsonLd, breadcrumbJsonLd } from "@/lib/schema";
+import { SiteLayout } from "@/components/SiteLayout";
 
 export const metadata: Metadata = {
   title: "Financial Education Blog — Debt Relief, Tax & Loans | WeHelpFinance",
@@ -105,7 +106,7 @@ export default function BlogIndex() {
   const rest = ARTICLES.filter((a) => !a.featured);
 
   return (
-    <>
+    <SiteLayout>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(BREADCRUMBS)) }}
@@ -179,7 +180,7 @@ export default function BlogIndex() {
           </div>
         </section>
       </div>
-    </>
+    </SiteLayout>
   );
 }
 

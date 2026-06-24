@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { LeadForm } from "@/components/LeadForm";
 import { FAQ, type FAQItem } from "@/components/FAQ";
+import { SiteLayout } from "@/components/SiteLayout";
 import { Clock, Calendar, ArrowRight, BookOpen } from "lucide-react";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -38,6 +39,8 @@ export type BlogPostProps = {
   category: string;
   slug: string;
   canonicalPath?: string;
+  sectionLabel?: string;
+  sectionHref?: string;
   toc: TocItem[];
   content: ReactNode;
   faqs?: FAQItem[];
@@ -72,6 +75,8 @@ export function BlogPost({
   category,
   slug,
   canonicalPath,
+  sectionLabel = "Blog",
+  sectionHref = "/blog",
   toc,
   content,
   faqs,
@@ -81,6 +86,7 @@ export function BlogPost({
   const canonicalUrl = `https://wehelpfinance.com${canonicalPath ?? `/blog/${slug}`}`;
 
   return (
+    <SiteLayout>
     <article className="pb-24" itemScope itemType="https://schema.org/Article">
       {/* Hidden schema fields */}
       <meta itemProp="headline" content={title} />
@@ -103,7 +109,7 @@ export function BlogPost({
           <nav className="mb-6 text-sm text-muted-foreground" aria-label="Breadcrumb">
             <Link href="/" className="hover:text-primary">Home</Link>
             <span className="mx-2">/</span>
-            <Link href="/blog" className="hover:text-primary">Blog</Link>
+            <Link href={sectionHref} className="hover:text-primary">{sectionLabel}</Link>
             <span className="mx-2">/</span>
             <span className="text-foreground line-clamp-1">{title}</span>
           </nav>
@@ -269,6 +275,7 @@ export function BlogPost({
         </div>
       </div>
     </article>
+    </SiteLayout>
   );
 }
 

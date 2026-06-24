@@ -106,6 +106,8 @@ export default function Page() {
       <BlogPost
         
         canonicalPath="/debt-validation"
+        sectionLabel="Consumer Rights"
+        sectionHref="/consumer-rights"
         title={TITLE}
         excerpt={EXCERPT}
         publishedDate={PUBLISHED}

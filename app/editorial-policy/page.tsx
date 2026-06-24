@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { breadcrumbJsonLd } from "@/lib/schema";
+import { SiteLayout } from "@/components/SiteLayout";
 
 export const metadata: Metadata = {
   title: "Editorial Policy — How We Create and Review Content | WeHelpFinance",
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <>
+    <SiteLayout>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd([
         { name: "Home", path: "https://wehelpfinance.com/" },
         { name: "Editorial Policy", path: "https://wehelpfinance.com/editorial-policy" },
@@ -87,6 +88,6 @@ export default function Page() {
           <p>We welcome feedback from readers, financial professionals, and consumer advocates. Our editorial standards are improved by thoughtful engagement with the people who use our content.</p>
         </div>
       </div>
-    </>
+    </SiteLayout>
   );
 }
