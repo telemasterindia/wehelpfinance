@@ -36,6 +36,7 @@ const SERVICES: NavItem[] = [
 
 const RESOURCES: NavItem[] = [
   { to: "/blog", label: "Financial Education Blog" },
+  { to: "/research", label: "Research Reports" },
   { to: "/consumer-rights", label: "Consumer Rights" },
   { to: "/debt-validation", label: "Debt Validation" },
   { to: "/debt-validation-letter", label: "Debt Validation Letter" },
