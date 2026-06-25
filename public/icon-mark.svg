@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" role="img" aria-label="WeHelpFinance icon">
+  <!-- Outer shield -->
+  <path d="M24 4L6 12V28C6 37.4 14.1 46.1 24 48C33.9 46.1 42 37.4 42 28V12L24 4Z" fill="#0b4d3b"/>
+  <!-- Inner shield highlight -->
+  <path d="M24 8L10 15V28C10 35.5 16.3 42.8 24 44.5C31.7 42.8 38 35.5 38 28V15L24 8Z" fill="#0b5c48"/>
+  <!-- Checkmark -->
+  <path d="M16 27L21.5 32.5L32 22" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- "W" lettermark subtle -->
+  <text x="24" y="34" font-family="Georgia, serif" font-size="14" font-weight="700" fill="rgba(255,255,255,0.15)" text-anchor="middle">W</text>
+</svg>

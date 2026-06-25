@@ -11,12 +11,13 @@ import {
   Linkedin,
   Menu,
   Phone,
-  ShieldCheck,
   X,
   Youtube,
 } from "lucide-react";
+import { FooterLogo, Logo } from "@/components/Logo";
 import { MobileCallButton } from "@/components/MobileCallButton";
 import { TawkChat } from "@/components/TawkChat";
+import { TrustSignals } from "@/components/TrustSignals";
 
 const PHONE_NUMBER = "+17183604806";
 const PHONE_DISPLAY = "(718) 360-4806";
@@ -79,12 +80,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
 
       <header className={`sticky top-0 z-40 border-b border-border/70 bg-background/95 backdrop-blur transition-shadow ${scrolled ? "shadow-sm" : ""}`}>
         <div className="container-page flex h-16 items-center justify-between gap-4">
-          <Link href="/" className="flex items-center gap-2 font-display text-lg font-semibold text-primary">
-            <span className="grid h-9 w-9 place-items-center rounded-xl bg-primary text-primary-foreground">
-              <ShieldCheck className="h-5 w-5" aria-hidden="true" />
-            </span>
-            <span>WeHelpFinance</span>
-          </Link>
+          <Logo size="md" />
 
           <nav className="hidden items-center gap-1 lg:flex" aria-label="Main navigation">
             <Dropdown label="Services" active={servicesActive} items={SERVICES} pathname={pathname} />
@@ -153,10 +149,11 @@ export function SiteLayout({ children }: { children: ReactNode }) {
       <main className="flex-1 pb-20 md:pb-0">{children}</main>
 
       <section className="border-t border-border bg-primary-soft/30">
-        <div className="container-page flex flex-col gap-4 py-8 sm:flex-row sm:items-center sm:justify-between">
+        <div className="container-page flex flex-col gap-5 py-8 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="font-display text-lg font-semibold text-foreground">Need help? We're here.</p>
             <p className="mt-1 text-sm text-muted-foreground">Free, confidential consultation — no obligation.</p>
+            <TrustSignals variant="compact" className="mt-3 justify-start" />
           </div>
           <div className="flex flex-wrap items-center gap-3">
             <a
@@ -182,12 +179,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
       <footer className="border-t border-border bg-cream">
         <div className="container-page grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-5">
           <div className="lg:col-span-2">
-            <div className="flex items-center gap-2 font-display text-lg font-semibold text-primary">
-              <span className="grid h-9 w-9 place-items-center rounded-xl bg-primary text-primary-foreground">
-                <ShieldCheck className="h-5 w-5" aria-hidden="true" />
-              </span>
-              WeHelpFinance
-            </div>
+            <FooterLogo />
             <p className="mt-4 max-w-sm text-sm text-muted-foreground">
               A calm, judgment-free way to explore debt relief, tax relief, and personal loan options with vetted financial specialists.
             </p>

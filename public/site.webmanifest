@@ -1,0 +1,30 @@
+{
+  "name": "WeHelpFinance",
+  "short_name": "WeHelpFinance",
+  "description": "Debt Relief, Tax Relief & Personal Loans — Free Consultation",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f7f3ef",
+  "theme_color": "#0b4d3b",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/icon-mark.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-mark.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml"
+    }
+  ],
+  "categories": ["finance", "business"],
+  "lang": "en-US",
+  "dir": "ltr"
+}
