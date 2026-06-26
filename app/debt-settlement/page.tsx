@@ -87,6 +87,10 @@ export default function Page() {
         category="debt-relief"
         author={{ name: "Amit Chadha", org: "Telemaster India", years: 21 }}
         relatedLinks={[
+          { href: "/debt-settlement-calculator", label: "Debt Settlement Calculator" },
+          { href: "/debt-settlement/los-angeles", label: "Debt Settlement in Los Angeles" },
+          { href: "/debt-settlement/houston", label: "Debt Settlement in Houston" },
+          { href: "/debt-settlement/new-york-city", label: "Debt Settlement in New York City" },
           { href: "/debt-relief", label: "Debt Relief Overview" },
           { href: "/debt-consolidation", label: "Debt Consolidation" },
           { href: "/credit-card-debt-relief", label: "Credit Card Debt Relief" },
