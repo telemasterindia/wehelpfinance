@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Analytics } from "@/components/Analytics";
+import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
+import { Analytics as MarketingAnalytics } from "@/components/Analytics";
 import { SiteLayout } from "@/components/SiteLayout";
 import "@/styles.css";
 
@@ -107,9 +108,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       </head>
       <body>
         <SiteLayout>{children}</SiteLayout>
-        <Analytics />
+        <MarketingAnalytics />
+        <VercelAnalytics />
       </body>
     </html>
   );
 }
-
