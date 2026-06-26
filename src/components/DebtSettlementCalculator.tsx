@@ -110,6 +110,16 @@ export function DebtSettlementCalculator() {
     setStep(3);
   }
 
+  function handleReset() {
+    setStep(1);
+    setResult(null);
+    setDebtInput("");
+    setIncomeInput("");
+    setDebt(0);
+    setIncome(0);
+    setDelinquency("");
+  }
+
   return (
     <div className="mx-auto max-w-2xl">
       {/* Progress */}
@@ -323,49 +333,56 @@ export function DebtSettlementCalculator() {
             <div className="p-4 border-b border-border bg-muted/30">
               <h3 className="text-sm font-semibold text-foreground">Settlement vs. Minimum Payments</h3>
             </div>
-            <div className="divide-y divide-border">
-              {[
-                {
-                  label: "Total you pay",
-                  min: fmt(result.minimumTotalCost),
-                  settle: `${fmt(result.totalLow)}–${fmt(result.totalHigh)}`,
-                  better: "settlement",
-                },
-                {
-                  label: "Time to pay off",
-                  min: `~${result.minimumPayoffYears}+ years`,
-                  settle: `${Math.round(result.programMonths / 12)} years`,
-                  better: "settlement",
-                },
-                {
-                  label: "Credit impact",
-                  min: "Ongoing (never resolves)",
-                  settle: "Temporary, then resolves",
-                  better: "settlement",
-                },
-                {
-                  label: "Monthly cost",
-                  min: `${fmt(Math.round(debt * 0.02))}/month min`,
-                  settle: `${fmt(result.monthlyDeposit)}/month deposit`,
-                  better: "neutral",
-                },
-              ].map((row) => (
-                <div key={row.label} className="grid grid-cols-3 px-4 py-3 text-sm">
-                  <span className="text-muted-foreground font-medium">{row.label}</span>
-                  <span className={`text-center ${row.better === "settlement" ? "text-destructive" : "text-foreground"}`}>
-                    {row.min}
-                  </span>
-                  <span className={`text-center font-medium ${row.better === "settlement" ? "text-success" : "text-foreground"}`}>
-                    {row.settle}
-                  </span>
-                </div>
-              ))}
-              <div className="grid grid-cols-3 px-4 py-2 bg-muted/20 text-xs text-muted-foreground font-medium">
-                <span></span>
-                <span className="text-center">Minimum Payments</span>
-                <span className="text-center">Settlement</span>
+            <div className="grid grid-cols-3 border-b border-border bg-primary/5">
+              <div className="px-4 py-3" />
+              <div className="px-4 py-3 text-center text-xs font-bold uppercase tracking-wide text-destructive">
+                Minimum Payments
+              </div>
+              <div className="px-4 py-3 text-center text-xs font-bold uppercase tracking-wide text-success">
+                Debt Settlement
               </div>
             </div>
+            {[
+              {
+                label: "Total you pay",
+                min: fmt(result.minimumTotalCost),
+                settle: `${fmt(result.totalLow)}–${fmt(result.totalHigh)}`,
+                better: "settlement",
+              },
+              {
+                label: "Time to pay off",
+                min: `~${result.minimumPayoffYears}+ years`,
+                settle: `${Math.round(result.programMonths / 12)} years`,
+                better: "settlement",
+              },
+              {
+                label: "Credit impact",
+                min: "Ongoing",
+                settle: "Temporary",
+                better: "settlement",
+              },
+              {
+                label: "Monthly cost",
+                min: `${fmt(Math.round(debt * 0.02))}/mo min`,
+                settle: `${fmt(result.monthlyDeposit)}/mo deposit`,
+                better: "neutral",
+              },
+            ].map((row, index) => (
+              <div
+                key={row.label}
+                className={`grid grid-cols-3 border-b border-border text-sm last:border-0 ${
+                  index % 2 === 0 ? "bg-background" : "bg-muted/10"
+                }`}
+              >
+                <span className="px-4 py-4 font-medium text-foreground">{row.label}</span>
+                <span className={`px-4 py-4 text-center font-semibold ${row.better === "settlement" ? "text-destructive" : "text-foreground"}`}>
+                  {row.min}
+                </span>
+                <span className={`px-4 py-4 text-center font-semibold ${row.better === "settlement" ? "text-success" : "text-foreground"}`}>
+                  {row.settle}
+                </span>
+              </div>
+            ))}
           </div>
 
           {/* Recommendation */}
@@ -405,7 +422,7 @@ export function DebtSettlementCalculator() {
 
           <button
             type="button"
-            onClick={() => { setStep(1); setResult(null); setDebtInput(""); setIncomeInput(""); setDebt(0); setIncome(0); setDelinquency(""); }}
+            onClick={handleReset}
             className="w-full text-center text-sm text-muted-foreground hover:text-primary transition-colors"
           >
             ← Start over with different numbers

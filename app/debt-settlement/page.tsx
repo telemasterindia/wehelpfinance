@@ -1,67 +1,88 @@
 import type { Metadata } from "next";
-import { ServicePage } from "@/components/ServicePage";
-import type { FAQItem } from "@/components/FAQ";
-import { faqJsonLd, breadcrumbJsonLd } from "@/lib/schema";
+import Link from "next/link";
+import { DebtSettlementCalculator } from "@/components/DebtSettlementCalculator";
+import { FAQ, type FAQItem } from "@/components/FAQ";
+import { LeadForm } from "@/components/LeadForm";
+import { TrustSignals } from "@/components/TrustSignals";
+import { breadcrumbJsonLd, faqJsonLd } from "@/lib/schema";
+import { ArrowRight, Calculator, CheckCircle2 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Debt Settlement — Negotiate What You Owe | WeHelpFinance",
-  description: "Debt settlement lets you pay less than you owe on unsecured debt. Connect with a vetted specialist for a free consultation and see how much you could save.",
+  title: "Debt Settlement — Resolve Credit Card Debt for Less | WeHelpFinance",
+  description: "Debt settlement lets you resolve credit card debt for 40–60% of what you owe. Use our free calculator to estimate your savings, then get a free specialist consultation.",
   alternates: { canonical: "https://www.wehelpfinance.com/debt-settlement" },
   openGraph: {
-    title: "Debt Settlement — Negotiate What You Owe | WeHelpFinance",
-    description: "Debt settlement lets you pay less than you owe on unsecured debt. Connect with a vetted specialist for a free consultation and see how much you could save.",
+    title: "Debt Settlement — Resolve Credit Card Debt for Less | WeHelpFinance",
+    description: "Settle credit card debt for less than you owe. Free calculator plus free specialist consultation.",
     url: "https://www.wehelpfinance.com/debt-settlement",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Debt Settlement — Negotiate What You Owe | WeHelpFinance",
-    description: "Debt settlement lets you pay less than you owe. Free consultation, no obligation.",
+    title: "Debt Settlement | WeHelpFinance",
+    description: "Estimate your debt settlement savings and speak with a vetted specialist for free.",
   },
 };
 
 const FAQS: FAQItem[] = [
   {
     q: "What is debt settlement?",
-    a: "Debt settlement is a process where a specialist negotiates with your creditors to accept a lump-sum payment that is less than your full balance owed. It is typically used for unsecured debts like credit cards, medical bills, and personal loans.",
+    a: "Debt settlement is a negotiation process where a specialist works with your creditors to accept a lump-sum payment that is less than your full balance, often 40–60% of what you owe. The remaining balance is forgiven.",
   },
   {
-    q: "How much can I save with debt settlement?",
-    a: "Settlement amounts vary by creditor, account age, and your financial situation. Many clients settle for 40–60 cents on the dollar, though results vary. A specialist will give you a realistic estimate based on your specific accounts.",
+    q: "Who qualifies for debt settlement?",
+    a: "Debt settlement is most appropriate for people with $10,000 or more in unsecured debt, such as credit cards, personal loans, and medical bills, who are experiencing genuine financial hardship and cannot realistically pay the full balance.",
   },
   {
-    q: "How does the debt settlement process work?",
-    a: "You make monthly deposits into a dedicated account. Once enough funds accumulate, your specialist negotiates with each creditor. When a creditor agrees to a settlement, funds are used to pay it. The process typically takes 24–48 months.",
+    q: "How long does debt settlement take?",
+    a: "Most programs run 24–48 months depending on the total enrolled debt and monthly deposit amount. During this time, you make deposits into a dedicated account and your specialist negotiates with creditors as funds build.",
   },
   {
-    q: "Will debt settlement hurt my credit score?",
-    a: "Debt settlement can impact your credit score, as accounts may be reported as 'settled for less than the full amount.' However, many clients find that resolving unmanageable debt allows them to begin rebuilding credit sooner than staying trapped in minimum payments.",
+    q: "Does debt settlement hurt my credit?",
+    a: "Debt settlement can damage your credit because accounts typically become delinquent during the program. For people in genuine hardship, this trade-off may be worth the relief of resolving unmanageable balances.",
   },
   {
-    q: "What debts qualify for settlement?",
-    a: "Most unsecured debts qualify — credit cards, medical bills, personal loans, and private student loans. Secured debts like mortgages and auto loans, and federal student loans, typically do not qualify for settlement.",
-  },
-  {
-    q: "Is debt settlement the same as debt consolidation?",
-    a: "No. Debt settlement reduces the total amount you owe through negotiation. Debt consolidation combines multiple debts into one payment, usually through a new loan or debt management plan, and you pay the full balance.",
+    q: "What is the difference between debt settlement and debt consolidation?",
+    a: "Debt consolidation combines your debts into one payment and you still repay the full balance. Debt settlement reduces the total amount you owe through negotiation.",
   },
   {
     q: "Will I owe taxes on settled debt?",
-    a: "The IRS may consider forgiven debt as taxable income. Your creditor may issue a 1099-C form for the cancelled amount. A tax professional can help you understand your specific situation and whether exceptions apply.",
+    a: "The IRS may treat forgiven debt as taxable income and the creditor may issue a 1099-C form. If you are insolvent at the time of settlement, an exclusion may apply. A tax professional can help you understand your specific situation.",
   },
   {
     q: "Is WeHelpFinance a debt settlement company?",
-    a: "No. WeHelpFinance is a free matching service. We connect you with vetted, independent debt settlement specialists. We do not charge fees or provide debt settlement services directly.",
+    a: "No. WeHelpFinance is a free matching service. We connect consumers with vetted, independent debt settlement specialists. We do not charge fees or provide settlement services directly.",
   },
+];
+
+const CITY_LINKS = [
+  { href: "/debt-settlement/los-angeles", label: "Los Angeles, CA" },
+  { href: "/debt-settlement/houston", label: "Houston, TX" },
+  { href: "/debt-settlement/new-york-city", label: "New York City, NY" },
+  { href: "/debt-settlement/dallas", label: "Dallas, TX" },
+  { href: "/debt-settlement/chicago", label: "Chicago, IL" },
+  { href: "/debt-settlement/atlanta", label: "Atlanta, GA" },
+  { href: "/debt-settlement/phoenix", label: "Phoenix, AZ" },
+  { href: "/debt-settlement/philadelphia", label: "Philadelphia, PA" },
+  { href: "/debt-settlement/charlotte", label: "Charlotte, NC" },
+  { href: "/debt-settlement/columbus", label: "Columbus, OH" },
+];
+
+const RELATED_LINKS = [
+  { href: "/debt-settlement-vs-bankruptcy", label: "Settlement vs. Bankruptcy" },
+  { href: "/debt-settlement-vs-debt-consolidation", label: "Settlement vs. Consolidation" },
+  { href: "/debt-relief-vs-personal-loan", label: "Debt Relief vs. Personal Loan" },
+  { href: "/debt-settlement-calculator", label: "Debt Settlement Calculator" },
+  { href: "/fdcpa-rights", label: "Your FDCPA Rights" },
+  { href: "/debt-validation", label: "Debt Validation" },
 ];
 
 const BREADCRUMBS = [
   { name: "Home", path: "https://www.wehelpfinance.com/" },
-  { name: "Debt Relief", path: "https://www.wehelpfinance.com/debt-relief" },
   { name: "Debt Settlement", path: "https://www.wehelpfinance.com/debt-settlement" },
 ];
 
-export default function Page() {
+export default function DebtSettlementPage() {
   return (
     <>
       <script
@@ -72,31 +93,147 @@ export default function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(BREADCRUMBS)) }}
       />
-      <ServicePage
-        eyebrow="Debt Settlement"
-        title={<>Pay less than you owe — <span className="italic text-primary">legally and ethically.</span></>}
-        lede="When credit card balances, medical bills, or personal loans feel impossible to pay in full, debt settlement may allow you to resolve what you owe for significantly less. A specialist negotiates directly with your creditors on your behalf."
-        bullets={[
-          "Specialists negotiate directly with your creditors",
-          "Many clients settle for 40–60 cents on the dollar",
-          "One affordable monthly deposit replaces multiple minimum payments",
-          "Programs typically complete in 24–48 months",
-          "Free consultation — no upfront fees to explore your options",
-        ]}
-        faqs={FAQS}
-        category="debt-relief"
-        author={{ name: "Amit Chadha", org: "Telemaster India", years: 21 }}
-        relatedLinks={[
-          { href: "/debt-settlement-calculator", label: "Debt Settlement Calculator" },
-          { href: "/debt-settlement/los-angeles", label: "Debt Settlement in Los Angeles" },
-          { href: "/debt-settlement/houston", label: "Debt Settlement in Houston" },
-          { href: "/debt-settlement/new-york-city", label: "Debt Settlement in New York City" },
-          { href: "/debt-relief", label: "Debt Relief Overview" },
-          { href: "/debt-consolidation", label: "Debt Consolidation" },
-          { href: "/credit-card-debt-relief", label: "Credit Card Debt Relief" },
-        ]}
-      />
+
+      <section className="bg-gradient-to-b from-primary-soft/40 to-background">
+        <div className="container-page max-w-5xl py-12 lg:py-16">
+          <nav className="mb-6 text-sm text-muted-foreground" aria-label="Breadcrumb">
+            <Link href="/" className="hover:text-primary">Home</Link>
+            <span className="mx-2">/</span>
+            <span className="text-foreground">Debt Settlement</span>
+          </nav>
+
+          <div className="max-w-3xl">
+            <span className="inline-flex rounded-full bg-primary-soft px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary">
+              Debt Settlement
+            </span>
+            <h1 className="mt-4">Resolve Your Debt for Less Than You Owe</h1>
+            <p className="mt-5 max-w-2xl text-lg text-muted-foreground">
+              Debt settlement lets you negotiate with creditors to accept a lump-sum payment, often 40–60% of your balance. Use the free calculator below to estimate your savings, then speak with a specialist about your actual accounts.
+            </p>
+            <ul className="mt-6 space-y-2">
+              {[
+                "Settle credit card, medical, and personal loan debt",
+                "Most programs resolve in 24–48 months",
+                "Free, confidential consultation with no obligation",
+                "Specialists negotiate directly with your creditors",
+              ].map((item) => (
+                <li key={item} className="flex items-start gap-3 text-sm">
+                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-success" aria-hidden="true" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+            <a href="#calculator" className="btn-cta mt-8 inline-flex">
+              Estimate My Savings <Calculator className="h-4 w-4" aria-hidden="true" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section className="container-page max-w-5xl py-6">
+        <TrustSignals variant="compact" />
+      </section>
+
+      <section className="container-page max-w-5xl py-8" id="calculator">
+        <div className="mb-6 flex items-center gap-3">
+          <span className="grid h-10 w-10 place-items-center rounded-full bg-primary text-primary-foreground">
+            <Calculator className="h-5 w-5" aria-hidden="true" />
+          </span>
+          <div>
+            <h2 className="text-xl font-display font-semibold">Free Debt Settlement Calculator</h2>
+            <p className="text-sm text-muted-foreground">See your estimated savings in about two minutes.</p>
+          </div>
+        </div>
+
+        <div className="rounded-3xl border border-border bg-card p-6 shadow-sm md:p-10">
+          <DebtSettlementCalculator />
+        </div>
+      </section>
+
+      <section className="container-page max-w-5xl py-8" id="get-help">
+        <div className="grid gap-10 lg:grid-cols-[1fr_420px] lg:items-start">
+          <div>
+            <h2>Ready to Talk to a Specialist?</h2>
+            <p className="mt-3 text-muted-foreground">
+              The calculator gives you estimates. A specialist gives you real numbers based on your creditors, account ages, balances, and current hardship. The consultation is free and carries no obligation.
+            </p>
+
+            <div className="mt-8 space-y-6">
+              {[
+                { step: "1", title: "Free consultation", body: "A specialist reviews your accounts, income, and situation to assess what options are realistically available." },
+                { step: "2", title: "Enroll your accounts", body: "Qualifying unsecured debts are enrolled, including credit cards, personal loans, and medical bills. Secured debts are not included." },
+                { step: "3", title: "Build your settlement fund", body: "You make monthly deposits into a dedicated savings account instead of juggling minimum payments." },
+                { step: "4", title: "Negotiate and resolve", body: "Your specialist negotiates with each creditor. Settled accounts are resolved for less than the original balance." },
+              ].map((item) => (
+                <div key={item.step} className="flex gap-4">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
+                    {item.step}
+                  </span>
+                  <div>
+                    <p className="font-semibold text-foreground">{item.title}</p>
+                    <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{item.body}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="lg:sticky lg:top-24">
+            <LeadForm defaultCategory="debt-relief" />
+          </div>
+        </div>
+      </section>
+
+      <section className="container-page max-w-4xl py-8 pb-12">
+        <h2 className="mb-6">Frequently Asked Questions</h2>
+        <FAQ items={FAQS} />
+      </section>
+
+      <section className="container-page max-w-4xl pb-12">
+        <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+          Debt settlement by city
+        </h3>
+        <div className="flex flex-wrap gap-2">
+          {CITY_LINKS.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="rounded-full border border-border bg-card px-4 py-2 text-sm font-medium text-foreground transition hover:border-primary hover:text-primary"
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="container-page max-w-4xl pb-16">
+        <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+          Compare your options
+        </h3>
+        <div className="flex flex-wrap gap-2">
+          {RELATED_LINKS.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="rounded-full border border-border bg-card px-4 py-2 text-sm font-medium text-foreground transition hover:border-primary hover:text-primary"
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="container-page max-w-4xl pb-24">
+        <div className="rounded-3xl bg-primary px-6 py-12 text-center text-primary-foreground sm:px-12">
+          <h2 className="text-primary-foreground">Ready to explore your options?</h2>
+          <p className="mx-auto mt-3 max-w-xl text-primary-foreground/85">
+            A free, confidential consultation can show you what settlement may look like for your actual creditors.
+          </p>
+          <a href="#get-help" className="btn-gold mt-7 inline-flex">
+            Get Free Help Now <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </a>
+        </div>
+      </section>
     </>
   );
 }
-
