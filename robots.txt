@@ -1,9 +1,8 @@
-﻿User-agent: *
+User-agent: *
 Allow: /
 
 Disallow: /thank-you
 Disallow: /credit-repair
 Disallow: /consumer-rights
 
-Sitemap: https://www.wehelpfinance.com/sitemap.xml
-
+Sitemap: https://wehelpfinance.com/sitemap.xml
