@@ -5,4 +5,4 @@ Disallow: /thank-you
 Disallow: /credit-repair
 Disallow: /consumer-rights
 
-Sitemap: https://wehelpfinance.com/sitemap.xml
+Sitemap: https://www.wehelpfinance.com/sitemap.xml
