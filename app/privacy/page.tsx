@@ -14,8 +14,7 @@ export default function Privacy() {
       <article className="container-page mx-auto max-w-3xl py-14 prose-page">
         <span className="inline-flex rounded-full bg-primary-soft px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary">Legal</span>
         <h1 className="mt-4">Privacy Policy</h1>
-        <p className="mt-2 text-sm text-muted-foreground">Last updated: {new Date().toLocaleDateString()}</p>
-
+<p className="mt-2 text-sm text-muted-foreground">Last updated: June 24, 2026</p>
         <div className="mt-8 space-y-6 text-[15px] leading-relaxed text-foreground">
           <p>
             This Privacy Policy explains how WeHelpFinance ("we", "us", "our") collects, uses, and
