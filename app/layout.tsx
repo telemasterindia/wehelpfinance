@@ -2,48 +2,12 @@ import type { Metadata, Viewport } from "next";
 import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
 import { Analytics as MarketingAnalytics } from "@/components/Analytics";
 import { SiteLayout } from "@/components/SiteLayout";
+import { organizationJsonLd, websiteJsonLd } from "@/lib/organizationConfig";
 import "@/styles.css";
 
 const title = "WeHelpFinance — Debt Relief, Tax Relief & Personal Loan Help";
 const description = "WeHelpFinance connects Americans with trusted specialists for debt relief, tax relief, and personal loans. Free, confidential, no obligation.";
 const siteUrl = "https://www.wehelpfinance.com";
-
-const organizationJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "WeHelpFinance",
-  url: siteUrl,
-  logo: `${siteUrl}/og-default.svg`,
-  description,
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "539 W. Commerce St #4251",
-    addressLocality: "Dallas",
-    addressRegion: "TX",
-    postalCode: "75208",
-    addressCountry: "US",
-  },
-  contactPoint: {
-    "@type": "ContactPoint",
-    telephone: "+1-718-360-4806",
-    contactType: "customer service",
-    areaServed: "US",
-    availableLanguage: "English",
-  },
-  sameAs: [
-    "https://youtube.com/@wehelpfinance",
-    "https://linkedin.com/company/wehelpfinance",
-    "https://facebook.com/wehelpfinance",
-    "https://instagram.com/wehelpfinance",
-  ],
-};
-
-const websiteJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  name: "WeHelpFinance",
-  url: siteUrl,
-};
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -103,10 +67,16 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" />
         <meta name="msapplication-TileColor" content="#0b4d3b" />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd()) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd()) }} />
       </head>
       <body>
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-primary-foreground"
+        >
+          Skip to main content
+        </a>
         <SiteLayout>{children}</SiteLayout>
         <MarketingAnalytics />
         <VercelAnalytics />

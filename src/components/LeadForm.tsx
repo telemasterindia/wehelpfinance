@@ -10,7 +10,7 @@ declare global {
   }
 }
 
-export type Category = "debt-relief" | "personal-loan" | "tax-relief";
+export type Category = "debt-relief" | "personal-loan" | "personal-loans" | "tax-relief";
 
 export type LeadData = {
   category?: Category;
@@ -59,6 +59,7 @@ const STATES = [
 const CAT_LABEL: Record<Category, string> = {
   "debt-relief": "Debt Relief",
   "personal-loan": "Personal Loan",
+  "personal-loans": "Personal Loans",
   "tax-relief": "Tax Relief",
 };
 
@@ -143,7 +144,7 @@ async function sendFinalLead(data: LeadData): Promise<{ ok: boolean; error?: str
   const utm = data.utm ?? {};
   let qualifier = "";
   if (data.category === "debt-relief") qualifier = data.debtAmount ?? "";
-  if (data.category === "personal-loan") qualifier = data.loanAmount ?? "";
+  if (data.category === "personal-loan" || data.category === "personal-loans") qualifier = data.loanAmount ?? "";
   if (data.category === "tax-relief") qualifier = data.taxDebt ?? "";
   try {
     const res = await fetch(W3F_URL, {
@@ -257,7 +258,9 @@ export function LeadForm({ defaultCategory }: { defaultCategory?: Category }) {
     setSubmitting(true);
     const result = await sendFinalLead({ ...data });
     if (!result.ok) {
-      console.error("Lead submission error:", result.error);
+      setSubmitError(result.error ?? "Something went wrong submitting your information. Please try again, or call us directly.");
+      setSubmitting(false);
+      return;
     }
     setSubmitted(true);
     track("generate_lead", {
@@ -271,6 +274,9 @@ export function LeadForm({ defaultCategory }: { defaultCategory?: Category }) {
   return (
     <div className="surface-card">
       <ProgressBar step={step} />
+      <div role="status" aria-live="polite" className="sr-only">
+        Step {step} of 3: {step === 1 ? "Select your category" : step === 2 ? "Tell us about your situation" : "Your contact information"}
+      </div>
 
       {step === 1 && (
         <div>
@@ -279,7 +285,7 @@ export function LeadForm({ defaultCategory }: { defaultCategory?: Category }) {
             Pick the area where you'd like support. It's free, confidential, and no obligation.
           </p>
           <div className="mt-5 grid gap-3">
-            {(["debt-relief", "personal-loan", "tax-relief"] as Category[]).map((c) => (
+            {(["debt-relief", "personal-loans", "tax-relief"] as Category[]).map((c) => (
               <button
                 key={c}
                 type="button"
@@ -323,7 +329,7 @@ export function LeadForm({ defaultCategory }: { defaultCategory?: Category }) {
             </>
           )}
 
-          {data.category === "personal-loan" && (
+          {(data.category === "personal-loan" || data.category === "personal-loans") && (
             <>
               <Field label="Loan amount needed">
                 <Select
@@ -379,16 +385,17 @@ export function LeadForm({ defaultCategory }: { defaultCategory?: Category }) {
           <StepHeader title="Where should our specialist reach you?" onBack={() => setStep(2)} />
 
           <div className="grid gap-4 sm:grid-cols-2">
-            <Field label="First name">
-              <Input value={data.firstName} onChange={(v) => update({ firstName: v })} autoComplete="given-name" required />
+            <Field label="First name" htmlFor="lead-first-name">
+              <Input id="lead-first-name" value={data.firstName} onChange={(v) => update({ firstName: v })} autoComplete="given-name" required />
             </Field>
-            <Field label="Last name">
-              <Input value={data.lastName} onChange={(v) => update({ lastName: v })} autoComplete="family-name" required />
+            <Field label="Last name" htmlFor="lead-last-name">
+              <Input id="lead-last-name" value={data.lastName} onChange={(v) => update({ lastName: v })} autoComplete="family-name" required />
             </Field>
           </div>
 
-          <Field label="Email" error={emailError}>
+          <Field label="Email" error={emailError} htmlFor="lead-email" errorId="lead-email-error">
             <input
+              id="lead-email"
               type="email"
               required
               autoComplete="email"
@@ -396,16 +403,19 @@ export function LeadForm({ defaultCategory }: { defaultCategory?: Category }) {
               value={data.email ?? ""}
               onChange={(e) => { update({ email: e.target.value }); setEmailError(null); }}
               onBlur={onEmailBlur}
+              aria-invalid={!!emailError}
+              aria-describedby={emailError ? "lead-email-error" : undefined}
               className={`h-12 w-full rounded-xl border bg-background px-4 text-base focus:outline-none focus:ring-2 focus:ring-primary/20 ${
                 emailError ? "border-destructive focus:border-destructive" : "border-input focus:border-primary"
               }`}
             />
           </Field>
 
-          <Field label="Phone number" hint="A specialist will call you - usually within 1 business day." error={phoneError}>
+          <Field label="Phone number" hint="A specialist will call you - usually within 1 business day." error={phoneError} htmlFor="lead-phone" errorId="lead-phone-error" hintId="lead-phone-hint">
             <div className="relative">
               <Phone className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-primary" aria-hidden="true" />
               <input
+                id="lead-phone"
                 type="tel"
                 required
                 inputMode="tel"
@@ -414,6 +424,8 @@ export function LeadForm({ defaultCategory }: { defaultCategory?: Category }) {
                 value={data.phone ?? ""}
                 onChange={(e) => { update({ phone: e.target.value }); setPhoneError(null); }}
                 onBlur={onPhoneBlur}
+                aria-invalid={!!phoneError}
+                aria-describedby={phoneError ? "lead-phone-error" : "lead-phone-hint"}
                 className={`h-14 w-full rounded-2xl border-2 bg-background pl-12 pr-4 text-lg font-semibold tracking-wide focus:outline-none ${
                   phoneError ? "border-destructive focus:border-destructive" : "border-primary/40 focus:border-primary"
                 }`}
@@ -440,8 +452,9 @@ export function LeadForm({ defaultCategory }: { defaultCategory?: Category }) {
             </div>
           </Field>
 
-          <Field label="Tell us more about your situation (optional)">
+          <Field label="Tell us more about your situation (optional)" htmlFor="lead-notes">
             <textarea
+              id="lead-notes"
               maxLength={NOTES_MAX}
               rows={3}
               placeholder="E.g. I have 3 credit cards maxed out and a medical bill in collections..."
@@ -454,7 +467,7 @@ export function LeadForm({ defaultCategory }: { defaultCategory?: Category }) {
             </span>
           </Field>
 
-          <input type="text" name="botcheck" defaultValue="" style={{ display: "none" }} tabIndex={-1} autoComplete="off" aria-hidden="true" />
+          <input type="checkbox" name="botcheck" id="botcheck" style={{ display: "none" }} tabIndex={-1} autoComplete="off" aria-hidden="true" />
 
           <input type="hidden" name="utm_source" value={data.utm?.utm_source ?? ""} readOnly />
           <input type="hidden" name="utm_medium" value={data.utm?.utm_medium ?? ""} readOnly />
@@ -465,7 +478,7 @@ export function LeadForm({ defaultCategory }: { defaultCategory?: Category }) {
           <input type="hidden" name="fbclid" value={data.utm?.fbclid ?? ""} readOnly />
 
           {submitError && (
-            <div className="rounded-xl border border-destructive/30 bg-destructive/10 px-4 py-3 text-sm text-destructive">
+            <div role="alert" className="rounded-xl border border-destructive/30 bg-destructive/10 px-4 py-3 text-sm text-destructive">
               {submitError}{" "}
               <a href="tel:+17183604806" className="font-semibold underline">
                 Call (718) 360-4806
@@ -544,21 +557,31 @@ function Field({
   children,
   hint,
   error,
+  htmlFor,
+  errorId,
+  hintId,
 }: {
   label: string;
   children: ReactNode;
   hint?: string;
   error?: string | null;
+  htmlFor?: string;
+  errorId?: string;
+  hintId?: string;
 }) {
   return (
     <div className="block">
-      <span className="mb-1.5 block text-sm font-medium text-foreground">{label}</span>
+      {htmlFor ? (
+        <label htmlFor={htmlFor} className="mb-1.5 block text-sm font-medium text-foreground">{label}</label>
+      ) : (
+        <span className="mb-1.5 block text-sm font-medium text-foreground">{label}</span>
+      )}
       {children}
       {hint && !error && (
-        <span className="mt-1 block text-xs text-muted-foreground">{hint}</span>
+        <span id={hintId} className="mt-1 block text-xs text-muted-foreground">{hint}</span>
       )}
       {error && (
-        <span className="mt-1 block text-xs font-medium text-destructive" role="alert">
+        <span id={errorId} className="mt-1 block text-xs font-medium text-destructive" role="alert">
           {error}
         </span>
       )}
@@ -567,12 +590,14 @@ function Field({
 }
 
 function Input({
+  id,
   value,
   onChange,
   type = "text",
   required,
   autoComplete,
 }: {
+  id: string;
   value?: string;
   onChange: (v: string) => void;
   type?: string;
@@ -581,6 +606,7 @@ function Input({
 }) {
   return (
     <input
+      id={id}
       type={type}
       required={required}
       autoComplete={autoComplete}

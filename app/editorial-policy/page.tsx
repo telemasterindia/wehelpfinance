@@ -1,87 +1,164 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import { AlertCircle, ArrowRight, BookOpen, Bot, FileCheck, RefreshCw, Scale, ShieldCheck } from "lucide-react";
+import { EDITORIAL_TEAM } from "@/lib/authorConfig";
 import { breadcrumbJsonLd } from "@/lib/schema";
 
+const CANONICAL = "https://www.wehelpfinance.com/editorial-policy";
+
 export const metadata: Metadata = {
-  title: "Editorial Policy — How We Create and Review Content | WeHelpFinance",
-  description: "WeHelpFinance's editorial standards, fact-checking process, content review guidelines, and corrections policy. We are committed to accurate, independent, consumer-first financial education.",
-  alternates: { canonical: "https://www.wehelpfinance.com/editorial-policy" },
+  title: "Editorial Policy - How We Research & Review Content | WeHelpFinance",
+  description:
+    "How WeHelpFinance researches, writes, fact-checks, and reviews consumer finance content. Our sourcing standards, update policy, and AI usage disclosure.",
+  alternates: { canonical: CANONICAL },
   openGraph: {
     title: "Editorial Policy | WeHelpFinance",
-    description: "Our commitment to accurate, independent, consumer-first financial education content.",
-    url: "https://www.wehelpfinance.com/editorial-policy",
+    description: "Our standards for accurate, helpful, and current consumer finance content.",
+    url: CANONICAL,
     type: "website",
   },
 };
 
-export default function Page() {
+const sources = [
+  "The Consumer Financial Protection Bureau (CFPB)",
+  "The Federal Trade Commission (FTC), including the Telemarketing Sales Rule and FDCPA guidance",
+  "The Internal Revenue Service (IRS) for tax relief content",
+  "State-level statute of limitations and consumer protection statutes",
+  "Industry standards from organizations such as the American Fair Credit Council (AFCC)",
+];
+
+export default function EditorialPolicyPage() {
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd([
-        { name: "Home", path: "https://www.wehelpfinance.com/" },
-        { name: "Editorial Policy", path: "https://www.wehelpfinance.com/editorial-policy" },
-      ])) }} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbJsonLd([
+              { name: "Home", path: "/" },
+              { name: "Editorial Policy", path: "/editorial-policy" },
+            ])
+          ),
+        }}
+      />
 
-      <div className="bg-gradient-to-b from-primary-soft/30 to-background">
-        <div className="container-page max-w-3xl py-14 lg:py-20">
-          <h1>Editorial Policy</h1>
+      <section className="bg-gradient-to-b from-primary-soft/40 to-background">
+        <div className="container-page max-w-3xl py-12 lg:py-16">
+          <nav className="mb-6 text-sm text-muted-foreground" aria-label="Breadcrumb">
+            <Link href="/" className="hover:text-primary">Home</Link>
+            <span className="mx-2">/</span>
+            <span className="text-foreground">Editorial Policy</span>
+          </nav>
+          <span className="inline-flex rounded-full bg-primary-soft px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary">
+            Editorial Standards
+          </span>
+          <h1 className="mt-4">How We Research and Review Our Content</h1>
           <p className="mt-4 text-lg text-muted-foreground">
-            WeHelpFinance is committed to providing accurate, transparent, and consumer-first financial education content.
-            This page explains how our content is created, reviewed, and maintained.
+            WeHelpFinance publishes information about debt relief, personal loans, and tax relief that affects real financial decisions. Here is how we research, write, fact-check, and maintain it.
           </p>
-          <p className="mt-2 text-sm text-muted-foreground">Last updated: June 24, 2026</p>
         </div>
-      </div>
+      </section>
 
-      <div className="container-page max-w-3xl py-12 pb-24">
-        <div className="prose prose-slate max-w-none prose-headings:font-display prose-headings:text-foreground prose-a:text-primary prose-p:text-foreground/90">
+      <section className="container-page max-w-3xl space-y-12 py-12">
+        <PolicyBlock icon={BookOpen} title={EDITORIAL_TEAM.role}>
+          <p>{EDITORIAL_TEAM.description}</p>
+        </PolicyBlock>
 
-          <h2>Our Mission</h2>
-          <p>WeHelpFinance exists to help Americans facing financial hardship — debt, tax problems, and credit challenges — understand their options clearly and without pressure. Our editorial mission is to provide educational content that is accurate, unbiased, and genuinely useful to the people who need it most.</p>
-          <p>We are a consumer connection platform. Our business model involves connecting consumers with vetted financial specialists. This means we have a commercial interest in the topic areas we write about. We believe transparency about this relationship is essential to maintaining the trust of our readers.</p>
-
-          <h2>Content Standards</h2>
-          <p>All content published on WeHelpFinance is held to the following standards:</p>
-          <ul>
-            <li><strong>Accuracy:</strong> Claims and statistics must be sourced from credible, verifiable sources including Federal Reserve data, CFPB reports, IRS publications, and peer-reviewed research.</li>
-            <li><strong>Consumer-first perspective:</strong> Content is written to help consumers understand their situation and options — not to push them toward any particular product or service.</li>
-            <li><strong>Transparency about limitations:</strong> Content on WeHelpFinance is educational. It is not a substitute for advice from a licensed financial advisor, attorney, or tax professional. We disclose this clearly.</li>
-            <li><strong>No misleading language:</strong> We do not use terms like "government forgiveness" to describe private debt relief services. We do not imply guarantees of outcomes.</li>
-            <li><strong>Balanced presentation:</strong> Where legitimate differences of opinion or outcome exist, we present them. We do not present only favorable information about the services in our network.</li>
+        <PolicyBlock icon={FileCheck} title="Research Methodology">
+          <p>Every page on WeHelpFinance is built from primary sources before secondary commentary. Where relevant, we reference and link to:</p>
+          <ul className="mt-3 space-y-2">
+            {sources.map((source) => (
+              <li key={source} className="flex gap-2">
+                <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-success" aria-hidden="true" />
+                {source}
+              </li>
+            ))}
           </ul>
+          <p className="mt-3">
+            We do not rely solely on secondary summaries. Where a claim is specific, such as a fee percentage, time limit, or legal right, we trace it back to the originating source.
+          </p>
+        </PolicyBlock>
 
-          <h2>Editorial Independence</h2>
-          <p>Editorial content on WeHelpFinance is created independently from our business development and partner relations functions. The existence of a commercial relationship with a debt relief company, lender, or tax firm does not influence our editorial coverage or recommendations.</p>
-          <p>We do not accept payment for editorial placement or positive coverage. Companies that work with us through our referral network do not receive favorable editorial treatment in exchange for that relationship.</p>
+        <PolicyBlock icon={Scale} title="Fact-Checking & Review Process">
+          <p>Before publication, every page is checked for accuracy, currency, and clarity.</p>
+          <ol className="mt-3 list-inside list-decimal space-y-2">
+            <li><strong className="text-foreground">Accuracy:</strong> factual claims are verified against current primary sources.</li>
+            <li><strong className="text-foreground">Currency:</strong> laws, regulations, and data points are checked against recent available information.</li>
+            <li><strong className="text-foreground">Clarity:</strong> financial hardship topics are written in plain language.</li>
+          </ol>
+        </PolicyBlock>
 
-          <h2>Fact-Checking Process</h2>
-          <p>Before publication, factual claims in our content are verified against primary sources. Our standard process includes:</p>
-          <ul>
-            <li>Identifying the original source for statistics and data points (Federal Reserve, CFPB, IRS, academic research)</li>
-            <li>Verifying that quoted statistics are accurate to the source and not misrepresented out of context</li>
-            <li>Confirming that descriptions of legal processes (bankruptcy, IRS programs, debt settlement) are accurate as of the publication date</li>
-            <li>Flagging content that describes dynamic situations (interest rates, regulatory programs) for timely review and update</li>
-          </ul>
+        <PolicyBlock icon={RefreshCw} title="Update Policy">
+          <p>
+            We review and update money pages, state pages, and city pages at minimum annually, and sooner when we become aware of a material regulatory change such as an FTC rule change, state statute amendment, or updated IRS program term.
+          </p>
+          <p className="mt-3">Material corrections are reviewed and updated promptly when warranted.</p>
+        </PolicyBlock>
 
-          <h2>Content Review Process</h2>
-          <p>Content is reviewed for accuracy, consumer-appropriate tone, and compliance with our editorial standards before publication. Content describing specific IRS programs, legal rights, or regulatory frameworks is reviewed with particular care given how quickly these areas can change.</p>
+        <PolicyBlock icon={Bot} title="AI Usage Disclosure">
+          <p>
+            We use AI tools to assist with drafting and research efficiency. AI-assisted drafts are never published without human review against the methodology and fact-checking standards described here. We do not use AI to fabricate statistics, quotes, or claims.
+          </p>
+        </PolicyBlock>
 
-          <h2>Content Updates</h2>
-          <p>Financial information can change quickly. Interest rate data, IRS program details, and regulatory frameworks are subject to change. We are committed to reviewing and updating time-sensitive content when material changes occur. Articles that have been substantively updated will display a "Last updated" date alongside the original publication date.</p>
+        <PolicyBlock icon={AlertCircle} title="Corrections Policy">
+          <p>
+            If you believe something on WeHelpFinance is inaccurate or out of date, email{" "}
+            <a href="mailto:hello@wehelpfinance.com" className="text-primary underline">hello@wehelpfinance.com</a>{" "}
+            with the page URL and specific concern.
+          </p>
+        </PolicyBlock>
 
-          <h2>Corrections Policy</h2>
-          <p>If we publish content that contains a factual error, we correct it promptly and transparently. Corrections are noted within the affected article. For significant corrections that materially change the substance of an article, we will note the nature of the correction.</p>
-          <p>If you believe you have found an error in our content, please contact us at <a href="mailto:editorial@wehelpfinance.com">editorial@wehelpfinance.com</a>. We take correction requests seriously and will respond within 5 business days.</p>
-
-          <h2>Contact the Editorial Team</h2>
-          <p>For questions about our editorial standards, to report an error, or to provide feedback on our content:</p>
-          <ul>
-            <li>Email: <a href="mailto:editorial@wehelpfinance.com">editorial@wehelpfinance.com</a></li>
-            <li>Mailing address: WeHelpFinance, 539 W. Commerce St #4251, Dallas TX 75208</li>
-          </ul>
-          <p>We welcome feedback from readers, financial professionals, and consumer advocates. Our editorial standards are improved by thoughtful engagement with the people who use our content.</p>
+        <div className="rounded-2xl border border-amber-200 bg-amber-50 p-6">
+          <h2 className="text-base font-semibold text-amber-900">Financial Content Disclaimer</h2>
+          <p className="mt-2 text-sm leading-relaxed text-amber-800">
+            WeHelpFinance is a free matching service. We are not a lender, bank, law firm, credit repair organization, or tax advisory firm, and nothing on this site constitutes financial, legal, or tax advice.
+          </p>
         </div>
-      </div>
+
+        <div className="border-t border-border pt-4">
+          <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-muted-foreground">Related Pages</h3>
+          <div className="flex flex-wrap gap-2">
+            {[
+              { href: "/about", label: "About WeHelpFinance" },
+              { href: "/privacy", label: "Privacy Policy" },
+              { href: "/terms", label: "Terms of Service" },
+              { href: "/contact", label: "Contact Us" },
+            ].map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-4 py-2 text-sm font-medium text-foreground transition hover:border-primary hover:text-primary"
+              >
+                {link.label}
+                <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
     </>
   );
 }
 
+function PolicyBlock({
+  icon: Icon,
+  title,
+  children,
+}: {
+  icon: typeof BookOpen;
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div>
+      <div className="mb-3 flex items-center gap-3">
+        <span className="grid h-10 w-10 place-items-center rounded-full bg-primary-soft">
+          <Icon className="h-5 w-5 text-primary" aria-hidden="true" />
+        </span>
+        <h2>{title}</h2>
+      </div>
+      <div className="space-y-3 leading-relaxed text-muted-foreground">{children}</div>
+    </div>
+  );
+}

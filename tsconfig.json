@@ -7,7 +7,7 @@
     "src/components/**/*.tsx",
     "src/hooks/**/*.ts",
     "src/hooks/**/*.tsx",
-    "src/lib/utils.ts",
+    "src/lib/**/*.ts",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts"
   ],

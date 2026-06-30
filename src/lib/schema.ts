@@ -1,4 +1,5 @@
-// lib/schema.ts — Schema helpers for WeHelpFinance
+import { authorJsonLd } from "@/lib/authorConfig";
+import { ORGANIZATION, SITE_URL } from "@/lib/organizationConfig";
 
 export type FAQItem = { q: string; a: string };
 
@@ -24,8 +25,30 @@ export function breadcrumbJsonLd(items: BreadcrumbItem[]) {
       "@type": "ListItem",
       position: i + 1,
       name: item.name,
-      item: item.path,
+      item: item.path.startsWith("http") ? item.path : `${SITE_URL}${item.path}`,
     })),
+  };
+}
+
+export function serviceJsonLd(opts: {
+  name: string;
+  description: string;
+  path: string;
+  serviceType: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: opts.name,
+    description: opts.description,
+    url: `${SITE_URL}${opts.path}`,
+    serviceType: opts.serviceType,
+    provider: {
+      "@type": "Organization",
+      name: ORGANIZATION.name,
+      url: ORGANIZATION.url,
+    },
+    areaServed: ORGANIZATION.areaServed,
   };
 }
 
@@ -46,7 +69,8 @@ export function articleJsonLd({
   author: string;
   path?: string;
 }) {
-  const url = `https://www.wehelpfinance.com${path ?? `/blog/${slug}`}`;
+  const pagePath = path ?? `/blog/${slug}`;
+  const url = pagePath.startsWith("http") ? pagePath : `${SITE_URL}${pagePath}`;
 
   return {
     "@context": "https://schema.org",
@@ -56,18 +80,14 @@ export function articleJsonLd({
     datePublished: published,
     dateModified: updated ?? published,
     url,
-    author: {
-      "@type": "Organization",
-      name: author,
-      url: "https://www.wehelpfinance.com",
-    },
+    author: author ? { "@type": "Organization", name: author, url: ORGANIZATION.url } : authorJsonLd(pagePath),
     publisher: {
       "@type": "Organization",
-      name: "WeHelpFinance",
-      url: "https://www.wehelpfinance.com",
+      name: ORGANIZATION.name,
+      url: ORGANIZATION.url,
       logo: {
         "@type": "ImageObject",
-        url: "https://www.wehelpfinance.com/assets/logo.png",
+        url: ORGANIZATION.logo,
       },
     },
     mainEntityOfPage: {
@@ -77,3 +97,21 @@ export function articleJsonLd({
   };
 }
 
+export function howToJsonLd(opts: {
+  name: string;
+  description: string;
+  steps: { name: string; text: string }[];
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: opts.name,
+    description: opts.description,
+    step: opts.steps.map((step, i) => ({
+      "@type": "HowToStep",
+      position: i + 1,
+      name: step.name,
+      text: step.text,
+    })),
+  };
+}

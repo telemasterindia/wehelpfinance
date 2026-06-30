@@ -168,7 +168,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
         )}
       </header>
 
-      <main className="flex-1 pb-20 md:pb-0">{children}</main>
+      <main id="main-content" className="flex-1 pb-20 md:pb-0">{children}</main>
 
       <section className="border-t border-border bg-primary-soft/30">
         <div className="container-page flex flex-col gap-5 py-8 sm:flex-row sm:items-center sm:justify-between">
@@ -237,6 +237,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             links={[
               { to: "/about", label: "About" },
               { to: "/contact", label: "Contact" },
+              { to: "/editorial-policy", label: "Editorial Policy" },
               { to: "/privacy", label: "Privacy Policy" },
               { to: "/terms", label: "Terms of Service" },
             ]}
