@@ -11,6 +11,7 @@ import {
   Linkedin,
   Menu,
   Phone,
+  ShieldCheck,
   X,
   Youtube,
 } from "lucide-react";
@@ -79,8 +80,8 @@ export function SiteLayout({ children }: { children: ReactNode }) {
     <div className="flex min-h-screen flex-col">
       <TawkChat />
 
-      <header className={`sticky top-0 z-40 border-b border-border/70 bg-background/95 backdrop-blur transition-shadow ${scrolled ? "shadow-sm" : ""}`}>
-        <div className="container-page flex h-16 items-center justify-between gap-4">
+      <header className={`sticky top-0 z-40 border-b border-border/70 bg-background/95 backdrop-blur transition-shadow ${scrolled || open ? "shadow-sm" : ""}`}>
+        <div className="container-page flex h-16 items-center justify-between gap-3 sm:gap-4">
           <Logo size="md" />
 
           <nav className="hidden items-center gap-1 lg:flex" aria-label="Main navigation">
@@ -118,7 +119,9 @@ export function SiteLayout({ children }: { children: ReactNode }) {
               aria-expanded={open}
               aria-controls="mobile-menu"
               onClick={() => setOpen((value) => !value)}
-              className="grid h-11 w-11 place-items-center rounded-full border border-border lg:hidden"
+              className={`grid h-11 w-11 shrink-0 place-items-center rounded-full border text-foreground transition-colors lg:hidden ${
+                open ? "border-primary bg-primary-soft text-primary" : "border-border bg-card hover:bg-muted"
+              }`}
             >
               {open ? <X className="h-5 w-5" aria-hidden="true" /> : <Menu className="h-5 w-5" aria-hidden="true" />}
             </button>
@@ -126,22 +129,40 @@ export function SiteLayout({ children }: { children: ReactNode }) {
         </div>
 
         {open && (
-          <div id="mobile-menu" className="border-t border-border bg-background lg:hidden">
-            <div className="container-page flex flex-col gap-1 py-3 pb-4">
-              <MobileSection title="Services" items={SERVICES} pathname={pathname} onClick={() => setOpen(false)} />
-              <MobileSection title="Resources" items={RESOURCES} pathname={pathname} onClick={() => setOpen(false)} />
-              <MobileSection title="Company" items={NAV} pathname={pathname} onClick={() => setOpen(false)} />
-              <Link href="/get-help" onClick={() => setOpen(false)} className="btn-cta mt-2 min-h-12">
-                Get Free Help Now
-              </Link>
-              <a
-                href={`tel:${PHONE_NUMBER}`}
-                onClick={() => setOpen(false)}
-                className="flex min-h-12 items-center gap-2 rounded-xl px-3 text-base font-semibold text-primary transition-colors hover:bg-muted"
-              >
-                <Phone className="h-4 w-4" aria-hidden="true" />
-                {PHONE_DISPLAY}
-              </a>
+          <div id="mobile-menu" className="border-t border-border bg-background/98 shadow-lg lg:hidden">
+            <div className="container-page max-h-[calc(100dvh-4rem)] overflow-y-auto py-4">
+              <div className="rounded-2xl border border-border bg-card p-3 shadow-sm">
+                <div className="grid grid-cols-2 gap-2">
+                  <Link href="/get-help" onClick={() => setOpen(false)} className="btn-cta min-h-12 px-3 text-sm">
+                    Get Free Help
+                  </Link>
+                  <a
+                    href={`tel:${PHONE_NUMBER}`}
+                    onClick={() => setOpen(false)}
+                    className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-primary/30 bg-primary-soft px-3 text-sm font-semibold text-primary transition-colors hover:bg-primary-soft/75"
+                  >
+                    <Phone className="h-4 w-4 shrink-0" aria-hidden="true" />
+                    Call Now
+                  </a>
+                </div>
+                <div className="mt-3 flex items-center gap-2 rounded-xl bg-muted/70 px-3 py-2 text-xs font-medium text-muted-foreground">
+                  <ShieldCheck className="h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
+                  Free, confidential consultation
+                </div>
+              </div>
+
+              <nav className="mt-3 space-y-3" aria-label="Mobile navigation">
+                <MobileSection title="Services" items={SERVICES} pathname={pathname} onClick={() => setOpen(false)} />
+                <MobileSection title="Resources" items={RESOURCES} pathname={pathname} onClick={() => setOpen(false)} />
+                <MobileSection title="Company" items={NAV} pathname={pathname} onClick={() => setOpen(false)} />
+              </nav>
+
+              <div className="mt-3 rounded-2xl border border-border bg-card p-3 text-center shadow-sm">
+                <a href={`tel:${PHONE_NUMBER}`} onClick={() => setOpen(false)} className="text-sm font-semibold text-primary">
+                  {PHONE_DISPLAY}
+                </a>
+                <p className="mt-1 text-xs text-muted-foreground">Speak with a financial help specialist.</p>
+              </div>
             </div>
           </div>
         )}
@@ -268,22 +289,32 @@ function Dropdown({ label, active, items, pathname }: { label: string; active: b
 
 function MobileSection({ title, items, pathname, onClick }: { title: string; items: NavItem[]; pathname: string; onClick: () => void }) {
   return (
-    <>
-      <div className="mt-2 px-3 pt-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">{title}</div>
-      {items.map((item) => (
-        <Link
-          key={item.to}
-          href={item.to}
-          onClick={onClick}
-          className={`flex min-h-11 items-center justify-between rounded-xl px-3 text-base font-medium transition-colors hover:bg-muted ${
-            pathname === item.to ? "bg-primary-soft text-primary" : "text-foreground"
-          }`}
-        >
-          <span>{item.label}</span>
-          {item.soon && <span className="text-xs uppercase tracking-wide text-gold">Coming soon</span>}
-        </Link>
-      ))}
-    </>
+    <section className="rounded-2xl border border-border bg-card p-2 shadow-sm">
+      <div className="px-3 pb-1 pt-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">{title}</div>
+      <div className="grid gap-1">
+        {items.map((item) => {
+          const active = pathname === item.to || pathname.startsWith(`${item.to}/`);
+
+          return (
+            <Link
+              key={item.to}
+              href={item.to}
+              onClick={onClick}
+              className={`flex min-h-12 items-center justify-between gap-3 rounded-xl px-3 text-[15px] font-medium leading-snug transition-colors ${
+                active ? "bg-primary-soft text-primary" : "text-foreground hover:bg-muted"
+              }`}
+            >
+              <span>{item.label}</span>
+              {item.soon && (
+                <span className="shrink-0 rounded-full bg-gold/15 px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-gold-foreground">
+                  Soon
+                </span>
+              )}
+            </Link>
+          );
+        })}
+      </div>
+    </section>
   );
 }
 

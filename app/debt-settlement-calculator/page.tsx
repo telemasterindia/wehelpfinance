@@ -88,7 +88,7 @@ export default function Page() {
       />
 
       {/* Hero */}
-      <section className="bg-gradient-to-b from-primary-soft/40 to-background">
+      <section className="bg-linear-to-b from-primary-soft/40 to-background">
         <div className="container-page max-w-4xl py-12 lg:py-16">
           <nav className="mb-6 text-sm text-muted-foreground" aria-label="Breadcrumb">
             <Link href="/" className="hover:text-primary">Home</Link>
