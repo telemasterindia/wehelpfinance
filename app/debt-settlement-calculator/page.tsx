@@ -90,12 +90,12 @@ export default function Page() {
       {/* Hero */}
       <section className="bg-linear-to-b from-primary-soft/40 to-background">
         <div className="container-page max-w-4xl py-12 lg:py-16">
-          <nav className="mb-6 text-sm text-muted-foreground" aria-label="Breadcrumb">
+          <nav className="breadcrumb-nav" aria-label="Breadcrumb">
             <Link href="/" className="hover:text-primary">Home</Link>
             <span className="mx-2">/</span>
             <Link href="/debt-settlement" className="hover:text-primary">Debt Settlement</Link>
             <span className="mx-2">/</span>
-            <span className="text-foreground">Calculator</span>
+            <span data-current="true">Calculator</span>
           </nav>
 
           <span className="inline-flex rounded-full bg-primary-soft px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary">

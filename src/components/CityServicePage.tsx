@@ -56,12 +56,12 @@ export function CityServicePage({
       <section className="bg-gradient-to-b from-primary-soft/40 to-background">
         <div className="container-page max-w-6xl py-10 lg:py-16">
           {/* Breadcrumb */}
-          <nav className="mb-6 text-sm text-muted-foreground" aria-label="Breadcrumb">
+          <nav className="breadcrumb-nav" aria-label="Breadcrumb">
             <Link href="/" className="hover:text-primary">Home</Link>
             <span className="mx-2">/</span>
             <Link href="/debt-settlement" className="hover:text-primary">Debt Settlement</Link>
             <span className="mx-2">/</span>
-            <span className="text-foreground">{city.city}</span>
+            <span data-current="true">{city.city}</span>
           </nav>
 
           <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-start lg:gap-12">

@@ -42,10 +42,10 @@ export default function TaxReliefPage() {
       <section className="bg-gradient-to-b from-primary-soft/40 to-background">
         <div className="container-page grid gap-10 pb-16 pt-12 lg:grid-cols-[1.1fr_1fr] lg:items-start lg:gap-12">
           <div>
-            <nav className="mb-6 text-sm text-muted-foreground" aria-label="Breadcrumb">
+            <nav className="breadcrumb-nav" aria-label="Breadcrumb">
               <Link href="/" className="hover:text-primary">Home</Link>
               <span className="mx-2">/</span>
-              <span className="text-foreground">Tax Relief</span>
+              <span data-current="true">Tax Relief</span>
             </nav>
             <h1 className="mt-4">Tax Relief - IRS Back Tax Help</h1>
             <p className="mt-5 max-w-xl text-lg text-muted-foreground">
