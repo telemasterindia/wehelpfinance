@@ -190,7 +190,7 @@ export default function Page() {
             <div>
               <p className="font-semibold text-foreground mb-1">Contact</p>
               <p><a href="tel:+17183604806" className="hover:text-primary" itemProp="telephone">(718) 360-4806</a></p>
-              <p><a href="mailto:amit@wehelpfinance.com" className="hover:text-primary" itemProp="email">amit@wehelpfinance.com</a></p>
+              <p><a href="mailto:help@wehelpfinance.com" className="hover:text-primary" itemProp="email">help@wehelpfinance.com</a></p>
             </div>
           </div>
           <div className="mt-6 flex gap-3">

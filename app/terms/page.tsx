@@ -78,7 +78,7 @@ export default function Terms() {
           <p>We may update these Terms periodically. Continued use of the Site after changes constitutes acceptance.</p>
 
           <h2 className="text-2xl">Contact</h2>
-          <p>Email <a href="mailto:hello@wehelpfinance.com" className="text-primary underline">hello@wehelpfinance.com</a> with questions.</p>
+          <p>Email <a href="mailto:help@wehelpfinance.com" className="text-primary underline">help@wehelpfinance.com</a> with questions.</p>
         </div>
       </article>
     </>

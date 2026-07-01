@@ -104,7 +104,7 @@ export default function EditorialPolicyPage() {
         <PolicyBlock icon={AlertCircle} title="Corrections Policy">
           <p>
             If you believe something on WeHelpFinance is inaccurate or out of date, email{" "}
-            <a href="mailto:hello@wehelpfinance.com" className="text-primary underline">hello@wehelpfinance.com</a>{" "}
+            <a href="mailto:help@wehelpfinance.com" className="text-primary underline">help@wehelpfinance.com</a>{" "}
             with the page URL and specific concern.
           </p>
         </PolicyBlock>

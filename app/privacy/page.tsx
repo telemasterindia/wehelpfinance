@@ -57,7 +57,7 @@ export default function Privacy() {
           <p>
             You may opt out of marketing communications at any time. You may also request access,
             correction, or deletion of your personal information by emailing us at
-            hello@wehelpfinance.com. State residents (including California) may have additional
+            help@wehelpfinance.com. State residents (including California) may have additional
             rights under applicable law.
           </p>
 
@@ -68,7 +68,7 @@ export default function Privacy() {
           <p>We may update this Privacy Policy from time to time. Updates will be posted on this page.</p>
 
           <h2 className="text-2xl">Contact</h2>
-          <p>Questions? Email <a href="mailto:hello@wehelpfinance.com" className="text-primary underline">hello@wehelpfinance.com</a>.</p>
+          <p>Questions? Email <a href="mailto:help@wehelpfinance.com" className="text-primary underline">help@wehelpfinance.com</a>.</p>
         </div>
       </article>
     </>

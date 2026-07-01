@@ -19,7 +19,7 @@ export const ORGANIZATION = {
     "@type": "ContactPoint",
     telephone: "+1-718-360-4806",
     contactType: "customer service",
-    email: "hello@wehelpfinance.com",
+    email: "help@wehelpfinance.com",
     areaServed: "US",
     availableLanguage: ["English"],
   },

@@ -134,7 +134,7 @@ export default function ContactPage() {
                 <Mail className="h-5 w-5 shrink-0 text-primary mt-0.5" aria-hidden="true" />
                 <div>
                   <p className="font-medium text-foreground">Email</p>
-                  <a href="mailto:amit@wehelpfinance.com" className="text-muted-foreground hover:text-primary">amit@wehelpfinance.com</a>
+                  <a href="mailto:help@wehelpfinance.com" className="text-muted-foreground hover:text-primary">help@wehelpfinance.com</a>
                 </div>
               </div>
               <div className="flex items-start gap-3 text-sm">

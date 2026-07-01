@@ -72,7 +72,7 @@ export default function ResearchIndex() {
             <div>
               <span className="font-semibold text-foreground">Media &amp; Citation:</span>
               <span className="text-muted-foreground"> Research from this center may be cited freely with attribution to WeHelpFinance. Contact us at </span>
-              <a href="mailto:research@wehelpfinance.com" className="text-primary hover:underline">research@wehelpfinance.com</a>
+              <a href="mailto:help@wehelpfinance.com" className="text-primary hover:underline">help@wehelpfinance.com</a>
             </div>
           </div>
         </div>
