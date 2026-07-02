@@ -244,7 +244,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             <p>
               <strong className="text-foreground">Disclaimer:</strong> WeHelpFinance is not a lender, bank, law firm, credit repair organization, or tax advisory firm. We connect consumers with independent financial service providers. Results vary by individual circumstances. This website is for informational purposes only and does not constitute financial, legal, or tax advice.
             </p>
-            <p className="mt-3">© {new Date().getFullYear()} WeHelpFinance. All rights reserved. Operated by Telemaster India (TMI).</p>
+            <p className="mt-3">© 2026 WeHelpFinance. All rights reserved. Operated by Telemaster India (TMI).</p>
           </div>
         </div>
       </footer>
