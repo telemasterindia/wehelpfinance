@@ -44,7 +44,7 @@ export const metadata: Metadata = {
 images: [
   {
     url: "https://www.wehelpfinance.com/og-default.png",
-    width: 1206,
+    width: 1200,
     height: 630,
     alt: "WeHelpFinance — Financial Help Made Human",
   },
