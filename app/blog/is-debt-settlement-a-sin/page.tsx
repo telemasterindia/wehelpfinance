@@ -7,7 +7,7 @@ const SLUG = "is-debt-settlement-a-sin";
 const TITLE = "Is Debt Settlement a Sin? What No One Tells You";
 const EXCERPT =
   "For many Americans — particularly those with religious values — the idea of paying less than what you owe feels morally wrong. This article addresses that concern honestly.";
-const PUBLISHED = "2026-06-24";
+const PUBLISHED = "2026-06-02";
 const AUTHOR = AUTHORS.financial_education;
 
 export const metadata: Metadata = {
