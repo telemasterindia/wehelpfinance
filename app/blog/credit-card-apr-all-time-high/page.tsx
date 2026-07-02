@@ -7,7 +7,7 @@ const SLUG = "credit-card-apr-all-time-high";
 const TITLE = "Credit Card APR Is at an All-Time High — Here's What To Do";
 const EXCERPT =
   "Average credit card interest rates hit record highs in 2025–2026. Here's what that means for your balance and what practical steps you can take right now.";
-const PUBLISHED = "2026-06-24";
+const PUBLISHED = "2026-05-13";
 const AUTHOR = AUTHORS.research;
 
 export const metadata: Metadata = {
