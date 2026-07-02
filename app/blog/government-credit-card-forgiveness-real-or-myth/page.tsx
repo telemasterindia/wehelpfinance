@@ -7,7 +7,7 @@ const SLUG = "government-credit-card-forgiveness-real-or-myth";
 const TITLE = "Government Credit Card Forgiveness: Real or Myth?";
 const EXCERPT =
   "Millions of Americans search for government credit card forgiveness programs every month. Here's the truth about what exists, what doesn't, and what legitimate options are actually available.";
-const PUBLISHED = "2026-06-24";
+const PUBLISHED = "2026-05-26";
 const AUTHOR = AUTHORS.financial_education;
 
 export const metadata: Metadata = {
