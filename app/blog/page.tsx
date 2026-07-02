@@ -33,7 +33,7 @@ const ARTICLES = [
     excerpt:
       "Before you make the decision to stop paying, understand exactly what the timeline looks like — from the first missed payment to a potential lawsuit — and what your options are at every stage.",
     category: "Debt Relief",
-    date: "2026-06-24",
+    date: "2026-05-08",
     readingTime: 9,
     featured: true,
   },
@@ -43,7 +43,7 @@ const ARTICLES = [
     excerpt:
       "If you've been making minimum payments for years and your balance barely moves, you're not doing it wrong — the math is just designed to keep you paying interest indefinitely.",
     category: "Debt Relief",
-    date: "2026-06-24",
+    date: "2026-05-04",
     readingTime: 8,
     featured: true,
   },
@@ -53,7 +53,7 @@ const ARTICLES = [
     excerpt:
       "Average credit card interest rates hit record highs in 2025–2026. Here's what that means for your balance and what practical steps you can take right now.",
     category: "Research",
-    date: "2026-06-24",
+    date: "2026-05-13",
     readingTime: 7,
     featured: false,
   },
@@ -63,7 +63,7 @@ const ARTICLES = [
     excerpt:
       "Losing your income while carrying credit card debt is one of the most stressful financial situations Americans face right now. Here's a clear-headed guide to your options.",
     category: "Research",
-    date: "2026-06-24",
+    date: "2026-06-18",
     readingTime: 9,
     featured: false,
   },
@@ -73,7 +73,7 @@ const ARTICLES = [
     excerpt:
       "Groceries, rent, insurance, and utilities have all risen faster than wages. For millions of middle-income Americans, credit cards became the gap-filler — and the debt accumulated fast.",
     category: "Research",
-    date: "2026-06-24",
+    date: "2026-06-10",
     readingTime: 8,
     featured: false,
   },
@@ -83,7 +83,7 @@ const ARTICLES = [
     excerpt:
       "Millions of Americans search for government credit card forgiveness programs every month. Here's the truth about what exists, what doesn't, and what legitimate options are actually available.",
     category: "Debt Relief",
-    date: "2026-06-24",
+    date: "2026-05-26",
     readingTime: 7,
     featured: false,
   },
@@ -94,7 +94,7 @@ const ARTICLES = [
     excerpt:
       "The average American pays for over a dozen subscription services. Combined with rising costs elsewhere, this hidden drain on income is pushing more households into credit card debt.",
     category: "Research",
-    date: "2026-06-24",
+    date: "2026-05-19",
     readingTime: 7,
     featured: false,
   },
@@ -104,7 +104,7 @@ const ARTICLES = [
     excerpt:
       "For many Americans — particularly those with religious values — the idea of paying less than what you owe feels morally wrong. This article addresses that concern honestly.",
     category: "Debt Relief",
-    date: "2026-06-24",
+    date: "2026-06-02",
     readingTime: 8,
     featured: false,
   },
