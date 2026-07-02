@@ -1,3 +1,4 @@
+import { DEFAULT_OG_IMAGE, DEFAULT_TWITTER_IMAGE } from "@/lib/seo";
 import type { Metadata } from "next";
 import { ServicePage } from "@/components/ServicePage";
 import type { FAQItem } from "@/components/FAQ";
@@ -5,18 +6,25 @@ import { faqJsonLd, breadcrumbJsonLd } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Credit Card Debt Relief — Stop the Interest Cycle | WeHelpFinance",
-  description: "Trapped paying minimum payments that never reduce your balance? Explore credit card debt relief options with a vetted specialist. Free consultation, no obligation.",
-  alternates: { canonical: "https://www.wehelpfinance.com/credit-card-debt-relief" },
+  description:
+    "Trapped paying minimum payments that never reduce your balance? Explore credit card debt relief options with a vetted specialist. Free consultation, no obligation.",
+  alternates: {
+    canonical: "https://www.wehelpfinance.com/credit-card-debt-relief",
+  },
   openGraph: {
     title: "Credit Card Debt Relief — Stop the Interest Cycle | WeHelpFinance",
-    description: "Explore options to break free from credit card debt. Connect with a vetted specialist for a free, no-obligation consultation.",
+    description:
+      "Explore options to break free from credit card debt. Connect with a vetted specialist for a free, no-obligation consultation.",
     url: "https://www.wehelpfinance.com/credit-card-debt-relief",
     type: "website",
+    images: [DEFAULT_OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: "Credit Card Debt Relief — Stop the Interest Cycle | WeHelpFinance",
-    description: "Break free from credit card minimum payments. Free consultation with vetted specialists.",
+    description:
+      "Break free from credit card minimum payments. Free consultation with vetted specialists.",
+    images: [DEFAULT_TWITTER_IMAGE],
   },
 };
 
@@ -58,7 +66,10 @@ const FAQS: FAQItem[] = [
 const BREADCRUMBS = [
   { name: "Home", path: "https://www.wehelpfinance.com/" },
   { name: "Debt Relief", path: "https://www.wehelpfinance.com/debt-relief" },
-  { name: "Credit Card Debt Relief", path: "https://www.wehelpfinance.com/credit-card-debt-relief" },
+  {
+    name: "Credit Card Debt Relief",
+    path: "https://www.wehelpfinance.com/credit-card-debt-relief",
+  },
 ];
 
 export default function Page() {
@@ -70,11 +81,18 @@ export default function Page() {
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(BREADCRUMBS)) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd(BREADCRUMBS)),
+        }}
       />
       <ServicePage
         eyebrow="Credit Card Debt Relief"
-        title={<>Break free from the <span className="italic text-primary">minimum payment trap.</span></>}
+        title={
+          <>
+            Break free from the{" "}
+            <span className="italic text-primary">minimum payment trap.</span>
+          </>
+        }
         lede="When 20%+ interest rates mean most of your payment goes to the bank instead of reducing your balance, you are not making progress — you are treading water. Credit card debt relief programs are designed to break this cycle and give you a real path to becoming debt-free."
         bullets={[
           "Programs for $7,500 or more in credit card debt",
@@ -95,4 +113,3 @@ export default function Page() {
     </>
   );
 }
-

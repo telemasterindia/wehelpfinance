@@ -1,6 +1,16 @@
+import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { AlertCircle, ArrowRight, BookOpen, Bot, FileCheck, RefreshCw, Scale, ShieldCheck } from "lucide-react";
+import {
+  AlertCircle,
+  ArrowRight,
+  BookOpen,
+  Bot,
+  FileCheck,
+  RefreshCw,
+  Scale,
+  ShieldCheck,
+} from "lucide-react";
 import { EDITORIAL_TEAM } from "@/lib/authorConfig";
 import { breadcrumbJsonLd } from "@/lib/schema";
 
@@ -13,9 +23,11 @@ export const metadata: Metadata = {
   alternates: { canonical: CANONICAL },
   openGraph: {
     title: "Editorial Policy | WeHelpFinance",
-    description: "Our standards for accurate, helpful, and current consumer finance content.",
+    description:
+      "Our standards for accurate, helpful, and current consumer finance content.",
     url: CANONICAL,
     type: "website",
+    images: [DEFAULT_OG_IMAGE],
   },
 };
 
@@ -37,7 +49,7 @@ export default function EditorialPolicyPage() {
             breadcrumbJsonLd([
               { name: "Home", path: "/" },
               { name: "Editorial Policy", path: "/editorial-policy" },
-            ])
+            ]),
           ),
         }}
       />
@@ -45,7 +57,9 @@ export default function EditorialPolicyPage() {
       <section className="bg-gradient-to-b from-primary-soft/40 to-background">
         <div className="container-page max-w-3xl py-12 lg:py-16">
           <nav className="breadcrumb-nav" aria-label="Breadcrumb">
-            <Link href="/" className="hover:text-primary">Home</Link>
+            <Link href="/" className="hover:text-primary">
+              Home
+            </Link>
             <span className="mx-2">/</span>
             <span data-current="true">Editorial Policy</span>
           </nav>
@@ -54,7 +68,9 @@ export default function EditorialPolicyPage() {
           </span>
           <h1 className="mt-4">How We Research and Review Our Content</h1>
           <p className="mt-4 text-lg text-muted-foreground">
-            WeHelpFinance publishes information about debt relief, personal loans, and tax relief that affects real financial decisions. Here is how we research, write, fact-check, and maintain it.
+            WeHelpFinance publishes information about debt relief, personal
+            loans, and tax relief that affects real financial decisions. Here is
+            how we research, write, fact-check, and maintain it.
           </p>
         </div>
       </section>
@@ -65,59 +81,101 @@ export default function EditorialPolicyPage() {
         </PolicyBlock>
 
         <PolicyBlock icon={FileCheck} title="Research Methodology">
-          <p>Every page on WeHelpFinance is built from primary sources before secondary commentary. Where relevant, we reference and link to:</p>
+          <p>
+            Every page on WeHelpFinance is built from primary sources before
+            secondary commentary. Where relevant, we reference and link to:
+          </p>
           <ul className="mt-3 space-y-2">
             {sources.map((source) => (
               <li key={source} className="flex gap-2">
-                <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-success" aria-hidden="true" />
+                <ShieldCheck
+                  className="mt-0.5 h-5 w-5 shrink-0 text-success"
+                  aria-hidden="true"
+                />
                 {source}
               </li>
             ))}
           </ul>
           <p className="mt-3">
-            We do not rely solely on secondary summaries. Where a claim is specific, such as a fee percentage, time limit, or legal right, we trace it back to the originating source.
+            We do not rely solely on secondary summaries. Where a claim is
+            specific, such as a fee percentage, time limit, or legal right, we
+            trace it back to the originating source.
           </p>
         </PolicyBlock>
 
         <PolicyBlock icon={Scale} title="Fact-Checking & Review Process">
-          <p>Before publication, every page is checked for accuracy, currency, and clarity.</p>
+          <p>
+            Before publication, every page is checked for accuracy, currency,
+            and clarity.
+          </p>
           <ol className="mt-3 list-inside list-decimal space-y-2">
-            <li><strong className="text-foreground">Accuracy:</strong> factual claims are verified against current primary sources.</li>
-            <li><strong className="text-foreground">Currency:</strong> laws, regulations, and data points are checked against recent available information.</li>
-            <li><strong className="text-foreground">Clarity:</strong> financial hardship topics are written in plain language.</li>
+            <li>
+              <strong className="text-foreground">Accuracy:</strong> factual
+              claims are verified against current primary sources.
+            </li>
+            <li>
+              <strong className="text-foreground">Currency:</strong> laws,
+              regulations, and data points are checked against recent available
+              information.
+            </li>
+            <li>
+              <strong className="text-foreground">Clarity:</strong> financial
+              hardship topics are written in plain language.
+            </li>
           </ol>
         </PolicyBlock>
 
         <PolicyBlock icon={RefreshCw} title="Update Policy">
           <p>
-            We review and update money pages, state pages, and city pages at minimum annually, and sooner when we become aware of a material regulatory change such as an FTC rule change, state statute amendment, or updated IRS program term.
+            We review and update money pages, state pages, and city pages at
+            minimum annually, and sooner when we become aware of a material
+            regulatory change such as an FTC rule change, state statute
+            amendment, or updated IRS program term.
           </p>
-          <p className="mt-3">Material corrections are reviewed and updated promptly when warranted.</p>
+          <p className="mt-3">
+            Material corrections are reviewed and updated promptly when
+            warranted.
+          </p>
         </PolicyBlock>
 
         <PolicyBlock icon={Bot} title="AI Usage Disclosure">
           <p>
-            We use AI tools to assist with drafting and research efficiency. AI-assisted drafts are never published without human review against the methodology and fact-checking standards described here. We do not use AI to fabricate statistics, quotes, or claims.
+            We use AI tools to assist with drafting and research efficiency.
+            AI-assisted drafts are never published without human review against
+            the methodology and fact-checking standards described here. We do
+            not use AI to fabricate statistics, quotes, or claims.
           </p>
         </PolicyBlock>
 
         <PolicyBlock icon={AlertCircle} title="Corrections Policy">
           <p>
-            If you believe something on WeHelpFinance is inaccurate or out of date, email{" "}
-            <a href="mailto:help@wehelpfinance.com" className="text-primary underline">help@wehelpfinance.com</a>{" "}
+            If you believe something on WeHelpFinance is inaccurate or out of
+            date, email{" "}
+            <a
+              href="mailto:help@wehelpfinance.com"
+              className="text-primary underline"
+            >
+              help@wehelpfinance.com
+            </a>{" "}
             with the page URL and specific concern.
           </p>
         </PolicyBlock>
 
         <div className="rounded-2xl border border-amber-200 bg-amber-50 p-6">
-          <h2 className="text-base font-semibold text-amber-900">Financial Content Disclaimer</h2>
+          <h2 className="text-base font-semibold text-amber-900">
+            Financial Content Disclaimer
+          </h2>
           <p className="mt-2 text-sm leading-relaxed text-amber-800">
-            WeHelpFinance is a free matching service. We are not a lender, bank, law firm, credit repair organization, or tax advisory firm, and nothing on this site constitutes financial, legal, or tax advice.
+            WeHelpFinance is a free matching service. We are not a lender, bank,
+            law firm, credit repair organization, or tax advisory firm, and
+            nothing on this site constitutes financial, legal, or tax advice.
           </p>
         </div>
 
         <div className="border-t border-border pt-4">
-          <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-muted-foreground">Related Pages</h3>
+          <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+            Related Pages
+          </h3>
           <div className="flex flex-wrap gap-2">
             {[
               { href: "/about", label: "About WeHelpFinance" },
@@ -158,7 +216,9 @@ function PolicyBlock({
         </span>
         <h2>{title}</h2>
       </div>
-      <div className="space-y-3 leading-relaxed text-muted-foreground">{children}</div>
+      <div className="space-y-3 leading-relaxed text-muted-foreground">
+        {children}
+      </div>
     </div>
   );
 }

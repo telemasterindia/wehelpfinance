@@ -1,22 +1,31 @@
+import { DEFAULT_OG_IMAGE, DEFAULT_TWITTER_IMAGE } from "@/lib/seo";
 import type { Metadata } from "next";
 import { ServicePage } from "@/components/ServicePage";
 import type { FAQItem } from "@/components/FAQ";
 import { faqJsonLd, breadcrumbJsonLd } from "@/lib/schema";
 
 export const metadata: Metadata = {
-  title: "IRS Debt Relief — Stop Collections & Resolve Tax Debt | WeHelpFinance",
-  description: "Received an IRS notice or facing wage garnishment? Explore IRS debt relief options including Offer in Compromise, payment plans, and penalty abatement. Free consultation.",
+  title:
+    "IRS Debt Relief — Stop Collections & Resolve Tax Debt | WeHelpFinance",
+  description:
+    "Received an IRS notice or facing wage garnishment? Explore IRS debt relief options including Offer in Compromise, payment plans, and penalty abatement. Free consultation.",
   alternates: { canonical: "https://www.wehelpfinance.com/irs-debt-relief" },
   openGraph: {
-    title: "IRS Debt Relief — Stop Collections & Resolve Tax Debt | WeHelpFinance",
-    description: "Resolve IRS tax debt with a vetted specialist. Offer in Compromise, payment plans, levy release and more. Free, confidential consultation.",
+    title:
+      "IRS Debt Relief — Stop Collections & Resolve Tax Debt | WeHelpFinance",
+    description:
+      "Resolve IRS tax debt with a vetted specialist. Offer in Compromise, payment plans, levy release and more. Free, confidential consultation.",
     url: "https://www.wehelpfinance.com/irs-debt-relief",
     type: "website",
+    images: [DEFAULT_OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
-    title: "IRS Debt Relief — Stop Collections & Resolve Tax Debt | WeHelpFinance",
-    description: "Resolve IRS tax debt. Free consultation with vetted tax relief specialists.",
+    title:
+      "IRS Debt Relief — Stop Collections & Resolve Tax Debt | WeHelpFinance",
+    description:
+      "Resolve IRS tax debt. Free consultation with vetted tax relief specialists.",
+    images: [DEFAULT_TWITTER_IMAGE],
   },
 };
 
@@ -58,7 +67,10 @@ const FAQS: FAQItem[] = [
 const BREADCRUMBS = [
   { name: "Home", path: "https://www.wehelpfinance.com/" },
   { name: "Tax Relief", path: "https://www.wehelpfinance.com/tax-relief" },
-  { name: "IRS Debt Relief", path: "https://www.wehelpfinance.com/irs-debt-relief" },
+  {
+    name: "IRS Debt Relief",
+    path: "https://www.wehelpfinance.com/irs-debt-relief",
+  },
 ];
 
 export default function Page() {
@@ -70,11 +82,20 @@ export default function Page() {
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(BREADCRUMBS)) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd(BREADCRUMBS)),
+        }}
       />
       <ServicePage
         eyebrow="IRS Debt Relief"
-        title={<>The IRS has options — <span className="italic text-primary">a specialist can find yours.</span></>}
+        title={
+          <>
+            The IRS has options —{" "}
+            <span className="italic text-primary">
+              a specialist can find yours.
+            </span>
+          </>
+        }
         lede="An IRS notice, wage garnishment, or bank levy can feel overwhelming. But the IRS offers more resolution programs than most people realize — including settling for less than you owe, structured payment plans, and penalty removal. A vetted tax relief specialist can identify which program you qualify for and represent you directly with the IRS."
         bullets={[
           "Offer in Compromise — potentially settle for less than you owe",
@@ -95,4 +116,3 @@ export default function Page() {
     </>
   );
 }
-

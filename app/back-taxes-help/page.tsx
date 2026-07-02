@@ -1,3 +1,4 @@
+import { DEFAULT_OG_IMAGE, DEFAULT_TWITTER_IMAGE } from "@/lib/seo";
 import type { Metadata } from "next";
 import { ServicePage } from "@/components/ServicePage";
 import type { FAQItem } from "@/components/FAQ";
@@ -5,18 +6,25 @@ import { faqJsonLd, breadcrumbJsonLd } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Back Taxes Help — Resolve Unfiled & Unpaid Tax Debt | WeHelpFinance",
-  description: "Owe back taxes to the IRS? Whether you have unfiled returns or unpaid balances, a vetted tax specialist can help you resolve your situation. Free consultation.",
+  description:
+    "Owe back taxes to the IRS? Whether you have unfiled returns or unpaid balances, a vetted tax specialist can help you resolve your situation. Free consultation.",
   alternates: { canonical: "https://www.wehelpfinance.com/back-taxes-help" },
   openGraph: {
-    title: "Back Taxes Help — Resolve Unfiled & Unpaid Tax Debt | WeHelpFinance",
-    description: "Get help resolving back taxes, unfiled returns, and IRS debt. Free consultation with vetted tax relief specialists.",
+    title:
+      "Back Taxes Help — Resolve Unfiled & Unpaid Tax Debt | WeHelpFinance",
+    description:
+      "Get help resolving back taxes, unfiled returns, and IRS debt. Free consultation with vetted tax relief specialists.",
     url: "https://www.wehelpfinance.com/back-taxes-help",
     type: "website",
+    images: [DEFAULT_OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Back Taxes Help — Resolve Unfiled & Unpaid Tax Debt | WeHelpFinance",
-    description: "Owe back taxes? Get expert help resolving IRS debt. Free, confidential consultation.",
+    title:
+      "Back Taxes Help — Resolve Unfiled & Unpaid Tax Debt | WeHelpFinance",
+    description:
+      "Owe back taxes? Get expert help resolving IRS debt. Free, confidential consultation.",
+    images: [DEFAULT_TWITTER_IMAGE],
   },
 };
 
@@ -58,7 +66,10 @@ const FAQS: FAQItem[] = [
 const BREADCRUMBS = [
   { name: "Home", path: "https://www.wehelpfinance.com/" },
   { name: "Tax Relief", path: "https://www.wehelpfinance.com/tax-relief" },
-  { name: "Back Taxes Help", path: "https://www.wehelpfinance.com/back-taxes-help" },
+  {
+    name: "Back Taxes Help",
+    path: "https://www.wehelpfinance.com/back-taxes-help",
+  },
 ];
 
 export default function Page() {
@@ -70,11 +81,20 @@ export default function Page() {
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(BREADCRUMBS)) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd(BREADCRUMBS)),
+        }}
       />
       <ServicePage
         eyebrow="Back Taxes Help"
-        title={<>Back taxes don't disappear — <span className="italic text-primary">but they can be resolved.</span></>}
+        title={
+          <>
+            Back taxes don't disappear —{" "}
+            <span className="italic text-primary">
+              but they can be resolved.
+            </span>
+          </>
+        }
         lede="Whether you have one year of unfiled returns or several years of mounting IRS debt, waiting makes the situation worse. Penalties and interest compound daily, and the IRS has significant collection power. The good news: the IRS also has more resolution programs than most people know about — and a vetted specialist can help you access them."
         bullets={[
           "Help with unfiled returns from prior years",
@@ -95,4 +115,3 @@ export default function Page() {
     </>
   );
 }
-

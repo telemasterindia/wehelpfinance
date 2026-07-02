@@ -4,7 +4,7 @@ export const ORGANIZATION = {
   name: "WeHelpFinance",
   legalName: "WeHelpFinance",
   url: SITE_URL,
-  logo: `${SITE_URL}/og-default.svg`,
+  logo: `${SITE_URL}/og-default.png`,
   description:
     "Free service that connects consumers with vetted debt relief, tax relief, and personal loan specialists.",
   address: {

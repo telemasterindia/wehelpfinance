@@ -1,4 +1,5 @@
-﻿import type { Metadata } from "next";
+import { DEFAULT_OG_IMAGE, DEFAULT_TWITTER_IMAGE } from "@/lib/seo";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { DebtSettlementCalculator } from "@/components/DebtSettlementCalculator";
 import { TrustSignals } from "@/components/TrustSignals";
@@ -8,19 +9,25 @@ import { ArrowRight, CheckCircle2 } from "lucide-react";
 const CANONICAL = "https://www.wehelpfinance.com/debt-settlement-calculator";
 
 export const metadata: Metadata = {
-  title: "Debt Settlement Calculator 2026 — Estimate Your Savings | WeHelpFinance",
-  description: "Free debt settlement calculator. Enter your total debt, delinquency status, and credit score to see what you could realistically settle for — and how much you'd save vs. minimum payments.",
+  title:
+    "Debt Settlement Calculator 2026 — Estimate Your Savings | WeHelpFinance",
+  description:
+    "Free debt settlement calculator. Enter your total debt, delinquency status, and credit score to see what you could realistically settle for — and how much you'd save vs. minimum payments.",
   alternates: { canonical: CANONICAL },
   openGraph: {
     title: "Free Debt Settlement Calculator | WeHelpFinance",
-    description: "See how much you could save with debt settlement vs. making minimum payments. Free, no personal information required.",
+    description:
+      "See how much you could save with debt settlement vs. making minimum payments. Free, no personal information required.",
     url: CANONICAL,
     type: "website",
+    images: [DEFAULT_OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: "Debt Settlement Calculator | WeHelpFinance",
-    description: "Estimate your settlement savings in 2 minutes. Free calculator.",
+    description:
+      "Estimate your settlement savings in 2 minutes. Free calculator.",
+    images: [DEFAULT_TWITTER_IMAGE],
   },
 };
 
@@ -64,9 +71,12 @@ export default function Page() {
           __html: JSON.stringify(
             breadcrumbJsonLd([
               { name: "Home", path: "https://www.wehelpfinance.com/" },
-              { name: "Debt Settlement", path: "https://www.wehelpfinance.com/debt-settlement" },
+              {
+                name: "Debt Settlement",
+                path: "https://www.wehelpfinance.com/debt-settlement",
+              },
               { name: "Debt Settlement Calculator", path: CANONICAL },
-            ])
+            ]),
           ),
         }}
       />
@@ -81,8 +91,13 @@ export default function Page() {
             applicationCategory: "FinanceApplication",
             operatingSystem: "Web",
             offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-            description: "Free calculator to estimate debt settlement savings vs. minimum payments.",
-            publisher: { "@type": "Organization", name: "WeHelpFinance", url: "https://www.wehelpfinance.com" },
+            description:
+              "Free calculator to estimate debt settlement savings vs. minimum payments.",
+            publisher: {
+              "@type": "Organization",
+              name: "WeHelpFinance",
+              url: "https://www.wehelpfinance.com",
+            },
           }),
         }}
       />
@@ -91,9 +106,13 @@ export default function Page() {
       <section className="bg-linear-to-b from-primary-soft/40 to-background">
         <div className="container-page max-w-4xl py-12 lg:py-16">
           <nav className="breadcrumb-nav" aria-label="Breadcrumb">
-            <Link href="/" className="hover:text-primary">Home</Link>
+            <Link href="/" className="hover:text-primary">
+              Home
+            </Link>
             <span className="mx-2">/</span>
-            <Link href="/debt-settlement" className="hover:text-primary">Debt Settlement</Link>
+            <Link href="/debt-settlement" className="hover:text-primary">
+              Debt Settlement
+            </Link>
             <span className="mx-2">/</span>
             <span data-current="true">Calculator</span>
           </nav>
@@ -103,7 +122,9 @@ export default function Page() {
           </span>
           <h1 className="mt-4">Debt Settlement Calculator</h1>
           <p className="mt-4 max-w-2xl text-lg text-muted-foreground">
-            See how much you could realistically save with debt settlement — and how it compares to making minimum payments for the next 30 years. Free, no personal information required.
+            See how much you could realistically save with debt settlement — and
+            how it compares to making minimum payments for the next 30 years.
+            Free, no personal information required.
           </p>
 
           <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
@@ -113,7 +134,10 @@ export default function Page() {
               "Based on industry averages",
               "Includes fee estimates",
             ].map((b) => (
-              <li key={b} className="flex items-center gap-2 text-sm text-muted-foreground">
+              <li
+                key={b}
+                className="flex items-center gap-2 text-sm text-muted-foreground"
+              >
                 <CheckCircle2 className="h-4 w-4 text-success shrink-0" />
                 {b}
               </li>
@@ -155,20 +179,32 @@ export default function Page() {
               body: "Once the settlement is accepted and paid, the account is resolved. The process typically takes 24–48 months for the full program.",
             },
           ].map((item) => (
-            <div key={item.step} className="rounded-2xl border border-border bg-card p-6">
+            <div
+              key={item.step}
+              className="rounded-2xl border border-border bg-card p-6"
+            >
               <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
                 {item.step}
               </span>
               <h3 className="mt-4 text-base font-semibold">{item.title}</h3>
-              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{item.body}</p>
+              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                {item.body}
+              </p>
             </div>
           ))}
         </div>
 
         <div className="mt-8 rounded-2xl border border-amber-200 bg-amber-50 p-5">
           <p className="text-sm text-amber-800 leading-relaxed">
-            <strong>Important trade-off:</strong> During a settlement program, accounts become delinquent and your credit score will be negatively affected. Settlement is most appropriate for people in genuine financial hardship who cannot realistically pay the full balance. If your accounts are current and your credit is in good shape, a{" "}
-            <Link href="/personal-loans" className="underline font-medium">personal loan for consolidation</Link> may be a better option.
+            <strong>Important trade-off:</strong> During a settlement program,
+            accounts become delinquent and your credit score will be negatively
+            affected. Settlement is most appropriate for people in genuine
+            financial hardship who cannot realistically pay the full balance. If
+            your accounts are current and your credit is in good shape, a{" "}
+            <Link href="/personal-loans" className="underline font-medium">
+              personal loan for consolidation
+            </Link>{" "}
+            may be a better option.
           </p>
         </div>
       </section>
@@ -201,9 +237,18 @@ export default function Page() {
             { href: "/debt-settlement", label: "Debt Settlement" },
             { href: "/debt-consolidation", label: "Debt Consolidation" },
             { href: "/personal-loans", label: "Personal Loans" },
-            { href: "/debt-settlement-vs-bankruptcy", label: "Settlement vs. Bankruptcy" },
-            { href: "/debt-settlement-vs-debt-consolidation", label: "Settlement vs. Consolidation" },
-            { href: "/debt-relief-vs-personal-loan", label: "Debt Relief vs. Personal Loan" },
+            {
+              href: "/debt-settlement-vs-bankruptcy",
+              label: "Settlement vs. Bankruptcy",
+            },
+            {
+              href: "/debt-settlement-vs-debt-consolidation",
+              label: "Settlement vs. Consolidation",
+            },
+            {
+              href: "/debt-relief-vs-personal-loan",
+              label: "Debt Relief vs. Personal Loan",
+            },
             { href: "/fdcpa-rights", label: "FDCPA Rights" },
             { href: "/debt-validation", label: "Debt Validation" },
           ].map((l) => (

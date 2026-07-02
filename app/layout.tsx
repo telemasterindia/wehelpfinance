@@ -1,3 +1,4 @@
+import { DEFAULT_OG_IMAGE, DEFAULT_TWITTER_IMAGE } from "@/lib/seo";
 import type { Metadata, Viewport } from "next";
 import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
 import { Analytics as MarketingAnalytics } from "@/components/Analytics";
@@ -6,7 +7,8 @@ import { organizationJsonLd, websiteJsonLd } from "@/lib/organizationConfig";
 import "@/styles.css";
 
 const title = "WeHelpFinance — Debt Relief, Tax Relief & Personal Loan Help";
-const description = "WeHelpFinance connects Americans with trusted specialists for debt relief, tax relief, and personal loans. Free, confidential, no obligation.";
+const description =
+  "WeHelpFinance connects Americans with trusted specialists for debt relief, tax relief, and personal loans. Free, confidential, no obligation.";
 const siteUrl = "https://www.wehelpfinance.com";
 
 export const metadata: Metadata = {
@@ -41,15 +43,14 @@ export const metadata: Metadata = {
     url: siteUrl,
     title,
     description,
-images: [
-  {
-    url: "https://www.wehelpfinance.com/og-default.png",
-    width: 1200,
-    height: 630,
-    alt: "WeHelpFinance — Financial Help Made Human",
+    images: [DEFAULT_OG_IMAGE],
   },
-],  },
-  twitter: { card: "summary_large_image", title, description, images: ["/og-default.png"] },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+    images: [DEFAULT_TWITTER_IMAGE],
+  },
   robots: {
     index: true,
     follow: true,
@@ -63,18 +64,39 @@ images: [
   },
 };
 
-export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#0b4d3b" };
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#0b4d3b",
+};
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap"
+        />
         <meta name="msapplication-TileColor" content="#0b4d3b" />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd()) }} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd()) }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationJsonLd()),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd()) }}
+        />
       </head>
       <body>
         <a

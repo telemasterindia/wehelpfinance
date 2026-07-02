@@ -1,3 +1,4 @@
+import { DEFAULT_OG_IMAGE, DEFAULT_TWITTER_IMAGE } from "@/lib/seo";
 import type { Metadata } from "next";
 import { ServicePage } from "@/components/ServicePage";
 import type { FAQItem } from "@/components/FAQ";
@@ -5,18 +6,23 @@ import { faqJsonLd, breadcrumbJsonLd } from "@/lib/schema";
 
 export const metadata: Metadata = {
   title: "Debt Consolidation — One Payment, Lower Stress | WeHelpFinance",
-  description: "Combine multiple debts into one manageable monthly payment. Explore debt consolidation options with a vetted specialist — free consultation, no obligation.",
+  description:
+    "Combine multiple debts into one manageable monthly payment. Explore debt consolidation options with a vetted specialist — free consultation, no obligation.",
   alternates: { canonical: "https://www.wehelpfinance.com/debt-consolidation" },
   openGraph: {
     title: "Debt Consolidation — One Payment, Lower Stress | WeHelpFinance",
-    description: "Combine multiple debts into one manageable monthly payment. Free consultation with a vetted specialist.",
+    description:
+      "Combine multiple debts into one manageable monthly payment. Free consultation with a vetted specialist.",
     url: "https://www.wehelpfinance.com/debt-consolidation",
     type: "website",
+    images: [DEFAULT_OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: "Debt Consolidation — One Payment, Lower Stress | WeHelpFinance",
-    description: "Combine multiple debts into one monthly payment. Free, no-obligation consultation.",
+    description:
+      "Combine multiple debts into one monthly payment. Free, no-obligation consultation.",
+    images: [DEFAULT_TWITTER_IMAGE],
   },
 };
 
@@ -58,7 +64,10 @@ const FAQS: FAQItem[] = [
 const BREADCRUMBS = [
   { name: "Home", path: "https://www.wehelpfinance.com/" },
   { name: "Debt Relief", path: "https://www.wehelpfinance.com/debt-relief" },
-  { name: "Debt Consolidation", path: "https://www.wehelpfinance.com/debt-consolidation" },
+  {
+    name: "Debt Consolidation",
+    path: "https://www.wehelpfinance.com/debt-consolidation",
+  },
 ];
 
 export default function Page() {
@@ -70,11 +79,18 @@ export default function Page() {
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(BREADCRUMBS)) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd(BREADCRUMBS)),
+        }}
       />
       <ServicePage
         eyebrow="Debt Consolidation"
-        title={<>Stop juggling payments — <span className="italic text-primary">combine them into one.</span></>}
+        title={
+          <>
+            Stop juggling payments —{" "}
+            <span className="italic text-primary">combine them into one.</span>
+          </>
+        }
         lede="Managing five credit card minimum payments, a medical bill, and a personal loan at the same time is exhausting and expensive. Debt consolidation brings everything into a single monthly payment — often at a lower interest rate — so you can see a clear path forward."
         bullets={[
           "Replace multiple monthly payments with one simple payment",
@@ -87,7 +103,10 @@ export default function Page() {
         category="debt-relief"
         author={{ name: "Amit Chadha", org: "Telemaster India", years: 21 }}
         relatedLinks={[
-          { href: "/personal-loans", label: "Personal Loans for Consolidation" },
+          {
+            href: "/personal-loans",
+            label: "Personal Loans for Consolidation",
+          },
           { href: "/debt-relief", label: "Debt Relief Overview" },
           { href: "/debt-settlement", label: "Debt Settlement" },
         ]}
@@ -95,4 +114,3 @@ export default function Page() {
     </>
   );
 }
-

@@ -1,3 +1,4 @@
+import { DEFAULT_OG_IMAGE, DEFAULT_TWITTER_IMAGE } from "@/lib/seo";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { DebtSettlementCalculator } from "@/components/DebtSettlementCalculator";
@@ -9,18 +10,24 @@ import { ArrowRight, Calculator, CheckCircle2 } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Debt Settlement — Resolve Credit Card Debt for Less | WeHelpFinance",
-  description: "Debt settlement lets you resolve credit card debt for 40–60% of what you owe. Use our free calculator to estimate your savings, then get a free specialist consultation.",
+  description:
+    "Debt settlement lets you resolve credit card debt for 40–60% of what you owe. Use our free calculator to estimate your savings, then get a free specialist consultation.",
   alternates: { canonical: "https://www.wehelpfinance.com/debt-settlement" },
   openGraph: {
-    title: "Debt Settlement — Resolve Credit Card Debt for Less | WeHelpFinance",
-    description: "Settle credit card debt for less than you owe. Free calculator plus free specialist consultation.",
+    title:
+      "Debt Settlement — Resolve Credit Card Debt for Less | WeHelpFinance",
+    description:
+      "Settle credit card debt for less than you owe. Free calculator plus free specialist consultation.",
     url: "https://www.wehelpfinance.com/debt-settlement",
     type: "website",
+    images: [DEFAULT_OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: "Debt Settlement | WeHelpFinance",
-    description: "Estimate your debt settlement savings and speak with a vetted specialist for free.",
+    description:
+      "Estimate your debt settlement savings and speak with a vetted specialist for free.",
+    images: [DEFAULT_TWITTER_IMAGE],
   },
 };
 
@@ -69,9 +76,18 @@ const CITY_LINKS = [
 ];
 
 const RELATED_LINKS = [
-  { href: "/debt-settlement-vs-bankruptcy", label: "Settlement vs. Bankruptcy" },
-  { href: "/debt-settlement-vs-debt-consolidation", label: "Settlement vs. Consolidation" },
-  { href: "/debt-relief-vs-personal-loan", label: "Debt Relief vs. Personal Loan" },
+  {
+    href: "/debt-settlement-vs-bankruptcy",
+    label: "Settlement vs. Bankruptcy",
+  },
+  {
+    href: "/debt-settlement-vs-debt-consolidation",
+    label: "Settlement vs. Consolidation",
+  },
+  {
+    href: "/debt-relief-vs-personal-loan",
+    label: "Debt Relief vs. Personal Loan",
+  },
   { href: "/debt-settlement-calculator", label: "Debt Settlement Calculator" },
   { href: "/fdcpa-rights", label: "Your FDCPA Rights" },
   { href: "/debt-validation", label: "Debt Validation" },
@@ -79,7 +95,10 @@ const RELATED_LINKS = [
 
 const BREADCRUMBS = [
   { name: "Home", path: "https://www.wehelpfinance.com/" },
-  { name: "Debt Settlement", path: "https://www.wehelpfinance.com/debt-settlement" },
+  {
+    name: "Debt Settlement",
+    path: "https://www.wehelpfinance.com/debt-settlement",
+  },
 ];
 
 export default function DebtSettlementPage() {
@@ -91,13 +110,17 @@ export default function DebtSettlementPage() {
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(BREADCRUMBS)) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd(BREADCRUMBS)),
+        }}
       />
 
       <section className="bg-gradient-to-b from-primary-soft/40 to-background">
         <div className="container-page max-w-5xl py-12 lg:py-16">
           <nav className="breadcrumb-nav" aria-label="Breadcrumb">
-            <Link href="/" className="hover:text-primary">Home</Link>
+            <Link href="/" className="hover:text-primary">
+              Home
+            </Link>
             <span className="mx-2">/</span>
             <span data-current="true">Debt Settlement</span>
           </nav>
@@ -108,7 +131,10 @@ export default function DebtSettlementPage() {
             </span>
             <h1 className="mt-4">Resolve Your Debt for Less Than You Owe</h1>
             <p className="mt-5 max-w-2xl text-lg text-muted-foreground">
-              Debt settlement lets you negotiate with creditors to accept a lump-sum payment, often 40–60% of your balance. Use the free calculator below to estimate your savings, then speak with a specialist about your actual accounts.
+              Debt settlement lets you negotiate with creditors to accept a
+              lump-sum payment, often 40–60% of your balance. Use the free
+              calculator below to estimate your savings, then speak with a
+              specialist about your actual accounts.
             </p>
             <ul className="mt-6 space-y-2">
               {[
@@ -118,13 +144,17 @@ export default function DebtSettlementPage() {
                 "Specialists negotiate directly with your creditors",
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3 text-sm">
-                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-success" aria-hidden="true" />
+                  <CheckCircle2
+                    className="mt-0.5 h-5 w-5 shrink-0 text-success"
+                    aria-hidden="true"
+                  />
                   <span>{item}</span>
                 </li>
               ))}
             </ul>
             <a href="#calculator" className="btn-cta mt-8 inline-flex">
-              Estimate My Savings <Calculator className="h-4 w-4" aria-hidden="true" />
+              Estimate My Savings{" "}
+              <Calculator className="h-4 w-4" aria-hidden="true" />
             </a>
           </div>
         </div>
@@ -140,8 +170,12 @@ export default function DebtSettlementPage() {
             <Calculator className="h-5 w-5" aria-hidden="true" />
           </span>
           <div>
-            <h2 className="text-xl font-display font-semibold">Free Debt Settlement Calculator</h2>
-            <p className="text-sm text-muted-foreground">See your estimated savings in about two minutes.</p>
+            <h2 className="text-xl font-display font-semibold">
+              Free Debt Settlement Calculator
+            </h2>
+            <p className="text-sm text-muted-foreground">
+              See your estimated savings in about two minutes.
+            </p>
           </div>
         </div>
 
@@ -155,23 +189,46 @@ export default function DebtSettlementPage() {
           <div>
             <h2>Ready to Talk to a Specialist?</h2>
             <p className="mt-3 text-muted-foreground">
-              The calculator gives you estimates. A specialist gives you real numbers based on your creditors, account ages, balances, and current hardship. The consultation is free and carries no obligation.
+              The calculator gives you estimates. A specialist gives you real
+              numbers based on your creditors, account ages, balances, and
+              current hardship. The consultation is free and carries no
+              obligation.
             </p>
 
             <div className="mt-8 space-y-6">
               {[
-                { step: "1", title: "Free consultation", body: "A specialist reviews your accounts, income, and situation to assess what options are realistically available." },
-                { step: "2", title: "Enroll your accounts", body: "Qualifying unsecured debts are enrolled, including credit cards, personal loans, and medical bills. Secured debts are not included." },
-                { step: "3", title: "Build your settlement fund", body: "You make monthly deposits into a dedicated savings account instead of juggling minimum payments." },
-                { step: "4", title: "Negotiate and resolve", body: "Your specialist negotiates with each creditor. Settled accounts are resolved for less than the original balance." },
+                {
+                  step: "1",
+                  title: "Free consultation",
+                  body: "A specialist reviews your accounts, income, and situation to assess what options are realistically available.",
+                },
+                {
+                  step: "2",
+                  title: "Enroll your accounts",
+                  body: "Qualifying unsecured debts are enrolled, including credit cards, personal loans, and medical bills. Secured debts are not included.",
+                },
+                {
+                  step: "3",
+                  title: "Build your settlement fund",
+                  body: "You make monthly deposits into a dedicated savings account instead of juggling minimum payments.",
+                },
+                {
+                  step: "4",
+                  title: "Negotiate and resolve",
+                  body: "Your specialist negotiates with each creditor. Settled accounts are resolved for less than the original balance.",
+                },
               ].map((item) => (
                 <div key={item.step} className="flex gap-4">
                   <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
                     {item.step}
                   </span>
                   <div>
-                    <p className="font-semibold text-foreground">{item.title}</p>
-                    <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{item.body}</p>
+                    <p className="font-semibold text-foreground">
+                      {item.title}
+                    </p>
+                    <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                      {item.body}
+                    </p>
                   </div>
                 </div>
               ))}
@@ -225,12 +282,16 @@ export default function DebtSettlementPage() {
 
       <section className="container-page max-w-4xl pb-24">
         <div className="rounded-3xl bg-primary px-6 py-12 text-center text-primary-foreground sm:px-12">
-          <h2 className="text-primary-foreground">Ready to explore your options?</h2>
+          <h2 className="text-primary-foreground">
+            Ready to explore your options?
+          </h2>
           <p className="mx-auto mt-3 max-w-xl text-primary-foreground/85">
-            A free, confidential consultation can show you what settlement may look like for your actual creditors.
+            A free, confidential consultation can show you what settlement may
+            look like for your actual creditors.
           </p>
           <a href="#get-help" className="btn-gold mt-7 inline-flex">
-            Get Free Help Now <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            Get Free Help Now{" "}
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </a>
         </div>
       </section>

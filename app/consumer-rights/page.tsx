@@ -1,3 +1,4 @@
+import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, ShieldCheck } from "lucide-react";
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
       "Understand debt validation, FDCPA rights, collection agency limits, and how to respond when collectors contact you.",
     url: "https://www.wehelpfinance.com/consumer-rights",
     type: "website",
+    images: [DEFAULT_OG_IMAGE],
   },
 };
 
@@ -53,10 +55,13 @@ export default function Page() {
             <span className="inline-flex rounded-full bg-primary-soft px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary">
               Consumer Rights
             </span>
-            <h1 className="mt-4">Know your rights before you pay a collector.</h1>
+            <h1 className="mt-4">
+              Know your rights before you pay a collector.
+            </h1>
             <p className="mt-5 text-lg text-muted-foreground">
-              Debt collectors have rules to follow, and you have protections. These guides explain
-              debt validation, FDCPA rights, and how to respond when a collection agency contacts you.
+              Debt collectors have rules to follow, and you have protections.
+              These guides explain debt validation, FDCPA rights, and how to
+              respond when a collection agency contacts you.
             </p>
           </div>
 
@@ -70,12 +75,18 @@ export default function Page() {
                 <div className="mb-5 grid h-12 w-12 place-items-center rounded-2xl bg-primary-soft text-primary">
                   <ShieldCheck className="h-6 w-6" aria-hidden="true" />
                 </div>
-                <h2 className="text-xl group-hover:text-primary">{guide.title}</h2>
+                <h2 className="text-xl group-hover:text-primary">
+                  {guide.title}
+                </h2>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                   {guide.description}
                 </p>
                 <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary">
-                  Read the guide <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" aria-hidden="true" />
+                  Read the guide{" "}
+                  <ArrowRight
+                    className="h-4 w-4 transition group-hover:translate-x-1"
+                    aria-hidden="true"
+                  />
                 </span>
               </Link>
             ))}
@@ -85,4 +96,3 @@ export default function Page() {
     </>
   );
 }
-
