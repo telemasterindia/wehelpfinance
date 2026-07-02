@@ -48,7 +48,6 @@ const RESOURCES: NavItem[] = [
 ];
 
 const NAV: NavItem[] = [
-  { to: "/credit-repair", label: "Credit Repair", soon: true },
   { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },
 ];
