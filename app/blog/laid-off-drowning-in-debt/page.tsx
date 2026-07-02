@@ -7,7 +7,7 @@ const SLUG = "laid-off-drowning-in-debt";
 const TITLE = "Laid Off and Drowning in Debt: Your Options in 2026";
 const EXCERPT =
   "Losing your income while carrying credit card debt is one of the most stressful financial situations Americans face right now. Here's a clear-headed guide to your options.";
-const PUBLISHED = "2026-06-24";
+const PUBLISHED = "2026-06-18";
 const AUTHOR = AUTHORS.research;
 
 export const metadata: Metadata = {
