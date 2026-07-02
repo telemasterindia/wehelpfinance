@@ -116,9 +116,11 @@ const BREADCRUMBS = [
 ];
 
 export default function BlogIndex() {
-  const featured = ARTICLES.filter((a) => a.featured);
-  const rest = ARTICLES.filter((a) => !a.featured);
-
+ const sortedArticles = [...ARTICLES].sort(
+  (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+);
+const featured = sortedArticles.filter((a) => a.featured);
+const rest = sortedArticles.filter((a) => !a.featured);
   return (
     <>
       <script
