@@ -17,7 +17,6 @@ import {
 } from "lucide-react";
 import { FooterLogo, Logo } from "@/components/Logo";
 import { MobileCallButton } from "@/components/MobileCallButton";
-import { TawkChat } from "@/components/TawkChat";
 import { TrustSignals } from "@/components/TrustSignals";
 
 const PHONE_NUMBER = "+17183604806";
@@ -78,8 +77,6 @@ export function SiteLayout({ children }: { children: ReactNode }) {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <TawkChat />
-
       <header className={`sticky top-0 z-40 border-b border-border/70 bg-background/95 backdrop-blur transition-shadow ${scrolled || open ? "shadow-sm" : ""}`}>
         <div className="container-page flex h-16 items-center justify-between gap-3 sm:gap-4">
           <Logo size="md" />
