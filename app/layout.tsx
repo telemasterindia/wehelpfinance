@@ -1,10 +1,25 @@
 import { DEFAULT_OG_IMAGE, DEFAULT_TWITTER_IMAGE } from "@/lib/seo";
 import type { Metadata, Viewport } from "next";
 import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
+import { Fraunces, Inter } from "next/font/google";
 import { Analytics as MarketingAnalytics } from "@/components/Analytics";
 import { SiteLayout } from "@/components/SiteLayout";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/organizationConfig";
 import "@/styles.css";
+
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-heading",
+  display: "swap",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-body",
+  display: "swap",
+});
 
 const title = "WeHelpFinance — Debt Relief, Tax Relief & Personal Loan Help";
 const description =
@@ -74,18 +89,8 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap"
-        />
         <meta name="msapplication-TileColor" content="#0b4d3b" />
         <script
           type="application/ld+json"
