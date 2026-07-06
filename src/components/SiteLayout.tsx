@@ -37,6 +37,7 @@ const SERVICES: NavItem[] = [
 ];
 
 const RESOURCES: NavItem[] = [
+  { to: "/financial-tools", label: "Financial Tools" },
   { to: "/debt-settlement-calculator", label: "Debt Settlement Calculator" },
   { to: "/blog", label: "Financial Education Blog" },
   { to: "/research", label: "Research Reports" },
