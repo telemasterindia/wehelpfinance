@@ -92,18 +92,20 @@ export default function RootLayout({
     <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
       <head>
         <meta name="msapplication-TileColor" content="#0b4d3b" />
+      </head>
+      <body>
         <script
+          id="organization-json-ld"
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(organizationJsonLd()),
           }}
         />
         <script
+          id="website-json-ld"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd()) }}
         />
-      </head>
-      <body>
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-primary-foreground"
