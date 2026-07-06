@@ -54,7 +54,7 @@ export default function EditorialPolicyPage() {
         }}
       />
 
-      <section className="bg-gradient-to-b from-primary-soft/40 to-background">
+      <section className="bg-linear-to-b from-primary-soft/40 to-background">
         <div className="container-page max-w-3xl py-12 lg:py-16">
           <nav className="breadcrumb-nav" aria-label="Breadcrumb">
             <Link href="/" className="hover:text-primary">

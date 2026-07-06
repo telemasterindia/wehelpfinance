@@ -71,7 +71,7 @@ export default function HomePage() {
     <>
       {/* HERO */}
       <section className="relative overflow-hidden">
-        <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-primary-soft/50 via-cream to-background" />
+        <div className="pointer-events-none absolute inset-0 -z-10 bg-linear-to-b from-primary-soft/50 via-cream to-background" />
         <div className="container-page grid gap-10 pt-10 pb-16 lg:grid-cols-2 lg:items-center lg:gap-14 lg:pt-20 lg:pb-24">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1.5 text-xs font-medium text-primary">
@@ -120,7 +120,7 @@ export default function HomePage() {
               alt="A woman reviewing her finances at a sunlit table, looking relieved"
               loading="eager"
               fetchPriority="high"
-              className="aspect-square w-full rounded-[2rem] object-cover shadow-2xl"
+              className="aspect-square w-full rounded-4xl object-cover shadow-2xl"
             />
             <div className="absolute -bottom-5 left-5 right-5 rounded-2xl border border-border bg-card/95 p-4 shadow-xl backdrop-blur sm:left-auto sm:right-6 sm:w-72">
               <div className="flex items-center gap-3">
