@@ -38,6 +38,14 @@ function emptyRow(): DebtRow {
   return { id: newDebtId(), name: "", balance: "", apr: "", minPayment: "" };
 }
 
+const INITIAL_ROW: DebtRow = {
+  id: "debt-initial",
+  name: "",
+  balance: "",
+  apr: "",
+  minPayment: "",
+};
+
 const EXAMPLE_ROWS: Omit<DebtRow, "id">[] = [
   { name: "Visa card", balance: "6,400", apr: "24.9", minPayment: "160" },
   { name: "Medical bill", balance: "1,850", apr: "6.5", minPayment: "60" },
@@ -62,7 +70,7 @@ function formatOnBlur(raw: string): string {
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export function DebtPayoffCalculator() {
-  const [rows, setRows] = useState<DebtRow[]>([emptyRow()]);
+  const [rows, setRows] = useState<DebtRow[]>([INITIAL_ROW]);
   const [extra, setExtra] = useState("");
   const [strategy, setStrategy] = useState<Strategy>("avalanche");
   const completedHash = useRef<string>("");
