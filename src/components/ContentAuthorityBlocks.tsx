@@ -45,8 +45,8 @@ export function ComparisonTable({
             {rows.map((row, i) => (
               <tr key={row.label} className={`border-b border-border last:border-0 ${i % 2 === 0 ? "bg-background" : "bg-muted/10"}`}>
                 <td className="px-4 py-3 font-medium text-foreground">{row.label}</td>
-                {row.values.map((value) => (
-                  <td key={`${row.label}-${value}`} className="px-4 py-3 text-muted-foreground">
+                {row.values.map((value, valueIndex) => (
+                  <td key={`${row.label}-${valueIndex}`} className="px-4 py-3 text-muted-foreground">
                     {value}
                   </td>
                 ))}
