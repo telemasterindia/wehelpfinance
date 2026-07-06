@@ -5,7 +5,7 @@
 // Snowball vs Avalanche comparison, accessible SVG charts, sticky
 // results on desktop, cards on mobile, GA4 events, and a soft post-
 // results CTA. All visual language reuses existing site tokens.
-
+// tiny push
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
