@@ -7,7 +7,7 @@ const SLUG = "minimum-payment-trap";
 const TITLE = "The Minimum Payment Trap: Why Your Balance Never Goes Down";
 const EXCERPT =
   "If you've been making minimum payments for years and your balance barely moves, you're not doing it wrong — the math is just designed to keep you paying interest indefinitely.";
-const PUBLISHED = "2026-06-24";
+const PUBLISHED = "2026-05-04";
 const AUTHOR = AUTHORS.financial_education;
 
 export const metadata: Metadata = {

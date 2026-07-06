@@ -7,7 +7,7 @@ const SLUG = "what-happens-if-i-stop-paying-my-credit-cards";
 const TITLE = "What Happens If I Stop Paying My Credit Cards?";
 const EXCERPT =
   "Before you make the decision to stop paying, understand exactly what the timeline looks like — from the first missed payment to a potential lawsuit — and what your options are at every stage.";
-const PUBLISHED = "2026-06-24";
+const PUBLISHED = "2026-05-08";
 const AUTHOR = AUTHORS.financial_education;
 
 export const metadata: Metadata = {

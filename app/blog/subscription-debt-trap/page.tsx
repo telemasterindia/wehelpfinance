@@ -8,7 +8,7 @@ const TITLE =
   "The Subscription Debt Trap: How Digital Expenses Are Maxing Out America";
 const EXCERPT =
   "The average American pays for over a dozen subscription services. Combined with rising costs elsewhere, this hidden drain on income is pushing more households into credit card debt.";
-const PUBLISHED = "2026-06-24";
+const PUBLISHED = "2026-05-19";
 const AUTHOR = AUTHORS.research;
 
 export const metadata: Metadata = {

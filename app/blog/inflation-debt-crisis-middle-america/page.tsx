@@ -7,7 +7,7 @@ const SLUG = "inflation-debt-crisis-middle-america";
 const TITLE = "How Inflation Created a Debt Crisis for Middle America";
 const EXCERPT =
   "Groceries, rent, insurance, and utilities have all risen faster than wages. For millions of middle-income Americans, credit cards became the gap-filler — and the debt accumulated fast.";
-const PUBLISHED = "2026-06-24";
+const PUBLISHED = "026-06-10";
 const AUTHOR = AUTHORS.research;
 
 export const metadata: Metadata = {
