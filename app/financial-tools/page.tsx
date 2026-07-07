@@ -76,8 +76,17 @@ const LIVE_TOOLS = [
     description:
       "Enter unlimited debts and compare the Snowball and Avalanche methods side by side — debt-free date, total interest, and live charts.",
     icon: Calculator,
-    badge: "New",
+    badge: "Free",
     featured: true,
+  },
+  {
+    href: "/financial-tools/dti-calculator",
+    name: "Debt-to-Income (DTI) Calculator",
+    description:
+      "Front-end and back-end DTI computed the way lenders do — with qualification bands and the exact dollars of debt to eliminate.",
+    icon: Scale,
+    badge: "New",
+    featured: false,
   },
   {
     href: "/debt-settlement-calculator",
@@ -95,11 +104,6 @@ const COMING_SOON = [
     name: "Loan Comparison Calculator",
     description: "Personal loan vs. your current cards — monthly savings, total cost, and break-even.",
     icon: Wallet,
-  },
-  {
-    name: "Debt-to-Income Calculator",
-    description: "Check your DTI for mortgage and refinance qualification — and how much debt to eliminate.",
-    icon: Scale,
   },
   {
     name: "Budget Planner",

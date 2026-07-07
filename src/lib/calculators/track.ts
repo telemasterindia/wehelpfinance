@@ -17,6 +17,8 @@ export type ToolEvent =
   | "calculator_viewed"
   | "calculation_completed"
   | "strategy_switched"
+  | "mode_switched"
+  | "tool_option_changed"
   | "cta_clicked"
   | "phone_clicked"
   | "lead_form_started";
