@@ -212,6 +212,259 @@ export const CITIES: Record<string, CityData> = {
     nearbyAreas: ["Westerville", "Dublin", "Hilliard", "Grove City", "Gahanna", "Reynoldsburg"],
     statePageSlug: "ohio",
   },
+
+  "san-antonio": {
+    slug: "san-antonio",
+    city: "San Antonio",
+    state: "Texas",
+    stateAbbr: "TX",
+    metroArea: "San Antonio-New Braunfels",
+    metroPop: "2.7 million",
+    avgDebtLow: 7900,
+    avgDebtHigh: 9600,
+    tier: 1,
+    debtContext:
+      "San Antonio is one of the fastest-growing metros in Texas, anchored by military, healthcare, and tourism employment rather than the higher-wage tech and energy sectors driving Austin, Dallas, and Houston. Household credit card debt sits slightly below the Texas metro average, but so does median household income, which keeps debt-to-income ratios elevated even at lower absolute balances.",
+    localChallenges:
+      "A large share of San Antonio's workforce is employed in hospitality, healthcare support, retail, and military-adjacent civilian roles - sectors with modest median wages and limited employer-sponsored financial benefits. Active-duty and veteran households tied to Joint Base San Antonio face their own debt pressures, including frequent relocation costs and predatory lending targeted at military ZIP codes near base perimeters. Rising property taxes and insurance costs in Bexar County have also compressed household budgets even where housing itself remains comparatively affordable.",
+    economyNote:
+      "San Antonio's economy centers on military installations (Joint Base San Antonio, one of the largest employers in South Texas), healthcare systems (Methodist Healthcare, University Health, Baptist Health System), tourism around the River Walk, and a growing cybersecurity and IT services cluster. USAA's headquarters presence has also built a substantial financial-services and insurance workforce.",
+    settlementNote:
+      "Because Texas prohibits wage garnishment for consumer debt and offers an unlimited homestead exemption, San Antonio residents carry structural protections that some settlement companies fail to explain accurately - creditors have fewer enforcement levers here than in most states, which affects negotiation dynamics.",
+    neighborhoods: ["Alamo Heights", "Stone Oak", "Northwest Side", "Southtown", "Far West Side"],
+    nearbyAreas: ["New Braunfels", "Schertz", "Converse", "Universal City"],
+    statePageSlug: "texas",
+  },
+
+  "san-diego": {
+    slug: "san-diego",
+    city: "San Diego",
+    state: "California",
+    stateAbbr: "CA",
+    metroArea: "San Diego-Chula Vista-Carlsbad",
+    metroPop: "3.3 million",
+    avgDebtLow: 9500,
+    avgDebtHigh: 11800,
+    tier: 1,
+    debtContext:
+      "San Diego combines one of the country's highest costs of living with a large active-duty and veteran population and a biotech and tourism-driven wage base that has not kept pace with housing costs. Credit card balances here run above the California average, and delinquency rates have climbed as San Diego households absorb some of the steepest rent and grocery inflation on the West Coast.",
+    localChallenges:
+      "San Diego's median home price and rent burden are among the highest in the nation, leaving even dual-income households with little slack for debt servicing. Military and veteran families connected to Naval Base San Diego and Marine Corps Base Camp Pendleton face frequent duty-station moves, PCS-related expenses, and predatory lending near base perimeters. The region's large hospitality, tourism, and service-sector workforce earns wages that lag badly behind local housing costs, a gap that shows up directly in unsecured debt balances.",
+    economyNote:
+      "San Diego's economy is built on biotech and life sciences (a top-three US cluster), the US Navy and Marine Corps presence, tourism, and a growing telecommunications and defense-tech sector anchored by companies like Qualcomm. UC San Diego and a dense research-hospital network add a large healthcare and academic employment base.",
+    settlementNote:
+      "California's wage garnishment cap (25% of disposable earnings, or the amount above 40 times the state minimum wage, whichever is less) and its expanded 2021 homestead exemption of $300,000-$600,000 give San Diego homeowners meaningfully stronger protection than residents of most other states - high local home values mean many San Diego homeowners qualify at or near the maximum exemption tier.",
+    neighborhoods: ["North Park", "Chula Vista", "Clairemont", "City Heights", "Oceanside"],
+    nearbyAreas: ["Chula Vista", "Oceanside", "Escondido", "Carlsbad"],
+    statePageSlug: "california",
+  },
+
+  "san-jose": {
+    slug: "san-jose",
+    city: "San Jose",
+    state: "California",
+    stateAbbr: "CA",
+    metroArea: "San Jose-Sunnyvale-Santa Clara",
+    metroPop: "2.0 million",
+    avgDebtLow: 10200,
+    avgDebtHigh: 12600,
+    tier: 1,
+    debtContext:
+      "San Jose sits at the center of Silicon Valley, and its debt profile reflects a stark income divide: high-earning tech employees alongside a large service, retail, and support workforce priced out of the same housing market they work in. Average unsecured debt balances in San Jose run above both the California and national averages, driven less by discretionary spending and more by one of the highest costs of living in the United States.",
+    localChallenges:
+      "San Jose has the highest median home price of any major US metro, and rents are proportionally severe. Households outside the tech-salary tier - administrative, hospitality, retail, and gig workers supporting Silicon Valley's core industries - routinely spend well over half of income on housing alone, leaving credit cards to absorb routine expenses. Even mid-career professionals in non-tech roles report carrying revolving balances simply to keep pace with the region's cost structure.",
+    economyNote:
+      "San Jose's economy is defined by its concentration of technology headquarters and engineering employment (Cisco, Adobe, PayPal, Zoom, and thousands of smaller firms), alongside Santa Clara County's semiconductor manufacturing legacy. The wage gap between tech and non-tech employment in the same metro is one of the widest in the country.",
+    settlementNote:
+      "As in the rest of California, San Jose residents benefit from the state's 25% wage garnishment cap and the 2021-expanded homestead exemption of $300,000-$600,000. Given San Jose's home values are consistently among the highest in the state, most San Jose homeowners qualify for the maximum $600,000 protection tier.",
+    neighborhoods: ["Willow Glen", "Almaden Valley", "East San Jose", "Berryessa", "Cambrian Park"],
+    nearbyAreas: ["Santa Clara", "Sunnyvale", "Milpitas", "Campbell"],
+    statePageSlug: "california",
+  },
+
+  "austin": {
+    slug: "austin",
+    city: "Austin",
+    state: "Texas",
+    stateAbbr: "TX",
+    metroArea: "Austin-Round Rock-Georgetown",
+    metroPop: "2.4 million",
+    avgDebtLow: 8600,
+    avgDebtHigh: 10800,
+    tier: 1,
+    debtContext:
+      "Austin's population and cost of living have both grown faster than almost any other major US metro over the past decade, and household debt has grown right alongside them. Credit card balances in Austin run above the Texas state average, driven less by discretionary spending and more by a housing market that has outpaced wage growth even for well-employed tech and service workers.",
+    localChallenges:
+      "Austin's home prices and rents rose dramatically as the metro absorbed rapid corporate relocation and population growth, and many long-time residents and service-sector workers have been priced out of neighborhoods they once afforded easily. The gap between Austin's high-profile tech salaries and the wages earned by the hospitality, education, healthcare support, and creative workers who make up much of the actual workforce is one of the widest of any Texas metro, and that gap shows up directly in revolving credit card balances used to cover routine cost-of-living increases.",
+    economyNote:
+      "Austin's economy centers on technology (Tesla's Gigafactory, Apple's second-largest campus, Oracle, and a dense startup ecosystem), state government as the Texas capital, and the University of Texas system. Live music, film, and event tourism (South by Southwest, ACL) add a large hospitality and gig-economy workforce.",
+    settlementNote:
+      "Texas's prohibition on wage garnishment for consumer debt and its unlimited homestead exemption apply fully in Austin and Travis County, giving residents stronger structural protection during a settlement negotiation than most other fast-growing metros in the country.",
+    neighborhoods: ["East Austin", "South Austin", "Round Rock", "Pflugerville", "Cedar Park"],
+    nearbyAreas: ["Round Rock", "Cedar Park", "Georgetown", "Pflugerville"],
+    statePageSlug: "texas",
+  },
+
+  "jacksonville": {
+    slug: "jacksonville",
+    city: "Jacksonville",
+    state: "Florida",
+    stateAbbr: "FL",
+    metroArea: "Jacksonville",
+    metroPop: "1.7 million",
+    avgDebtLow: 8100,
+    avgDebtHigh: 10100,
+    tier: 1,
+    debtContext:
+      "Jacksonville's economy is more banking, logistics, and military-driven than the tourism-heavy economies of Orlando or Miami, giving it a steadier but lower-wage-ceiling job base. Household credit card debt tracks close to the Florida state average, with insurance and healthcare costs - both elevated in Florida generally - a frequent contributor to households falling behind.",
+    localChallenges:
+      "Florida's rapidly rising homeowners' insurance premiums and property insurance costs have squeezed household budgets across the state, and Jacksonville - as the largest city by land area in the continental US - has a large base of homeowners exposed to that cost pressure. The region's sizable active-duty and veteran population connected to Naval Station Mayport and NAS Jacksonville also faces the financial strain of frequent relocation, and Jacksonville's logistics, distribution, and call-center employment base pays wages that often lag the state's rising cost of living.",
+    economyNote:
+      "Jacksonville is a major banking and financial services hub (Bank of America and Deutsche Bank both maintain large operations centers here), a logistics and port city (one of the largest deep-water ports on the US East Coast), and home to a substantial insurance industry alongside its military presence.",
+    settlementNote:
+      "Florida's head-of-household wage garnishment exemption - a rare and powerful protection unavailable in most states - can fully shield the wages of a Jacksonville resident who supports a dependent and earns $750 or less per week in net pay, provided the exemption is properly claimed. Florida's homestead exemption also protects a primary residence's value without a dollar cap, subject to acreage limits.",
+    neighborhoods: ["Riverside", "San Marco", "Mandarin", "Arlington", "Southside"],
+    nearbyAreas: ["Orange Park", "Atlantic Beach", "St. Augustine", "Fernandina Beach"],
+    statePageSlug: "florida",
+  },
+
+  "fort-worth": {
+    slug: "fort-worth",
+    city: "Fort Worth",
+    state: "Texas",
+    stateAbbr: "TX",
+    metroArea: "Dallas-Fort Worth-Arlington",
+    metroPop: "8.2 million (DFW metro)",
+    avgDebtLow: 8300,
+    avgDebtHigh: 10200,
+    tier: 1,
+    debtContext:
+      "Fort Worth shares the Dallas-Fort Worth metro's overall economic strength but has a distinctly more blue-collar, manufacturing- and aviation-heavy wage base than Dallas proper. Average credit card debt tracks close to the broader DFW average, but Fort Worth households are more likely to be carrying debt tied to hourly or shift-based income than the finance and corporate-headquarters salaries common on the Dallas side of the metro.",
+    localChallenges:
+      "Fort Worth's cost of living has risen alongside the rest of DFW even though wage growth in its manufacturing, logistics, and aviation-support sectors has been slower than in Dallas's white-collar corporate sector. Rising property taxes and insurance costs across Tarrant County have added pressure even for homeowners with paid-off or low-balance mortgages, and many Fort Worth households carry medical and credit card debt from gaps in employer-sponsored coverage in hourly-wage industries.",
+    economyNote:
+      "Fort Worth's economy is anchored by aviation and aerospace manufacturing (Lockheed Martin's F-35 production facility, Bell Textron, and American Airlines' large presence near DFW Airport), along with a historic stockyards and logistics industry, and a growing healthcare and higher-education sector.",
+    settlementNote:
+      "As part of Texas, Fort Worth residents carry the same no-wage-garnishment and unlimited-homestead protections available statewide - protections that matter in practice for Fort Worth's larger share of hourly and shift-based workers, since garnishment risk to take-home pay is removed entirely for consumer debt.",
+    neighborhoods: ["Near Southside", "TCU/West Cliff", "Arlington Heights", "Stockyards", "Eastside"],
+    nearbyAreas: ["Arlington", "Grapevine", "North Richland Hills", "Burleson"],
+    statePageSlug: "texas",
+  },
+
+  "indianapolis": {
+    slug: "indianapolis",
+    city: "Indianapolis",
+    state: "Indiana",
+    stateAbbr: "IN",
+    metroArea: "Indianapolis-Carmel-Anderson",
+    metroPop: "2.1 million",
+    avgDebtLow: 7600,
+    avgDebtHigh: 9400,
+    tier: 1,
+    debtContext:
+      "Indianapolis carries a lower cost of living than most large Midwest metros, but wages in its dominant logistics and distribution sector are correspondingly modest, and Indiana's relatively weak state-level debtor protections mean households here have less structural cushion than residents of states like Texas or Florida when debt becomes unmanageable.",
+    localChallenges:
+      "Indianapolis's position as a national logistics and distribution hub has created substantial warehouse and shift-based employment, work that often comes with variable hours and limited benefits. Indiana's homestead exemption is among the lowest in the country, meaning Indianapolis homeowners have comparatively little equity protection if a creditor obtains a judgment, which makes proactive debt resolution - before a lawsuit and judgment stage - especially important here relative to more consumer-protective states.",
+    economyNote:
+      "Indianapolis's economy is built on logistics and distribution (its central US location and FedEx's second-largest hub make it a national shipping crossroads), pharmaceuticals (Eli Lilly is headquartered here), motorsports (home of the Indianapolis 500), and a large insurance and healthcare-services sector.",
+    settlementNote:
+      "Indiana follows the standard federal wage garnishment cap of 25% of disposable earnings, with no special state-level enhancement, and its homestead exemption is modest by national standards. This makes negotiating a resolution before a creditor secures a judgment more consequential for Indianapolis homeowners than for residents of states with stronger asset protections.",
+    neighborhoods: ["Broad Ripple", "Fountain Square", "Irvington", "Speedway", "Castleton"],
+    nearbyAreas: ["Carmel", "Fishers", "Greenwood", "Avon"],
+    statePageSlug: "indiana",
+  },
+
+  "seattle": {
+    slug: "seattle",
+    city: "Seattle",
+    state: "Washington",
+    stateAbbr: "WA",
+    metroArea: "Seattle-Tacoma-Bellevue",
+    metroPop: "4.0 million",
+    avgDebtLow: 9700,
+    avgDebtHigh: 12100,
+    tier: 1,
+    debtContext:
+      "Seattle combines a high concentration of high-paying tech employment with one of the highest costs of living in the country, and - as in San Jose - the gap between tech-sector wages and everyone else's wages is a primary driver of credit card debt for non-tech households. Seattle also has no state income tax, which raises take-home pay somewhat but does not offset King County's housing costs.",
+    localChallenges:
+      "King County's median home price is among the highest in the nation, and rents in Seattle proper have followed a similar trajectory. Retail, hospitality, healthcare support, and other service-sector workers - a large share of the metro's actual employment - routinely face a housing cost burden that consumes the majority of take-home pay, leaving credit cards to absorb ordinary living expenses. Seattle's tech sector has also seen significant layoff cycles in recent years, and a sudden income drop after committing to Seattle-level housing costs is a common path into unsecured debt hardship.",
+    economyNote:
+      "Seattle's economy is anchored by technology (Amazon's headquarters, Microsoft in nearby Redmond, and a dense concentration of tech employers), aerospace (Boeing's Puget Sound manufacturing operations), and a globally known coffee and retail sector headquartered in the city.",
+    settlementNote:
+      "Washington protects the greater of 75% of disposable earnings or 35 times the federal minimum wage from garnishment - a stronger baseline than the plain federal standard - and its homestead exemption is the greater of $125,000 or the prior year's county median home sale price, which in King County has meant protection well above $900,000 given local home values.",
+    neighborhoods: ["Capitol Hill", "Ballard", "West Seattle", "Rainier Valley", "Northgate"],
+    nearbyAreas: ["Bellevue", "Tacoma", "Everett", "Renton"],
+    statePageSlug: "washington",
+  },
+
+  "denver": {
+    slug: "denver",
+    city: "Denver",
+    state: "Colorado",
+    stateAbbr: "CO",
+    metroArea: "Denver-Aurora-Lakewood",
+    metroPop: "3.0 million",
+    avgDebtLow: 8900,
+    avgDebtHigh: 11000,
+    tier: 1,
+    debtContext:
+      "Denver's population and housing costs have grown quickly over the past decade as the metro attracted young professionals and remote workers, and household credit card debt has risen in step. Denver's average balances run above the national average, reflecting a cost-of-living increase that has outpaced wage growth for large parts of the workforce, particularly in hospitality, retail, and outdoor-recreation-adjacent industries.",
+    localChallenges:
+      "Denver's rapid population growth pushed home prices and rents up sharply, and while the pace of increase has moderated, the cumulative effect has left many households - especially those who bought or signed leases near the peak - carrying housing costs that strain monthly budgets. Colorado's cost of living outside the immediate Denver core (health insurance, childcare, and property taxes) has also climbed, adding pressure that shows up in revolving debt for households without significant savings cushions.",
+    economyNote:
+      "Denver's economy spans aerospace and defense (a significant concentration of aerospace employers along the Front Range), energy, healthcare, and a large outdoor recreation and tourism-adjacent business sector, alongside a growing technology and startup presence drawn by the region's quality of life.",
+    settlementNote:
+      "Colorado's 2022 homestead exemption expansion - now $250,000, or $350,000 for homeowners 60 or older or disabled - gives Denver homeowners substantially more equity protection than they had before the law changed, a meaningful shift given how much Denver home values have risen. Colorado also caps wage garnishment below the federal standard, tied to the state's minimum wage.",
+    neighborhoods: ["Highlands", "Capitol Hill", "Five Points", "Washington Park", "Stapleton/Central Park"],
+    nearbyAreas: ["Aurora", "Lakewood", "Arvada", "Westminster"],
+    statePageSlug: "colorado",
+  },
+
+  "boston": {
+    slug: "boston",
+    city: "Boston",
+    state: "Massachusetts",
+    stateAbbr: "MA",
+    metroArea: "Boston-Cambridge-Newton",
+    metroPop: "4.9 million",
+    avgDebtLow: 9400,
+    avgDebtHigh: 11700,
+    tier: 1,
+    debtContext:
+      "Boston's household debt profile is shaped by two forces found together in few other US cities: one of the highest costs of living in the country, and one of the highest concentrations of student loan debt, given the region's enormous higher-education presence. Credit card debt often functions as a release valve for households already stretched by rent, healthcare costs, and student loan payments.",
+    localChallenges:
+      "Greater Boston's housing costs are among the steepest in the nation, and the region's density of colleges and universities means a large share of young professionals carry substantial student debt alongside ordinary living expenses - a combination that frequently pushes credit card balances higher even for well-employed households. Massachusetts's high cost of healthcare and childcare adds further pressure, particularly for single-income households and recent graduates just starting careers in a market where rent alone can consume half of take-home pay.",
+    economyNote:
+      "Boston's economy centers on healthcare and biotechnology (a globally significant life-sciences cluster centered on Kendall Square and the Longwood Medical Area), higher education (dozens of colleges and universities across the metro), and financial services, including a substantial asset management and mutual fund industry.",
+    settlementNote:
+      "Massachusetts protects 85% of a resident's disposable earnings from garnishment - only the amount above roughly $750 a week can be garnished, and even then just 15% of the excess - one of the strongest wage protections in the country. Its $500,000 homestead exemption (rising to $1 million for those 62 or older or disabled) also gives Boston homeowners substantial equity protection given the region's high home values.",
+    neighborhoods: ["Dorchester", "Jamaica Plain", "Allston", "East Boston", "Roxbury"],
+    nearbyAreas: ["Cambridge", "Somerville", "Quincy", "Brookline"],
+    statePageSlug: "massachusetts",
+  },
+
+  "washington": {
+    slug: "washington",
+    city: "Washington",
+    state: "District of Columbia",
+    stateAbbr: "DC",
+    metroArea: "Washington-Arlington-Alexandria",
+    metroPop: "6.3 million",
+    avgDebtLow: 9100,
+    avgDebtHigh: 11300,
+    tier: 1,
+    debtContext:
+      "Washington, D.C. combines a high average income with one of the highest costs of living in the country, and its economy is unusually exposed to a debt driver few other cities share: federal government funding lapses. Credit card debt in the District often traces back to a specific income disruption - a furlough, a delayed paycheck during a shutdown, or a federal contract that lost funding - layered on top of already-high fixed housing costs.",
+    localChallenges:
+      "A significant share of D.C.'s workforce is employed directly by the federal government or by contractors, nonprofits, and associations whose funding depends on federal budgets and contracts. Government shutdowns and continuing-resolution funding gaps have repeatedly put real, if temporary, strain on household cash flow across the District, and even short delays in pay can push a household that was current on its bills into revolving credit card debt used to bridge the gap. D.C.'s housing costs - among the highest of any major US city - leave little margin for these disruptions.",
+    economyNote:
+      "Washington, D.C.'s economy centers on the federal government (the single largest employer in the metro), a dense ecosystem of government contractors, law firms, lobbying and advocacy organizations, and national nonprofit and association headquarters, alongside a growing technology and biotech sector in the surrounding region.",
+    settlementNote:
+      "The District of Columbia is not a state, so it does not have a state homestead law or state wage garnishment statute - it has its own D.C. Code provisions, and they diverge from most states in a consumer-favorable way: a notably short 3-year statute of limitations on consumer debt, and a homestead exemption with no dollar cap on a primary residence's value.",
+    neighborhoods: ["Capitol Hill", "Petworth", "Anacostia", "Columbia Heights", "Brookland"],
+    nearbyAreas: ["Arlington, VA", "Alexandria, VA", "Silver Spring, MD", "Bethesda, MD"],
+    statePageSlug: "district-of-columbia",
+  },
 };
 
 // Illinois, Georgia, Arizona, North Carolina, Ohio stateData needed

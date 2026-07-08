@@ -5,8 +5,9 @@ import { DebtSettlementCalculator } from "@/components/DebtSettlementCalculator"
 import { FAQ, type FAQItem } from "@/components/FAQ";
 import { LeadForm } from "@/components/LeadForm";
 import { TrustSignals } from "@/components/TrustSignals";
+import { CITIES } from "@/lib/cityData";
 import { breadcrumbJsonLd, faqJsonLd } from "@/lib/schema";
-import { ArrowRight, Calculator, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Calculator, CheckCircle2, MapPin } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Debt Settlement — Resolve Credit Card Debt for Less | WeHelpFinance",
@@ -62,18 +63,12 @@ const FAQS: FAQItem[] = [
   },
 ];
 
-const CITY_LINKS = [
-  { href: "/debt-settlement/los-angeles", label: "Los Angeles, CA" },
-  { href: "/debt-settlement/houston", label: "Houston, TX" },
-  { href: "/debt-settlement/new-york-city", label: "New York City, NY" },
-  { href: "/debt-settlement/dallas", label: "Dallas, TX" },
-  { href: "/debt-settlement/chicago", label: "Chicago, IL" },
-  { href: "/debt-settlement/atlanta", label: "Atlanta, GA" },
-  { href: "/debt-settlement/phoenix", label: "Phoenix, AZ" },
-  { href: "/debt-settlement/philadelphia", label: "Philadelphia, PA" },
-  { href: "/debt-settlement/charlotte", label: "Charlotte, NC" },
-  { href: "/debt-settlement/columbus", label: "Columbus, OH" },
-];
+const CITY_LINKS = Object.values(CITIES)
+  .map((city) => ({
+    href: `/debt-settlement/${city.slug}`,
+    label: `${city.city}, ${city.stateAbbr}`,
+  }))
+  .sort((a, b) => a.label.localeCompare(b.label));
 
 const RELATED_LINKS = [
   {
@@ -152,10 +147,18 @@ export default function DebtSettlementPage() {
                 </li>
               ))}
             </ul>
-            <a href="#calculator" className="btn-cta mt-8 inline-flex">
-              Estimate My Savings{" "}
-              <Calculator className="h-4 w-4" aria-hidden="true" />
-            </a>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a href="#calculator" className="btn-cta inline-flex">
+                Estimate My Savings{" "}
+                <Calculator className="h-4 w-4" aria-hidden="true" />
+              </a>
+              <a
+                href="#cities"
+                className="inline-flex min-h-12 items-center gap-2 rounded-full border border-primary bg-background px-5 text-sm font-semibold text-primary transition-colors hover:bg-primary-soft"
+              >
+                Find Your City <MapPin className="h-4 w-4" aria-hidden="true" />
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -241,15 +244,12 @@ export default function DebtSettlementPage() {
         </div>
       </section>
 
-      <section className="container-page max-w-4xl py-8 pb-12">
-        <h2 className="mb-6">Frequently Asked Questions</h2>
-        <FAQ items={FAQS} />
-      </section>
+      <FAQ title="Debt settlement FAQs" items={FAQS} />
 
-      <section className="container-page max-w-4xl pb-12">
-        <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+      <section id="cities" className="container-page max-w-4xl scroll-mt-24 pb-12">
+        <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
           Debt settlement by city
-        </h3>
+        </h2>
         <div className="flex flex-wrap gap-2">
           {CITY_LINKS.map((link) => (
             <Link
