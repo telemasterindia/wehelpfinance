@@ -15,7 +15,7 @@ const CANONICAL = "https://www.wehelpfinance.com/financial-tools";
 export const metadata: Metadata = {
   title: "Free Financial Tools & Calculators | WeHelpFinance",
   description:
-    "Free, no-sign-up financial calculators from WeHelpFinance: debt payoff planner with Snowball vs. Avalanche comparison, debt settlement savings estimator, and more tools on the way.",
+    "Free, no-sign-up financial calculators from WeHelpFinance: debt payoff planner, debt settlement estimator, DTI calculator, and debt solutions comparison calculator.",
   alternates: { canonical: CANONICAL },
   openGraph: {
     title: "Free Financial Tools & Calculators | WeHelpFinance",
@@ -46,7 +46,7 @@ const FAQS = [
   },
   {
     q: "What tools are coming next?",
-    a: "A loan comparison calculator (personal loan vs. current cards), a debt-to-income ratio checker for mortgage and refinance planning, and a simple budget planner. Each will follow the same standard: free, private, no sign-up.",
+    a: "A loan comparison calculator (personal loan vs. current cards) and a simple budget planner are planned next. Each will follow the same standard: free, private, no sign-up.",
   },
 ];
 
@@ -70,6 +70,15 @@ const RELATED: ResourceGroup[] = [
 ];
 
 const LIVE_TOOLS = [
+  {
+    href: "/financial-tools/debt-solutions-comparison",
+    name: "Debt Solutions Comparison Calculator",
+    description:
+      "Minimum payments vs. settlement vs. consolidation vs. DMP — every path's payment, timeline, cost, and credit impact in one honest table.",
+    icon: Scale,
+    badge: "Flagship",
+    featured: true,
+  },
   {
     href: "/financial-tools/debt-payoff-calculator",
     name: "Debt Payoff Calculator",
