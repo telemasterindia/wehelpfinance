@@ -320,7 +320,7 @@ function MobileSection({ title, items, pathname, onClick }: { title: string; ite
 function FooterCol({ title, links }: { title: string; links: { to: string; label: string }[] }) {
   return (
     <div>
-      <h4 className="font-display text-sm font-semibold uppercase tracking-wider text-foreground">{title}</h4>
+      <p className="font-display text-sm font-semibold uppercase tracking-wider text-foreground">{title}</p>
       <ul className="mt-4 space-y-2 text-sm">
         {links.map((link) => (
           <li key={link.to}>

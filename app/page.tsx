@@ -198,7 +198,7 @@ export default function HomePage() {
               },
             ].map((s) => (
               <li key={s.n} className="surface-card">
-                <div className="font-display text-3xl text-gold">{s.n}</div>
+                <div className="font-display text-3xl font-semibold text-primary">{s.n}</div>
                 <h3 className="mt-2 text-xl">{s.t}</h3>
                 <p className="mt-2 text-sm text-muted-foreground">{s.d}</p>
               </li>

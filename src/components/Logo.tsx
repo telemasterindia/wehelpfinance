@@ -104,7 +104,7 @@ export function Logo({
           </span>
           <span
             className={`${s.tag} font-medium uppercase tracking-[0.18em] ${
-              isDark ? "text-white/40" : "text-muted-foreground/60"
+              isDark ? "text-white/70" : "text-muted-foreground"
             }`}
           >
             Financial Help · Made Human
