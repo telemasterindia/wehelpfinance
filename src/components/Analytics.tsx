@@ -3,7 +3,8 @@
 import { useEffect } from "react";
 
 const GA4_ID = process.env.NEXT_PUBLIC_GA4_ID || "G-BM0LG58L93";
-const CLARITY_ID = process.env.NEXT_PUBLIC_CLARITY_ID || "xc61d5pjzb";
+const CLARITY_ID = process.env.NEXT_PUBLIC_CLARITY_ID;
+const ENABLE_CLARITY = process.env.NEXT_PUBLIC_ENABLE_CLARITY === "true";
 
 export function Analytics() {
   useEffect(() => {
@@ -23,7 +24,7 @@ export function Analytics() {
       document.head.appendChild(s2);
     }
 
-    if (CLARITY_ID) {
+    if (ENABLE_CLARITY && CLARITY_ID) {
       const s = document.createElement("script");
       s.innerHTML = `
         (function(c,l,a,r,i,t,y){
