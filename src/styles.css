@@ -98,7 +98,10 @@
 
 @layer base {
   * { border-color: var(--color-border); }
-  html { -webkit-text-size-adjust: 100%; }
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
@@ -117,6 +120,7 @@
   h1 { font-size: clamp(2rem, 6vw, 3.5rem); }
   h2 { font-size: clamp(1.6rem, 4.5vw, 2.4rem); }
   h3 { font-size: clamp(1.2rem, 3vw, 1.5rem); }
+  h2[id], h3[id] { scroll-margin-top: 6rem; }
   input, select, textarea, button { font-size: 16px; }
   button, a { min-height: auto; }
   ::selection { background: var(--color-primary-soft); color: var(--color-primary); }

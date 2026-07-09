@@ -43,6 +43,8 @@ export type BlogPostProps = {
   faqs?: FAQItem[];
   relatedArticles?: RelatedArticle[];
   relatedServices?: RelatedService[];
+  showLeadForm?: boolean;
+  showDefaultCtas?: boolean;
 };
 
 export const AUTHORS: Record<string, Author> = {
@@ -140,14 +142,20 @@ export function BlogPost({
   category,
   slug,
   canonicalPath,
+  sectionLabel,
+  sectionHref,
   toc,
   content,
   faqs,
   relatedArticles,
   relatedServices,
+  showLeadForm = true,
+  showDefaultCtas = true,
 }: BlogPostProps) {
   const canonicalUrl = `https://www.wehelpfinance.com${canonicalPath ?? `/blog/${slug}`}`;
   const authorInitials = author.name.split(" ").slice(0, 2).map((word) => word[0]).join("");
+  const sectionText = sectionLabel ?? "Blog";
+  const sectionUrl = sectionHref ?? "/blog";
 
   return (
     <article className="pb-24" itemScope itemType="https://schema.org/Article">
@@ -166,6 +174,13 @@ export function BlogPost({
 
       <header className="relative bg-gradient-to-b from-primary-soft/40 to-background">
         <div className="container-page max-w-4xl py-12 lg:py-16">
+          <nav className="breadcrumb-nav" aria-label="Breadcrumb">
+            <Link href="/">Home</Link>
+            <span className="mx-2">/</span>
+            <Link href={sectionUrl}>{sectionText}</Link>
+            <span className="mx-2">/</span>
+            <span data-current="true">{title}</span>
+          </nav>
           <span className="inline-flex rounded-full bg-primary-soft px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary">
             {category}
           </span>
@@ -205,7 +220,7 @@ export function BlogPost({
         <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_340px] lg:items-start lg:gap-14">
           <div className="min-w-0">
             {toc.length > 0 && (
-              <details className="mb-8 rounded-2xl border border-border bg-card p-5" open>
+              <details className="mb-8 rounded-2xl border border-border bg-card p-5 lg:hidden" open>
                 <summary className="flex cursor-pointer list-none items-center justify-between text-left">
                   <span className="flex items-center gap-2 font-display font-semibold text-foreground">
                     <BookOpen className="h-4 w-4 text-primary" aria-hidden="true" />
@@ -236,10 +251,12 @@ export function BlogPost({
               </div>
             )}
 
-            <InlineCTA
-              heading="Ready to explore your options?"
-              subtext="A free, confidential consultation with a vetted specialist can show you exactly what's available for your situation — no obligation."
-            />
+            {showDefaultCtas && (
+              <InlineCTA
+                heading="Ready to explore your options?"
+                subtext="A free, confidential consultation with a vetted specialist can show you exactly what's available for your situation — no obligation."
+              />
+            )}
 
             <div className="mt-12 rounded-2xl border border-border bg-card p-6" itemScope itemType="https://schema.org/Organization">
               <div className="flex items-start gap-4">
@@ -295,15 +312,35 @@ export function BlogPost({
               </div>
             )}
 
-            <InlineCTA
-              variant="phone"
-              heading="Speak with a specialist today — it's free."
-              subtext="No obligation. No pressure. Just a clear conversation about your options."
-            />
+            {showDefaultCtas && (
+              <InlineCTA
+                variant="phone"
+                heading="Speak with a specialist today — it's free."
+                subtext="No obligation. No pressure. Just a clear conversation about your options."
+              />
+            )}
           </div>
 
           <aside className="space-y-6 lg:sticky lg:top-24">
-            <LeadForm />
+            {toc.length > 0 && (
+              <nav className="hidden rounded-2xl border border-border bg-card p-5 lg:block" aria-label="Table of contents">
+                <p className="flex items-center gap-2 font-display font-semibold text-foreground">
+                  <BookOpen className="h-4 w-4 text-primary" aria-hidden="true" />
+                  In this article
+                </p>
+                <ol className="mt-4 max-h-[48vh] space-y-2 overflow-y-auto pr-1">
+                  {toc.map((item, index) => (
+                    <li key={item.id} className="text-sm">
+                      <a href={`#${item.id}`} className="flex items-start gap-2 text-muted-foreground hover:text-primary focus:text-primary">
+                        <span className="mt-0.5 shrink-0 text-xs font-semibold text-primary">{index + 1}.</span>
+                        {item.label}
+                      </a>
+                    </li>
+                  ))}
+                </ol>
+              </nav>
+            )}
+            {showLeadForm && <LeadForm />}
             <div className="space-y-2 rounded-2xl border border-border bg-card p-5 text-sm text-muted-foreground">
               <p className="text-sm font-semibold text-foreground">About this content</p>
               <p>This article is for educational purposes only and does not constitute financial, legal, or tax advice.</p>
@@ -311,18 +348,20 @@ export function BlogPost({
                 View our editorial policy →
               </Link>
             </div>
-            <a
-              href={`tel:${PHONE_NUMBER}`}
-              className="flex min-h-14 items-center gap-3 rounded-2xl border border-primary bg-primary-soft/40 px-4 py-3 text-sm font-semibold text-primary transition hover:bg-primary-soft"
-            >
-              <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground">
-                <Phone className="h-4 w-4" aria-hidden="true" />
-              </span>
-              <span>
-                <span className="block text-xs font-medium text-muted-foreground">Talk to a specialist</span>
-                {PHONE_DISPLAY}
-              </span>
-            </a>
+            {showDefaultCtas && (
+              <a
+                href={`tel:${PHONE_NUMBER}`}
+                className="flex min-h-14 items-center gap-3 rounded-2xl border border-primary bg-primary-soft/40 px-4 py-3 text-sm font-semibold text-primary transition hover:bg-primary-soft"
+              >
+                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground">
+                  <Phone className="h-4 w-4" aria-hidden="true" />
+                </span>
+                <span>
+                  <span className="block text-xs font-medium text-muted-foreground">Talk to a specialist</span>
+                  {PHONE_DISPLAY}
+                </span>
+              </a>
+            )}
           </aside>
         </div>
       </div>
