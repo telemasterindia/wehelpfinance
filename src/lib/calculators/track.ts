@@ -21,15 +21,24 @@ export type ToolEvent =
   | "tool_option_changed"
   | "cta_clicked"
   | "phone_clicked"
-  | "lead_form_started";
+  | "lead_form_started"
+  | "report_download_clicked"
+  | "report_print_clicked"
+  | "report_action_modal_viewed"
+  | "report_action_modal_accepted"
+  | "report_action_modal_dismissed";
 
 export function trackToolEvent(
   event: ToolEvent,
-  params: Record<string, string | number | boolean> = {}
+  params: Record<string, string | number | boolean> = {},
 ): void {
   try {
-    if (typeof window === "undefined" || typeof window.gtag !== "function") return;
-    window.gtag("event", event, { event_category: "financial_tools", ...params });
+    if (typeof window === "undefined" || typeof window.gtag !== "function")
+      return;
+    window.gtag("event", event, {
+      event_category: "financial_tools",
+      ...params,
+    });
   } catch {
     // Analytics must never break the tool.
   }

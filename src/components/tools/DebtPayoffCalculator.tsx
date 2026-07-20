@@ -5,24 +5,46 @@
 // Snowball vs Avalanche comparison, accessible SVG charts, sticky
 // results on desktop, cards on mobile, GA4 events, and a soft post-
 // results CTA. All visual language reuses existing site tokens.
-// tiny push
+
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import {
-  Plus, Trash2, Phone, ArrowRight, AlertTriangle,
-  Snowflake, TrendingDown, Sparkles,
+  Plus,
+  Trash2,
+  Phone,
+  ArrowRight,
+  AlertTriangle,
+  Snowflake,
+  TrendingDown,
+  Sparkles,
 } from "lucide-react";
 import {
-  compareStrategies, debtWarnings, isValidDebt,
-  fmtUSD, fmtMonths, payoffDateLabel,
-  parseMoney, parseRate, newDebtId,
+  compareStrategies,
+  debtWarnings,
+  isValidDebt,
+  fmtUSD,
+  fmtMonths,
+  payoffDateLabel,
+  parseMoney,
+  parseRate,
+  newDebtId,
 } from "@/lib/calculators/debtPayoff";
-import type { DebtInput, Strategy, PayoffPlan } from "@/lib/calculators/debtPayoff";
+import type {
+  DebtInput,
+  Strategy,
+  PayoffPlan,
+} from "@/lib/calculators/debtPayoff";
 import { trackToolEvent } from "@/lib/calculators/track";
+import { ToolReportActions } from "@/components/tools/ToolReportActions";
+import { reportDateLabel } from "@/lib/calculators/report";
 import { ToolField } from "@/components/tools/ToolField";
-import { StatCard, BalanceChart, DebtTimeline } from "@/components/tools/ToolCharts";
+import {
+  StatCard,
+  BalanceChart,
+  DebtTimeline,
+} from "@/components/tools/ToolCharts";
 
 // ─── Row state (raw strings for controlled inputs) ───────────────────────────
 
@@ -37,14 +59,6 @@ interface DebtRow {
 function emptyRow(): DebtRow {
   return { id: newDebtId(), name: "", balance: "", apr: "", minPayment: "" };
 }
-
-const INITIAL_ROW: DebtRow = {
-  id: "debt-initial",
-  name: "",
-  balance: "",
-  apr: "",
-  minPayment: "",
-};
 
 const EXAMPLE_ROWS: Omit<DebtRow, "id">[] = [
   { name: "Visa card", balance: "6,400", apr: "24.9", minPayment: "160" },
@@ -70,7 +84,7 @@ function formatOnBlur(raw: string): string {
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export function DebtPayoffCalculator() {
-  const [rows, setRows] = useState<DebtRow[]>([INITIAL_ROW]);
+  const [rows, setRows] = useState<DebtRow[]>([emptyRow()]);
   const [extra, setExtra] = useState("");
   const [strategy, setStrategy] = useState<Strategy>("avalanche");
   const completedHash = useRef<string>("");
@@ -85,8 +99,11 @@ export function DebtPayoffCalculator() {
   const extraMonthly = parseMoney(extra);
 
   const comparison = useMemo(
-    () => (validInputs.length > 0 ? compareStrategies(validInputs, extraMonthly) : null),
-    [validInputs, extraMonthly]
+    () =>
+      validInputs.length > 0
+        ? compareStrategies(validInputs, extraMonthly)
+        : null,
+    [validInputs, extraMonthly],
   );
 
   const warnings = useMemo(() => debtWarnings(validInputs), [validInputs]);
@@ -121,7 +138,9 @@ export function DebtPayoffCalculator() {
     setRows((rs) => [...rs, emptyRow()]);
   }
   function removeRow(id: string) {
-    setRows((rs) => (rs.length > 1 ? rs.filter((r) => r.id !== id) : rs.map(() => emptyRow())));
+    setRows((rs) =>
+      rs.length > 1 ? rs.filter((r) => r.id !== id) : rs.map(() => emptyRow()),
+    );
   }
   function loadExample() {
     setRows(EXAMPLE_ROWS.map((r) => ({ ...r, id: newDebtId() })));
@@ -131,7 +150,10 @@ export function DebtPayoffCalculator() {
   function switchStrategy(next: Strategy) {
     if (next === strategy) return;
     setStrategy(next);
-    trackToolEvent("strategy_switched", { tool: "debt_payoff", strategy: next });
+    trackToolEvent("strategy_switched", {
+      tool: "debt_payoff",
+      strategy: next,
+    });
   }
 
   // Keyboard support for the strategy radiogroup.
@@ -143,24 +165,39 @@ export function DebtPayoffCalculator() {
   }
 
   // Per-row inline errors: only for rows the user has started filling.
-  function rowError(r: DebtRow): { balance?: string; apr?: string; minPayment?: string } {
+  function rowError(r: DebtRow): {
+    balance?: string;
+    apr?: string;
+    minPayment?: string;
+  } {
     const touched = r.balance || r.apr || r.minPayment || r.name;
     if (!touched) return {};
     const errs: { balance?: string; apr?: string; minPayment?: string } = {};
-    if (r.balance && parseMoney(r.balance) <= 0) errs.balance = "Enter a balance above $0.";
-    if (r.apr && (parseRate(r.apr) < 0 || r.apr.trim() === ".")) errs.apr = "Enter a valid rate.";
-    if (r.minPayment && parseMoney(r.minPayment) <= 0) errs.minPayment = "Enter a payment above $0.";
+    if (r.balance && parseMoney(r.balance) <= 0)
+      errs.balance = "Enter a balance above $0.";
+    if (r.apr && (parseRate(r.apr) < 0 || r.apr.trim() === "."))
+      errs.apr = "Enter a valid rate.";
+    if (r.minPayment && parseMoney(r.minPayment) <= 0)
+      errs.minPayment = "Enter a payment above $0.";
     return errs;
   }
 
   const baseline = comparison?.baseline ?? null;
   const interestSaved =
-    plan && baseline?.payable ? Math.max(0, baseline.totalInterest - plan.totalInterest) : null;
+    plan && baseline?.payable
+      ? Math.max(0, baseline.totalInterest - plan.totalInterest)
+      : null;
   const monthsSaved =
-    plan && baseline?.payable ? Math.max(0, baseline.months - plan.months) : null;
+    plan && baseline?.payable
+      ? Math.max(0, baseline.months - plan.months)
+      : null;
 
-  const snowPlan = comparison?.snowball.payable ? (comparison.snowball as PayoffPlan) : null;
-  const avaPlan = comparison?.avalanche.payable ? (comparison.avalanche as PayoffPlan) : null;
+  const snowPlan = comparison?.snowball.payable
+    ? (comparison.snowball as PayoffPlan)
+    : null;
+  const avaPlan = comparison?.avalanche.payable
+    ? (comparison.avalanche as PayoffPlan)
+    : null;
 
   return (
     <div className="grid gap-8 lg:grid-cols-[1fr_400px] lg:items-start">
@@ -168,7 +205,9 @@ export function DebtPayoffCalculator() {
       <div>
         <div className="rounded-3xl border border-border bg-card p-5 sm:p-6">
           <div className="mb-4 flex items-center justify-between gap-3">
-            <h2 className="!m-0 font-display text-xl text-foreground">Your debts</h2>
+            <h2 className="!m-0 font-display text-xl text-foreground">
+              Your debts
+            </h2>
             <button
               type="button"
               onClick={loadExample}
@@ -192,7 +231,9 @@ export function DebtPayoffCalculator() {
                       id={`${r.id}-name`}
                       label={`Debt ${i + 1} name`}
                       value={r.name}
-                      onChange={(e) => updateRow(r.id, { name: e.target.value })}
+                      onChange={(e) =>
+                        updateRow(r.id, { name: e.target.value })
+                      }
                       placeholder="e.g. Visa card"
                       inputMode="text"
                     />
@@ -201,7 +242,9 @@ export function DebtPayoffCalculator() {
                       label="Current balance"
                       prefix="$"
                       value={r.balance}
-                      onChange={(e) => updateRow(r.id, { balance: e.target.value })}
+                      onChange={(e) =>
+                        updateRow(r.id, { balance: e.target.value })
+                      }
                       placeholder="6,400"
                       error={errs.balance}
                     />
@@ -219,7 +262,9 @@ export function DebtPayoffCalculator() {
                       label="Minimum monthly payment"
                       prefix="$"
                       value={r.minPayment}
-                      onChange={(e) => updateRow(r.id, { minPayment: e.target.value })}
+                      onChange={(e) =>
+                        updateRow(r.id, { minPayment: e.target.value })
+                      }
                       placeholder="160"
                       error={errs.minPayment}
                     />
@@ -261,13 +306,17 @@ export function DebtPayoffCalculator() {
               />
             </div>
             <p className="mt-2 text-xs text-muted-foreground">
-              Any amount above your combined minimums. Even $50 extra can cut years off your payoff.
+              Any amount above your combined minimums. Even $50 extra can cut
+              years off your payoff.
             </p>
           </div>
 
           {/* Strategy toggle */}
           <div className="mt-6 border-t border-border pt-5">
-            <p id="strategy-label" className="mb-2 text-sm font-medium text-foreground">
+            <p
+              id="strategy-label"
+              className="mb-2 text-sm font-medium text-foreground"
+            >
               Payoff strategy
             </p>
             <div
@@ -289,9 +338,12 @@ export function DebtPayoffCalculator() {
                 }`}
               >
                 <span className="inline-flex items-center gap-1.5">
-                  <TrendingDown className="h-4 w-4" aria-hidden="true" /> Avalanche
+                  <TrendingDown className="h-4 w-4" aria-hidden="true" />{" "}
+                  Avalanche
                 </span>
-                <span className="text-[11px] font-normal opacity-80">Highest rate first</span>
+                <span className="text-[11px] font-normal opacity-80">
+                  Highest rate first
+                </span>
               </button>
               <button
                 type="button"
@@ -308,7 +360,9 @@ export function DebtPayoffCalculator() {
                 <span className="inline-flex items-center gap-1.5">
                   <Snowflake className="h-4 w-4" aria-hidden="true" /> Snowball
                 </span>
-                <span className="text-[11px] font-normal opacity-80">Smallest balance first</span>
+                <span className="text-[11px] font-normal opacity-80">
+                  Smallest balance first
+                </span>
               </button>
             </div>
           </div>
@@ -321,27 +375,38 @@ export function DebtPayoffCalculator() {
                   key={w.id}
                   className="flex items-start gap-2 rounded-xl border border-gold/40 bg-gold/10 px-3.5 py-2.5 text-sm text-foreground"
                 >
-                  <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-gold" aria-hidden="true" />
+                  <AlertTriangle
+                    className="mt-0.5 h-4 w-4 shrink-0 text-gold"
+                    aria-hidden="true"
+                  />
                   <span>{w.message}</span>
                 </p>
               ))}
             </div>
           )}
 
-          {comparison && !comparison[strategy].payable && validInputs.length > 0 && (
-            <p role="alert" className="mt-5 rounded-xl border border-destructive/40 bg-destructive/10 px-3.5 py-2.5 text-sm text-destructive">
-              {(comparison[strategy] as { reason: string }).reason}
-            </p>
-          )}
+          {comparison &&
+            !comparison[strategy].payable &&
+            validInputs.length > 0 && (
+              <p
+                role="alert"
+                className="mt-5 rounded-xl border border-destructive/40 bg-destructive/10 px-3.5 py-2.5 text-sm text-destructive"
+              >
+                {(comparison[strategy] as { reason: string }).reason}
+              </p>
+            )}
         </div>
 
         {/* Charts — render only once there's a plan */}
         {plan && snowPlan && avaPlan && (
           <div className="mt-6 space-y-6">
             <div className="rounded-3xl border border-border bg-card p-5 sm:p-6">
-              <h3 className="!mt-0 font-display text-lg text-foreground">Balance reduction over time</h3>
+              <h3 className="!mt-0 font-display text-lg text-foreground">
+                Balance reduction over time
+              </h3>
               <p className="mb-4 mt-1 text-sm text-muted-foreground">
-                Both strategies compared — the solid line is your selected method.
+                Both strategies compared — the solid line is your selected
+                method.
               </p>
               <BalanceChart
                 snowball={snowPlan.balanceByMonth}
@@ -351,9 +416,12 @@ export function DebtPayoffCalculator() {
             </div>
 
             <div className="rounded-3xl border border-border bg-card p-5 sm:p-6">
-              <h3 className="!mt-0 font-display text-lg text-foreground">Debt elimination timeline</h3>
+              <h3 className="!mt-0 font-display text-lg text-foreground">
+                Debt elimination timeline
+              </h3>
               <p className="mb-4 mt-1 text-sm text-muted-foreground">
-                The order your debts disappear with the {strategy === "snowball" ? "Snowball" : "Avalanche"} method.
+                The order your debts disappear with the{" "}
+                {strategy === "snowball" ? "Snowball" : "Avalanche"} method.
               </p>
               <DebtTimeline debts={plan.debts} totalMonths={plan.months} />
             </div>
@@ -372,10 +440,16 @@ export function DebtPayoffCalculator() {
 
         {!plan ? (
           <div className="rounded-3xl border border-dashed border-border bg-card/60 p-8 text-center">
-            <Sparkles className="mx-auto h-8 w-8 text-primary/50" aria-hidden="true" />
-            <p className="mt-3 font-display text-lg text-foreground">Your plan appears here</p>
+            <Sparkles
+              className="mx-auto h-8 w-8 text-primary/50"
+              aria-hidden="true"
+            />
+            <p className="mt-3 font-display text-lg text-foreground">
+              Your plan appears here
+            </p>
             <p className="mt-1.5 text-sm text-muted-foreground">
-              Add at least one debt with a balance, APR, and minimum payment — results update live as you type.
+              Add at least one debt with a balance, APR, and minimum payment —
+              results update live as you type.
             </p>
           </div>
         ) : (
@@ -388,13 +462,20 @@ export function DebtPayoffCalculator() {
                 {payoffDateLabel(plan.months)}
               </p>
               <p className="mt-0.5 text-sm text-muted-foreground">
-                {fmtMonths(plan.months)} from today · paying {fmtUSD(plan.monthlyBudget)}/month
+                {fmtMonths(plan.months)} from today · paying{" "}
+                {fmtUSD(plan.monthlyBudget)}/month
               </p>
             </div>
 
             <div className="grid grid-cols-2 gap-3">
-              <StatCard label="Total interest" value={fmtUSD(plan.totalInterest)} />
-              <StatCard label="Total repayment" value={fmtUSD(plan.totalPaid)} />
+              <StatCard
+                label="Total interest"
+                value={fmtUSD(plan.totalInterest)}
+              />
+              <StatCard
+                label="Total repayment"
+                value={fmtUSD(plan.totalPaid)}
+              />
               {interestSaved !== null && (
                 <StatCard
                   label="Interest saved"
@@ -415,7 +496,9 @@ export function DebtPayoffCalculator() {
 
             {baseline && !baseline.payable && (
               <p className="rounded-xl border border-gold/40 bg-gold/10 px-3.5 py-2.5 text-sm text-foreground">
-                {baseline.reason} That's exactly why a payoff plan matters — with rollover payments, your plan above still gets you debt-free.
+                {baseline.reason} That's exactly why a payoff plan matters —
+                with rollover payments, your plan above still gets you
+                debt-free.
               </p>
             )}
 
@@ -426,30 +509,96 @@ export function DebtPayoffCalculator() {
                   Snowball vs. Avalanche
                 </p>
                 <div className="mt-3 grid grid-cols-2 gap-3 text-sm">
-                  <div className={`rounded-xl border p-3 ${strategy === "avalanche" ? "border-primary/40 bg-primary-soft/25" : "border-border"}`}>
+                  <div
+                    className={`rounded-xl border p-3 ${strategy === "avalanche" ? "border-primary/40 bg-primary-soft/25" : "border-border"}`}
+                  >
                     <p className="font-semibold text-foreground">Avalanche</p>
-                    <p className="mt-1 text-muted-foreground">{fmtUSD(avaPlan.totalInterest)} interest</p>
-                    <p className="text-muted-foreground">{fmtMonths(avaPlan.months)}</p>
+                    <p className="mt-1 text-muted-foreground">
+                      {fmtUSD(avaPlan.totalInterest)} interest
+                    </p>
+                    <p className="text-muted-foreground">
+                      {fmtMonths(avaPlan.months)}
+                    </p>
                   </div>
-                  <div className={`rounded-xl border p-3 ${strategy === "snowball" ? "border-primary/40 bg-primary-soft/25" : "border-border"}`}>
+                  <div
+                    className={`rounded-xl border p-3 ${strategy === "snowball" ? "border-primary/40 bg-primary-soft/25" : "border-border"}`}
+                  >
                     <p className="font-semibold text-foreground">Snowball</p>
-                    <p className="mt-1 text-muted-foreground">{fmtUSD(snowPlan.totalInterest)} interest</p>
-                    <p className="text-muted-foreground">{fmtMonths(snowPlan.months)}</p>
+                    <p className="mt-1 text-muted-foreground">
+                      {fmtUSD(snowPlan.totalInterest)} interest
+                    </p>
+                    <p className="text-muted-foreground">
+                      {fmtMonths(snowPlan.months)}
+                    </p>
                   </div>
                 </div>
                 <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
                   {comparison.strategyInterestDelta > 0 ? (
                     <>
                       <strong className="text-foreground">
-                        {comparison.cheaper === "avalanche" ? "Avalanche" : "Snowball"} costs {fmtUSD(comparison.strategyInterestDelta)} less
+                        {comparison.cheaper === "avalanche"
+                          ? "Avalanche"
+                          : "Snowball"}{" "}
+                        costs {fmtUSD(comparison.strategyInterestDelta)} less
                       </strong>{" "}
-                      in interest. Snowball's early wins keep many people motivated — the best strategy is the one you'll stick with.
+                      in interest. Snowball's early wins keep many people
+                      motivated — the best strategy is the one you'll stick
+                      with.
                     </>
                   ) : (
-                    <>Both strategies cost the same here — pick the one that keeps you motivated.</>
+                    <>
+                      Both strategies cost the same here — pick the one that
+                      keeps you motivated.
+                    </>
                   )}
                 </p>
               </div>
+            )}
+
+            {plan && (
+              <ToolReportActions
+                data={{
+                  toolSlug: "debt_payoff",
+                  title: "Debt Payoff Plan Report",
+                  generatedLabel: reportDateLabel(),
+                  snapshot: [
+                    {
+                      label: "Debts entered",
+                      value: String(plan.debts.length),
+                    },
+                    {
+                      label: "Starting balance",
+                      value: fmtUSD(plan.balanceByMonth[0] ?? 0),
+                    },
+                    {
+                      label: "Monthly budget",
+                      value: `${fmtUSD(plan.monthlyBudget)}/mo`,
+                    },
+                    {
+                      label: "Strategy",
+                      value:
+                        strategy === "avalanche"
+                          ? "Avalanche (highest APR first)"
+                          : "Snowball (smallest balance first)",
+                    },
+                  ],
+                  results: [
+                    {
+                      label: "Debt-free in",
+                      value: fmtMonths(plan.months),
+                      hint: payoffDateLabel(plan.months),
+                    },
+                    {
+                      label: "Total interest",
+                      value: fmtUSD(plan.totalInterest),
+                    },
+                    { label: "Total paid", value: fmtUSD(plan.totalPaid) },
+                  ],
+                  methodology: [
+                    "Month-by-month simulation: minimums on every debt, with the extra payment rolled into the target debt for the chosen strategy.",
+                  ],
+                }}
+              />
             )}
 
             {/* ── Soft CRO block — value first, never blocking ── */}
@@ -458,13 +607,16 @@ export function DebtPayoffCalculator() {
                 Need professional help reducing your debt?
               </p>
               <p className="mt-1 text-sm text-muted-foreground">
-                If these payments aren't realistic for your budget, a specialist can walk you through
-                settlement and consolidation options — free and confidential.
+                If these payments aren't realistic for your budget, a specialist
+                can walk you through settlement and consolidation options — free
+                and confidential.
               </p>
               <div className="mt-4 flex flex-col gap-2.5 sm:flex-row">
                 <a
                   href="tel:+17183604806"
-                  onClick={() => trackToolEvent("phone_clicked", { tool: "debt_payoff" })}
+                  onClick={() =>
+                    trackToolEvent("phone_clicked", { tool: "debt_payoff" })
+                  }
                   className="inline-flex min-h-[48px] flex-1 items-center justify-center gap-2 rounded-full border border-primary bg-background px-5 text-sm font-semibold text-primary transition hover:bg-primary-soft focus:outline-none focus:ring-2 focus:ring-primary/30"
                 >
                   <Phone className="h-4 w-4" aria-hidden="true" />
@@ -473,8 +625,13 @@ export function DebtPayoffCalculator() {
                 <Link
                   href="/get-help"
                   onClick={() => {
-                    trackToolEvent("cta_clicked", { tool: "debt_payoff", cta: "get_free_help" });
-                    trackToolEvent("lead_form_started", { source: "debt_payoff_calculator" });
+                    trackToolEvent("cta_clicked", {
+                      tool: "debt_payoff",
+                      cta: "get_free_help",
+                    });
+                    trackToolEvent("lead_form_started", {
+                      source: "debt_payoff_calculator",
+                    });
                   }}
                   className="btn-cta flex-1 !min-h-[48px] text-sm"
                 >

@@ -11,17 +11,36 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import { Sparkles, Landmark, TrendingDown, CheckCircle2, AlertTriangle, XCircle } from "lucide-react";
 import {
-  computeDti, DTI_BANDS, METER_CAP,
-  whatIfRemovePayment, whatIfAddIncome, whatIfProposedPayment,
-  HOUSING_STATUS_OPTIONS, INCOME_PERIOD_OPTIONS,
+  Sparkles,
+  Landmark,
+  TrendingDown,
+  CheckCircle2,
+  AlertTriangle,
+  XCircle,
+} from "lucide-react";
+import {
+  computeDti,
+  DTI_BANDS,
+  METER_CAP,
+  whatIfRemovePayment,
+  whatIfAddIncome,
+  whatIfProposedPayment,
+  HOUSING_STATUS_OPTIONS,
+  INCOME_PERIOD_OPTIONS,
 } from "@/lib/calculators/dti";
 import type {
-  DtiInputs, DtiMode, DtiResult, HousingStatus, IncomePeriod, ThresholdStatus,
+  DtiInputs,
+  DtiMode,
+  DtiResult,
+  HousingStatus,
+  IncomePeriod,
+  ThresholdStatus,
 } from "@/lib/calculators/dti";
 import { fmtUSD, parseMoney } from "@/lib/calculators/debtPayoff";
 import { trackToolEvent } from "@/lib/calculators/track";
+import { ToolReportActions } from "@/components/tools/ToolReportActions";
+import { reportDateLabel } from "@/lib/calculators/report";
 import { ToolField } from "@/components/tools/ToolField";
 import { ToolSelect } from "@/components/tools/ToolSelect";
 import { StatCard } from "@/components/tools/ToolCharts";
@@ -36,9 +55,16 @@ const METER_ZONES: MeterZone[] = DTI_BANDS.map((b) => ({
   tone: b.tone,
 }));
 
-const STATUS_META: Record<ThresholdStatus, { label: string; cls: string; Icon: typeof CheckCircle2 }> = {
+const STATUS_META: Record<
+  ThresholdStatus,
+  { label: string; cls: string; Icon: typeof CheckCircle2 }
+> = {
   pass: { label: "Within guideline", cls: "text-success", Icon: CheckCircle2 },
-  borderline: { label: "Compensating factors needed", cls: "text-gold", Icon: AlertTriangle },
+  borderline: {
+    label: "Compensating factors needed",
+    cls: "text-gold",
+    Icon: AlertTriangle,
+  },
   above: { label: "Above ceiling", cls: "text-destructive", Icon: XCircle },
 };
 
@@ -84,7 +110,11 @@ export function DtiCalculator() {
   function switchPeriod(next: IncomePeriod) {
     if (next === period) return;
     setPeriod(next);
-    trackToolEvent("tool_option_changed", { tool: "dti", option: "income_period", value: next });
+    trackToolEvent("tool_option_changed", {
+      tool: "dti",
+      option: "income_period",
+      value: next,
+    });
   }
   function onPeriodKeyDown(e: React.KeyboardEvent) {
     if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(e.key)) {
@@ -111,14 +141,33 @@ export function DtiCalculator() {
         other: parseMoney(other),
       },
     }),
-    [mode, income, period, coIncome, housingStatus, currentHousing, proposedHousing, auto, student, cards, personal, support, other]
+    [
+      mode,
+      income,
+      period,
+      coIncome,
+      housingStatus,
+      currentHousing,
+      proposedHousing,
+      auto,
+      student,
+      cards,
+      personal,
+      support,
+      other,
+    ],
   );
 
   const readyToCompute =
     parseMoney(income) + parseMoney(coIncome) > 0 &&
-    (mode === "mortgage" ? parseMoney(proposedHousing) > 0 : housingStatus !== "");
+    (mode === "mortgage"
+      ? parseMoney(proposedHousing) > 0
+      : housingStatus !== "");
 
-  const output = useMemo(() => (readyToCompute ? computeDti(inputs) : null), [readyToCompute, inputs]);
+  const output = useMemo(
+    () => (readyToCompute ? computeDti(inputs) : null),
+    [readyToCompute, inputs],
+  );
   const result: DtiResult | null = output && output.ok ? output : null;
   const blockingReason = output && !output.ok ? output.reason : null;
 
@@ -141,8 +190,14 @@ export function DtiCalculator() {
   }, [result, coIncome]);
 
   // What-if computations (instant, pure).
-  const wifRemoveRes = result && parseMoney(wifRemove) > 0 ? whatIfRemovePayment(result, parseMoney(wifRemove)) : null;
-  const wifIncomeRes = result && parseMoney(wifIncome) > 0 ? whatIfAddIncome(result, parseMoney(wifIncome)) : null;
+  const wifRemoveRes =
+    result && parseMoney(wifRemove) > 0
+      ? whatIfRemovePayment(result, parseMoney(wifRemove))
+      : null;
+  const wifIncomeRes =
+    result && parseMoney(wifIncome) > 0
+      ? whatIfAddIncome(result, parseMoney(wifIncome))
+      : null;
   const wifProposedRes =
     result && mode === "mortgage" && parseMoney(wifProposed) > 0
       ? whatIfProposedPayment(result, parseMoney(wifProposed))
@@ -159,7 +214,10 @@ export function DtiCalculator() {
       <div>
         <div className="rounded-3xl border border-border bg-card p-5 sm:p-6">
           {/* Mode toggle */}
-          <p id="dti-mode-label" className="mb-2 text-sm font-medium text-foreground">
+          <p
+            id="dti-mode-label"
+            className="mb-2 text-sm font-medium text-foreground"
+          >
             What do you want to check?
           </p>
           <div
@@ -175,13 +233,18 @@ export function DtiCalculator() {
               tabIndex={mode === "current" ? 0 : -1}
               onClick={() => switchMode("current")}
               className={`flex min-h-[52px] flex-col items-center justify-center gap-0.5 rounded-xl px-3 py-2 text-sm font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-primary/40 ${
-                mode === "current" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-muted"
+                mode === "current"
+                  ? "bg-primary text-primary-foreground"
+                  : "text-muted-foreground hover:bg-muted"
               }`}
             >
               <span className="inline-flex items-center gap-1.5">
-                <TrendingDown className="h-4 w-4" aria-hidden="true" /> My current DTI
+                <TrendingDown className="h-4 w-4" aria-hidden="true" /> My
+                current DTI
               </span>
-              <span className="text-[11px] font-normal opacity-80">Where you stand today</span>
+              <span className="text-[11px] font-normal opacity-80">
+                Where you stand today
+              </span>
             </button>
             <button
               type="button"
@@ -190,20 +253,27 @@ export function DtiCalculator() {
               tabIndex={mode === "mortgage" ? 0 : -1}
               onClick={() => switchMode("mortgage")}
               className={`flex min-h-[52px] flex-col items-center justify-center gap-0.5 rounded-xl px-3 py-2 text-sm font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-primary/40 ${
-                mode === "mortgage" ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-muted"
+                mode === "mortgage"
+                  ? "bg-primary text-primary-foreground"
+                  : "text-muted-foreground hover:bg-muted"
               }`}
             >
               <span className="inline-flex items-center gap-1.5">
-                <Landmark className="h-4 w-4" aria-hidden="true" /> Mortgage / refinance
+                <Landmark className="h-4 w-4" aria-hidden="true" /> Mortgage /
+                refinance
               </span>
-              <span className="text-[11px] font-normal opacity-80">As a lender computes it</span>
+              <span className="text-[11px] font-normal opacity-80">
+                As a lender computes it
+              </span>
             </button>
           </div>
 
           {/* Income */}
           <div className="mt-6 border-t border-border pt-5">
             <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
-              <h2 className="!m-0 font-display text-lg text-foreground">Income</h2>
+              <h2 className="!m-0 font-display text-lg text-foreground">
+                Income
+              </h2>
               <div
                 role="radiogroup"
                 aria-label="Income period"
@@ -219,7 +289,9 @@ export function DtiCalculator() {
                     tabIndex={period === o.value ? 0 : -1}
                     onClick={() => switchPeriod(o.value)}
                     className={`rounded-full px-3 py-1 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-primary/40 ${
-                      period === o.value ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-muted"
+                      period === o.value
+                        ? "bg-primary text-primary-foreground"
+                        : "text-muted-foreground hover:bg-muted"
                     }`}
                   >
                     {o.label}
@@ -247,19 +319,24 @@ export function DtiCalculator() {
               />
             </div>
             <p className="mt-2 text-xs text-muted-foreground">
-              Before taxes and deductions — include all stable income sources. The period toggle applies to both fields.
+              Before taxes and deductions — include all stable income sources.
+              The period toggle applies to both fields.
             </p>
           </div>
 
           {/* Housing */}
           <div className="mt-6 border-t border-border pt-5">
-            <h2 className="!m-0 mb-3 font-display text-lg text-foreground">Housing</h2>
+            <h2 className="!m-0 mb-3 font-display text-lg text-foreground">
+              Housing
+            </h2>
             <div className="grid gap-4 sm:grid-cols-2">
               <ToolSelect
                 id="dti-housing-status"
                 label="Housing status"
                 value={housingStatus}
-                onChange={(e) => setHousingStatus(e.target.value as HousingStatus)}
+                onChange={(e) =>
+                  setHousingStatus(e.target.value as HousingStatus)
+                }
                 options={HOUSING_STATUS_OPTIONS}
                 placeholder="Select housing status"
               />
@@ -275,7 +352,8 @@ export function DtiCalculator() {
                   />
                   {mode === "mortgage" && (
                     <p className="mt-1.5 text-xs text-muted-foreground">
-                      Excluded from this check — this payment goes away at closing.
+                      Excluded from this check — this payment goes away at
+                      closing.
                     </p>
                   )}
                 </div>
@@ -292,7 +370,8 @@ export function DtiCalculator() {
                 />
               )}
             </div>
-            {housingStatus === "own-mortgage" || housingStatus === "own-clear" ? (
+            {housingStatus === "own-mortgage" ||
+            housingStatus === "own-clear" ? (
               <p className="mt-2 text-xs text-muted-foreground">
                 Include principal, interest, property taxes, insurance, and HOA.
               </p>
@@ -301,28 +380,78 @@ export function DtiCalculator() {
 
           {/* Debts */}
           <div className="mt-6 border-t border-border pt-5">
-            <h2 className="!m-0 mb-3 font-display text-lg text-foreground">Monthly debt payments</h2>
+            <h2 className="!m-0 mb-3 font-display text-lg text-foreground">
+              Monthly debt payments
+            </h2>
             <div className="grid gap-4 sm:grid-cols-2">
-              <ToolField id="dti-auto" label="Auto loans / leases" prefix="$" value={auto} onChange={(e) => setAuto(e.target.value)} placeholder="420" />
+              <ToolField
+                id="dti-auto"
+                label="Auto loans / leases"
+                prefix="$"
+                value={auto}
+                onChange={(e) => setAuto(e.target.value)}
+                placeholder="420"
+              />
               <div>
-                <ToolField id="dti-student" label="Student loans" prefix="$" value={student} onChange={(e) => setStudent(e.target.value)} placeholder="180" />
+                <ToolField
+                  id="dti-student"
+                  label="Student loans"
+                  prefix="$"
+                  value={student}
+                  onChange={(e) => setStudent(e.target.value)}
+                  placeholder="180"
+                />
                 <p className="mt-1.5 text-xs text-muted-foreground">
-                  Enter what a lender would count — deferred loans are often counted at 0.5–1% of balance.
+                  Enter what a lender would count — deferred loans are often
+                  counted at 0.5–1% of balance.
                 </p>
               </div>
               <div>
-                <ToolField id="dti-cards" label="Credit card minimums (all cards)" prefix="$" value={cards} onChange={(e) => setCards(e.target.value)} placeholder="240" />
-                <p className="mt-1.5 text-xs text-muted-foreground">Minimums only — not what you actually pay.</p>
+                <ToolField
+                  id="dti-cards"
+                  label="Credit card minimums (all cards)"
+                  prefix="$"
+                  value={cards}
+                  onChange={(e) => setCards(e.target.value)}
+                  placeholder="240"
+                />
+                <p className="mt-1.5 text-xs text-muted-foreground">
+                  Minimums only — not what you actually pay.
+                </p>
               </div>
-              <ToolField id="dti-personal" label="Personal / installment loans" prefix="$" value={personal} onChange={(e) => setPersonal(e.target.value)} placeholder="300" />
-              <ToolField id="dti-support" label="Child support / alimony you pay" prefix="$" value={support} onChange={(e) => setSupport(e.target.value)} placeholder="0" />
+              <ToolField
+                id="dti-personal"
+                label="Personal / installment loans"
+                prefix="$"
+                value={personal}
+                onChange={(e) => setPersonal(e.target.value)}
+                placeholder="300"
+              />
+              <ToolField
+                id="dti-support"
+                label="Child support / alimony you pay"
+                prefix="$"
+                value={support}
+                onChange={(e) => setSupport(e.target.value)}
+                placeholder="0"
+              />
               <div>
-                <ToolField id="dti-other" label="Other monthly debt payments" prefix="$" value={other} onChange={(e) => setOther(e.target.value)} placeholder="0" />
-                <p className="mt-1.5 text-xs text-muted-foreground">Other mortgages, IRS payment plans, etc.</p>
+                <ToolField
+                  id="dti-other"
+                  label="Other monthly debt payments"
+                  prefix="$"
+                  value={other}
+                  onChange={(e) => setOther(e.target.value)}
+                  placeholder="0"
+                />
+                <p className="mt-1.5 text-xs text-muted-foreground">
+                  Other mortgages, IRS payment plans, etc.
+                </p>
               </div>
             </div>
             <p className="mt-3 text-xs text-muted-foreground">
-              Don't include utilities, groceries, insurance, phone, or streaming — lenders don't count them in DTI.
+              Don't include utilities, groceries, insurance, phone, or streaming
+              — lenders don't count them in DTI.
             </p>
           </div>
 
@@ -337,14 +466,20 @@ export function DtiCalculator() {
         {result && (
           <div className="mt-6 space-y-6">
             <div className="rounded-3xl border border-border bg-card p-5 sm:p-6">
-              <h3 className="!mt-0 font-display text-lg text-foreground">Your monthly debt vs. lender ceilings</h3>
+              <h3 className="!mt-0 font-display text-lg text-foreground">
+                Your monthly debt vs. lender ceilings
+              </h3>
               <p className="mb-4 mt-1 text-sm text-muted-foreground">
                 The same thresholds, translated into dollars per month.
               </p>
               <CostBars
                 ariaLabel="Your total monthly debt compared with the maximum allowed at common DTI thresholds"
                 items={[
-                  { label: "Your total monthly debt", value: result.totalMonthlyDebt, tone: "primary" },
+                  {
+                    label: "Your total monthly debt",
+                    value: result.totalMonthlyDebt,
+                    tone: "primary",
+                  },
                   ...result.gaps.map((g) => ({
                     label: `Max at ${g.target}% DTI`,
                     value: g.maxTotalDebt,
@@ -359,9 +494,12 @@ export function DtiCalculator() {
             </div>
 
             <div className="rounded-3xl border border-border bg-card p-5 sm:p-6">
-              <h3 className="!mt-0 font-display text-lg text-foreground">Where your income goes</h3>
+              <h3 className="!mt-0 font-display text-lg text-foreground">
+                Where your income goes
+              </h3>
               <p className="mb-4 mt-1 text-sm text-muted-foreground">
-                Gross monthly income of {fmtUSD(result.gmi)}, split by obligation.
+                Gross monthly income of {fmtUSD(result.gmi)}, split by
+                obligation.
               </p>
               <IncomeAllocationBar
                 housingPct={result.allocation.housingPct}
@@ -372,7 +510,9 @@ export function DtiCalculator() {
 
             {/* What-if analysis */}
             <div className="rounded-3xl border border-border bg-card p-5 sm:p-6">
-              <h3 className="!mt-0 font-display text-lg text-foreground">What-if scenarios</h3>
+              <h3 className="!mt-0 font-display text-lg text-foreground">
+                What-if scenarios
+              </h3>
               <p className="mb-4 mt-1 text-sm text-muted-foreground">
                 Test a change — results update instantly.
               </p>
@@ -388,8 +528,13 @@ export function DtiCalculator() {
                   />
                   {wifRemoveRes && (
                     <p className="mt-2 text-sm text-foreground">
-                      New DTI: <strong>{wifRemoveRes.backEnd.toFixed(1)}%</strong> ({wifRemoveRes.band.label})
-                      <span className="text-success"> · {wifRemoveRes.delta.toFixed(1)} pts</span>
+                      New DTI:{" "}
+                      <strong>{wifRemoveRes.backEnd.toFixed(1)}%</strong> (
+                      {wifRemoveRes.band.label})
+                      <span className="text-success">
+                        {" "}
+                        · {wifRemoveRes.delta.toFixed(1)} pts
+                      </span>
                     </p>
                   )}
                 </div>
@@ -404,8 +549,13 @@ export function DtiCalculator() {
                   />
                   {wifIncomeRes && (
                     <p className="mt-2 text-sm text-foreground">
-                      New DTI: <strong>{wifIncomeRes.backEnd.toFixed(1)}%</strong> ({wifIncomeRes.band.label})
-                      <span className="text-success"> · {wifIncomeRes.delta.toFixed(1)} pts</span>
+                      New DTI:{" "}
+                      <strong>{wifIncomeRes.backEnd.toFixed(1)}%</strong> (
+                      {wifIncomeRes.band.label})
+                      <span className="text-success">
+                        {" "}
+                        · {wifIncomeRes.delta.toFixed(1)} pts
+                      </span>
                     </p>
                   )}
                 </div>
@@ -423,9 +573,19 @@ export function DtiCalculator() {
                     </div>
                     {wifProposedRes && (
                       <p className="mt-2 text-sm text-foreground">
-                        New DTI: <strong>{wifProposedRes.backEnd.toFixed(1)}%</strong> ({wifProposedRes.band.label})
-                        <span className={wifProposedRes.delta <= 0 ? "text-success" : "text-destructive"}>
-                          {" "}· {wifProposedRes.delta > 0 ? "+" : ""}{wifProposedRes.delta.toFixed(1)} pts
+                        New DTI:{" "}
+                        <strong>{wifProposedRes.backEnd.toFixed(1)}%</strong> (
+                        {wifProposedRes.band.label})
+                        <span
+                          className={
+                            wifProposedRes.delta <= 0
+                              ? "text-success"
+                              : "text-destructive"
+                          }
+                        >
+                          {" "}
+                          · {wifProposedRes.delta > 0 ? "+" : ""}
+                          {wifProposedRes.delta.toFixed(1)} pts
                         </span>
                       </p>
                     )}
@@ -447,10 +607,16 @@ export function DtiCalculator() {
 
         {!result ? (
           <div className="rounded-3xl border border-dashed border-border bg-card/60 p-8 text-center">
-            <Sparkles className="mx-auto h-8 w-8 text-primary/50" aria-hidden="true" />
-            <p className="mt-3 font-display text-lg text-foreground">Your DTI appears here</p>
+            <Sparkles
+              className="mx-auto h-8 w-8 text-primary/50"
+              aria-hidden="true"
+            />
+            <p className="mt-3 font-display text-lg text-foreground">
+              Your DTI appears here
+            </p>
             <p className="mt-1.5 text-sm text-muted-foreground">
-              Enter your income and monthly debts — results update live. Nothing is saved or submitted.
+              Enter your income and monthly debts — results update live. Nothing
+              is saved or submitted.
             </p>
           </div>
         ) : (
@@ -459,7 +625,13 @@ export function DtiCalculator() {
               eyebrow={`Back-end DTI · ${result.band.label}`}
               value={`${result.backEnd.toFixed(1)}%`}
               sub={result.band.meaning}
-              tone={result.band.tone === "gold" ? "primary" : result.band.tone === "destructive" ? "destructive" : "success"}
+              tone={
+                result.band.tone === "gold"
+                  ? "primary"
+                  : result.band.tone === "destructive"
+                    ? "destructive"
+                    : "success"
+              }
             />
 
             <div className="rounded-2xl border border-border bg-card p-4">
@@ -478,10 +650,18 @@ export function DtiCalculator() {
                 <StatCard
                   label="Front-end (housing) DTI"
                   value={`${result.frontEnd.toFixed(1)}%`}
-                  sub={result.mode === "mortgage" ? "proposed payment ÷ income" : "housing ÷ income"}
+                  sub={
+                    result.mode === "mortgage"
+                      ? "proposed payment ÷ income"
+                      : "housing ÷ income"
+                  }
                 />
               )}
-              <StatCard label="Total monthly debt" value={fmtUSD(result.totalMonthlyDebt)} sub="counted by lenders" />
+              <StatCard
+                label="Total monthly debt"
+                value={fmtUSD(result.totalMonthlyDebt)}
+                sub="counted by lenders"
+              />
             </div>
 
             {result.readiness && (
@@ -492,7 +672,9 @@ export function DtiCalculator() {
                 <p className="mt-1.5 font-display text-base font-semibold text-foreground">
                   {result.readiness.label}
                 </p>
-                <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{result.readiness.summary}</p>
+                <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                  {result.readiness.summary}
+                </p>
               </div>
             )}
 
@@ -508,13 +690,22 @@ export function DtiCalculator() {
                   return (
                     <li key={t.key} className="text-sm">
                       <div className="flex items-start gap-2">
-                        <Icon className={`mt-0.5 h-4 w-4 shrink-0 ${meta.cls}`} aria-hidden="true" />
+                        <Icon
+                          className={`mt-0.5 h-4 w-4 shrink-0 ${meta.cls}`}
+                          aria-hidden="true"
+                        />
                         <div>
                           <p className="font-medium text-foreground">
                             {t.label}
-                            <span className={`ml-2 text-xs font-semibold ${meta.cls}`}>{meta.label}</span>
+                            <span
+                              className={`ml-2 text-xs font-semibold ${meta.cls}`}
+                            >
+                              {meta.label}
+                            </span>
                           </p>
-                          <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">{t.note}</p>
+                          <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">
+                            {t.note}
+                          </p>
                         </div>
                       </div>
                     </li>
@@ -522,7 +713,8 @@ export function DtiCalculator() {
                 })}
               </ul>
               <p className="mt-3 text-xs text-muted-foreground">
-                DTI is one factor — credit history, assets, and documentation carry the rest of any application.
+                DTI is one factor — credit history, assets, and documentation
+                carry the rest of any application.
               </p>
             </div>
 
@@ -535,22 +727,36 @@ export function DtiCalculator() {
                 {result.gaps.map((g) =>
                   g.headroom !== null ? (
                     <li key={g.target}>
-                      <strong className="text-foreground">At {g.target}%:</strong> you have{" "}
-                      <strong className="text-success">{fmtUSD(g.headroom)}/mo</strong> of headroom.
+                      <strong className="text-foreground">
+                        At {g.target}%:
+                      </strong>{" "}
+                      you have{" "}
+                      <strong className="text-success">
+                        {fmtUSD(g.headroom)}/mo
+                      </strong>{" "}
+                      of headroom.
                     </li>
                   ) : (
                     <li key={g.target}>
-                      <strong className="text-foreground">To reach {g.target}%:</strong> reduce monthly debt by{" "}
-                      <strong className="text-foreground">{fmtUSD(g.reductionNeeded ?? 0)}</strong> — or add{" "}
-                      {fmtUSD(g.extraIncomeNeeded ?? 0)} gross monthly income.
+                      <strong className="text-foreground">
+                        To reach {g.target}%:
+                      </strong>{" "}
+                      reduce monthly debt by{" "}
+                      <strong className="text-foreground">
+                        {fmtUSD(g.reductionNeeded ?? 0)}
+                      </strong>{" "}
+                      — or add {fmtUSD(g.extraIncomeNeeded ?? 0)} gross monthly
+                      income.
                     </li>
-                  )
+                  ),
                 )}
               </ul>
             </div>
 
             {result.warnings.map((w) => (
-              <NoticeBox key={w.message} tone="amber">{w.message}</NoticeBox>
+              <NoticeBox key={w.message} tone="amber">
+                {w.message}
+              </NoticeBox>
             ))}
 
             {/* Recommendation */}
@@ -561,17 +767,63 @@ export function DtiCalculator() {
               <p className="mt-1.5 font-display text-base font-semibold text-foreground">
                 {result.recommendation.label}
               </p>
-              <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{result.recommendation.note}</p>
+              <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                {result.recommendation.note}
+              </p>
               {result.recommendation.key !== "healthy" && (
                 <Link
                   href={result.recommendation.href}
-                  onClick={() => trackToolEvent("cta_clicked", { tool: "dti", cta: result.recommendation.key })}
+                  onClick={() =>
+                    trackToolEvent("cta_clicked", {
+                      tool: "dti",
+                      cta: result.recommendation.key,
+                    })
+                  }
                   className="mt-2 inline-block text-sm font-semibold text-primary underline-offset-2 hover:underline"
                 >
                   See how →
                 </Link>
               )}
             </div>
+
+            <ToolReportActions
+              data={{
+                toolSlug: "dti",
+                title: "Debt-to-Income (DTI) Report",
+                generatedLabel: reportDateLabel(),
+                snapshot: [
+                  {
+                    label: "Gross monthly income",
+                    value: `$${Math.round(result.gmi).toLocaleString()}`,
+                  },
+                  {
+                    label: "Mode",
+                    value:
+                      result.mode === "mortgage"
+                        ? "Mortgage / refinance check"
+                        : "Current DTI",
+                  },
+                ],
+                results: [
+                  {
+                    label: "Back-end DTI",
+                    value: `${result.backEnd.toFixed(1)}%`,
+                    hint: result.band.label,
+                  },
+                  ...(result.frontEndAvailable
+                    ? [
+                        {
+                          label: "Front-end DTI",
+                          value: `${result.frontEnd.toFixed(1)}%`,
+                        },
+                      ]
+                    : []),
+                ],
+                methodology: [
+                  "DTI = monthly debt obligations ÷ gross monthly income, using contractual debts only — the same math lenders use.",
+                ],
+              }}
+            />
 
             <SoftCTA
               heading="Need help reviewing these numbers?"
@@ -585,13 +837,26 @@ export function DtiCalculator() {
                 How this is calculated
               </summary>
               <ul className="mt-3 list-disc space-y-1.5 pl-5 text-muted-foreground">
-                <li>Back-end DTI = all monthly debt payments (including housing) ÷ gross monthly income.</li>
+                <li>
+                  Back-end DTI = all monthly debt payments (including housing) ÷
+                  gross monthly income.
+                </li>
                 <li>Front-end DTI = housing payment ÷ gross monthly income.</li>
                 {result.mode === "mortgage" && (
-                  <li>Mortgage mode uses your proposed payment and excludes current rent/mortgage — exactly how a lender underwrites the new loan.</li>
+                  <li>
+                    Mortgage mode uses your proposed payment and excludes
+                    current rent/mortgage — exactly how a lender underwrites the
+                    new loan.
+                  </li>
                 )}
-                <li>Reductions you need are rounded up; headroom is rounded down — we never overstate approval odds.</li>
-                <li>Thresholds are educational references (agency guidelines and common practice), not approval promises.</li>
+                <li>
+                  Reductions you need are rounded up; headroom is rounded down —
+                  we never overstate approval odds.
+                </li>
+                <li>
+                  Thresholds are educational references (agency guidelines and
+                  common practice), not approval promises.
+                </li>
               </ul>
             </details>
           </div>

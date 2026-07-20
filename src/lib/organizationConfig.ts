@@ -1,5 +1,8 @@
 export const SITE_URL = "https://www.wehelpfinance.com";
 
+/** Shared site-wide Open Graph / Twitter card image (also used by layout). */
+export const DEFAULT_OG_IMAGE = "/og-default.png";
+
 export const ORGANIZATION = {
   name: "WeHelpFinance",
   legalName: "WeHelpFinance",
@@ -19,7 +22,7 @@ export const ORGANIZATION = {
     "@type": "ContactPoint",
     telephone: "+1-718-360-4806",
     contactType: "customer service",
-    email: "help@wehelpfinance.com",
+    email: "hello@wehelpfinance.com",
     areaServed: "US",
     availableLanguage: ["English"],
   },

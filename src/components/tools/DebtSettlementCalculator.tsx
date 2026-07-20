@@ -13,21 +13,36 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { Phone, ArrowRight, AlertTriangle, Sparkles, Info } from "lucide-react";
 import {
-  calculateSettlement, defaultSettlementPct, fmtPct,
-  DELINQUENCY_OPTIONS, EMPLOYMENT_OPTIONS,
-  SETTLEMENT_RANGE_BY_STAGE, DEFAULT_FEE_PCT,
+  calculateSettlement,
+  defaultSettlementPct,
+  fmtPct,
+  DELINQUENCY_OPTIONS,
+  EMPLOYMENT_OPTIONS,
+  SETTLEMENT_RANGE_BY_STAGE,
+  DEFAULT_FEE_PCT,
 } from "@/lib/calculators/debtSettlement";
 import type {
-  DelinquencyStage, EmploymentStatus, SettlementInputs,
+  DelinquencyStage,
+  EmploymentStatus,
+  SettlementInputs,
 } from "@/lib/calculators/debtSettlement";
 import {
-  fmtUSD, fmtMonths, payoffDateLabel, parseMoney, parseRate,
+  fmtUSD,
+  fmtMonths,
+  payoffDateLabel,
+  parseMoney,
+  parseRate,
 } from "@/lib/calculators/debtPayoff";
 import { trackToolEvent } from "@/lib/calculators/track";
+import { ToolReportActions } from "@/components/tools/ToolReportActions";
+import { reportDateLabel } from "@/lib/calculators/report";
 import { ToolField } from "@/components/tools/ToolField";
 import { ToolSelect } from "@/components/tools/ToolSelect";
 import { StatCard } from "@/components/tools/ToolCharts";
-import { CostBars, SavingsBreakdown } from "@/components/tools/ComparisonCharts";
+import {
+  CostBars,
+  SavingsBreakdown,
+} from "@/components/tools/ComparisonCharts";
 import { US_STATES } from "@/lib/calculators/usStates";
 
 export function DebtSettlementCalculator() {
@@ -39,7 +54,7 @@ export function DebtSettlementCalculator() {
   const [currentPayments, setCurrentPayments] = useState("");
   const [delinquency, setDelinquency] = useState<DelinquencyStage | "">("");
   const [employment, setEmployment] = useState<EmploymentStatus | "">("");
-  const [settlePct, setSettlePct] = useState("");   // percent as typed, e.g. "48"
+  const [settlePct, setSettlePct] = useState(""); // percent as typed, e.g. "48"
   const [feePct, setFeePct] = useState(String(DEFAULT_FEE_PCT * 100)); // "22"
   const [targetPayment, setTargetPayment] = useState("");
   const settleOverridden = useRef(false);
@@ -75,9 +90,23 @@ export function DebtSettlementCalculator() {
       feePct: parseRate(feePct) / 100,
       targetMonthlyPayment: parseMoney(targetPayment),
     };
-  }, [debt, creditors, stateCode, income, currentPayments, delinquency, employment, settlePct, feePct, targetPayment]);
+  }, [
+    debt,
+    creditors,
+    stateCode,
+    income,
+    currentPayments,
+    delinquency,
+    employment,
+    settlePct,
+    feePct,
+    targetPayment,
+  ]);
 
-  const output = useMemo(() => (inputs ? calculateSettlement(inputs) : null), [inputs]);
+  const output = useMemo(
+    () => (inputs ? calculateSettlement(inputs) : null),
+    [inputs],
+  );
   const result = output && output.ok ? output : null;
   const inputError = output && !output.ok ? output.reason : null;
 
@@ -97,13 +126,17 @@ export function DebtSettlementCalculator() {
     return () => clearTimeout(t);
   }, [result, inputs]);
 
-  const stageRange = delinquency ? SETTLEMENT_RANGE_BY_STAGE[delinquency] : null;
+  const stageRange = delinquency
+    ? SETTLEMENT_RANGE_BY_STAGE[delinquency]
+    : null;
 
   return (
     <div className="grid gap-8 lg:grid-cols-[1fr_420px] lg:items-start">
       {/* ══════════════ LEFT — Inputs ══════════════ */}
       <div className="rounded-3xl border border-border bg-card p-5 sm:p-6">
-        <h2 className="!m-0 font-display text-xl text-foreground">Your situation</h2>
+        <h2 className="!m-0 font-display text-xl text-foreground">
+          Your situation
+        </h2>
         <p className="mt-1 text-sm text-muted-foreground">
           Everything runs in your browser — nothing is saved or submitted.
         </p>
@@ -198,7 +231,8 @@ export function DebtSettlementCalculator() {
               />
               {stageRange && (
                 <p className="mt-1.5 text-xs text-muted-foreground">
-                  Typical for your status: {fmtPct(stageRange.low)}–{fmtPct(stageRange.high)} of balance.
+                  Typical for your status: {fmtPct(stageRange.low)}–
+                  {fmtPct(stageRange.high)} of balance.
                 </p>
               )}
             </div>
@@ -212,15 +246,22 @@ export function DebtSettlementCalculator() {
                 placeholder="22"
               />
               <p className="mt-1.5 text-xs text-muted-foreground">
-                Industry range 15–25% of enrolled debt — charged only after each debt settles (FTC rule).
+                Industry range 15–25% of enrolled debt — charged only after each
+                debt settles (FTC rule).
               </p>
             </div>
           </div>
         </div>
 
         {inputError && (
-          <p role="alert" className="mt-4 flex items-start gap-2 rounded-xl border border-gold/40 bg-gold/10 px-3.5 py-2.5 text-sm text-foreground">
-            <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-gold" aria-hidden="true" />
+          <p
+            role="alert"
+            className="mt-4 flex items-start gap-2 rounded-xl border border-gold/40 bg-gold/10 px-3.5 py-2.5 text-sm text-foreground"
+          >
+            <AlertTriangle
+              className="mt-0.5 h-4 w-4 shrink-0 text-gold"
+              aria-hidden="true"
+            />
             {inputError}
           </p>
         )}
@@ -229,14 +270,20 @@ export function DebtSettlementCalculator() {
         {result && (
           <div className="mt-6 space-y-6">
             <div>
-              <h3 className="font-display text-lg text-foreground">Settlement vs. keep paying minimums</h3>
+              <h3 className="font-display text-lg text-foreground">
+                Settlement vs. keep paying minimums
+              </h3>
               <p className="mb-4 mt-1 text-sm text-muted-foreground">
                 Total cost of each path from today.
               </p>
               <CostBars
                 ariaLabel="Cost comparison between debt settlement and continuing minimum payments"
                 items={[
-                  { label: "Your current debt", value: inputs!.totalDebt, tone: "muted" },
+                  {
+                    label: "Your current debt",
+                    value: inputs!.totalDebt,
+                    tone: "muted",
+                  },
                   {
                     label: `Settlement path (${fmtMonths(result.months)})`,
                     value: result.totalCost,
@@ -260,9 +307,12 @@ export function DebtSettlementCalculator() {
               />
             </div>
             <div>
-              <h3 className="font-display text-lg text-foreground">Where every dollar goes</h3>
+              <h3 className="font-display text-lg text-foreground">
+                Where every dollar goes
+              </h3>
               <p className="mb-4 mt-1 text-sm text-muted-foreground">
-                Your {fmtUSD(inputs!.totalDebt)} debt, split across the settlement path.
+                Your {fmtUSD(inputs!.totalDebt)} debt, split across the
+                settlement path.
               </p>
               <SavingsBreakdown
                 totalDebt={inputs!.totalDebt}
@@ -285,10 +335,16 @@ export function DebtSettlementCalculator() {
 
         {!result ? (
           <div className="rounded-3xl border border-dashed border-border bg-card/60 p-8 text-center">
-            <Sparkles className="mx-auto h-8 w-8 text-primary/50" aria-hidden="true" />
-            <p className="mt-3 font-display text-lg text-foreground">Your estimate appears here</p>
+            <Sparkles
+              className="mx-auto h-8 w-8 text-primary/50"
+              aria-hidden="true"
+            />
+            <p className="mt-3 font-display text-lg text-foreground">
+              Your estimate appears here
+            </p>
             <p className="mt-1.5 text-sm text-muted-foreground">
-              Fill in your total debt, number of creditors, and how far behind you are — results update live.
+              Fill in your total debt, number of creditors, and how far behind
+              you are — results update live.
             </p>
           </div>
         ) : (
@@ -306,30 +362,50 @@ export function DebtSettlementCalculator() {
             </div>
 
             <div className="grid grid-cols-2 gap-3">
-              <StatCard label="Settlement amount" value={fmtUSD(result.settlementAmount)} sub={`≈ ${fmtUSD(result.perCreditorSettlement)} per creditor`} />
-              <StatCard label="Program fees" value={fmtUSD(result.programFees)} sub="paid only as debts settle" />
+              <StatCard
+                label="Settlement amount"
+                value={fmtUSD(result.settlementAmount)}
+                sub={`≈ ${fmtUSD(result.perCreditorSettlement)} per creditor`}
+              />
+              <StatCard
+                label="Program fees"
+                value={fmtUSD(result.programFees)}
+                sub="paid only as debts settle"
+              />
               <StatCard label="Total cost" value={fmtUSD(result.totalCost)} />
-              <StatCard label="Monthly deposit" value={fmtUSD(result.monthlyDeposit)} tone="primary" />
-              <StatCard label="Program length" value={fmtMonths(result.months)} />
-              <StatCard label="Est. completion" value={payoffDateLabel(result.months)} />
+              <StatCard
+                label="Monthly deposit"
+                value={fmtUSD(result.monthlyDeposit)}
+                tone="primary"
+              />
+              <StatCard
+                label="Program length"
+                value={fmtMonths(result.months)}
+              />
+              <StatCard
+                label="Est. completion"
+                value={payoffDateLabel(result.months)}
+              />
             </div>
 
             {result.monthlyPaymentAdjusted && (
               <p className="rounded-xl border border-gold/40 bg-gold/10 px-3.5 py-2.5 text-sm text-foreground">
-                Your target payment was below the minimum for a 60-month program, so we've used{" "}
-                {fmtUSD(result.minViableMonthly)}/month — the lowest deposit that completes within
-                the typical maximum program length.
+                Your target payment was below the minimum for a 60-month
+                program, so we've used {fmtUSD(result.minViableMonthly)}/month —
+                the lowest deposit that completes within the typical maximum
+                program length.
               </p>
             )}
 
-            {result.vsBaselineSavings !== null && result.vsBaselineSavings > 0 && (
-              <StatCard
-                label="Saved vs. minimum payments"
-                value={fmtUSD(result.vsBaselineSavings)}
-                sub={`and debt-free ${fmtMonths(Math.max(0, result.baseline.months - result.months))} sooner`}
-                tone="success"
-              />
-            )}
+            {result.vsBaselineSavings !== null &&
+              result.vsBaselineSavings > 0 && (
+                <StatCard
+                  label="Saved vs. minimum payments"
+                  value={fmtUSD(result.vsBaselineSavings)}
+                  sub={`and debt-free ${fmtMonths(Math.max(0, result.baseline.months - result.months))} sooner`}
+                  tone="success"
+                />
+              )}
             {!result.baseline.payable && result.baseline.reason && (
               <p className="rounded-xl border border-destructive/30 bg-destructive/10 px-3.5 py-2.5 text-sm text-foreground">
                 {result.baseline.reason}
@@ -355,10 +431,12 @@ export function DebtSettlementCalculator() {
                 Good to know (educational)
               </p>
               <p className="text-muted-foreground">
-                <strong className="text-foreground">Credit impact:</strong> {result.creditImpactNote}
+                <strong className="text-foreground">Credit impact:</strong>{" "}
+                {result.creditImpactNote}
               </p>
               <p className="text-muted-foreground">
-                <strong className="text-foreground">Taxes:</strong> {result.taxNote}
+                <strong className="text-foreground">Taxes:</strong>{" "}
+                {result.taxNote}
               </p>
             </div>
 
@@ -368,12 +446,15 @@ export function DebtSettlementCalculator() {
                 Need help understanding your options?
               </p>
               <p className="mt-1 text-sm text-muted-foreground">
-                Speak with a debt specialist — free consultation, no obligation, confidential.
+                Speak with a debt specialist — free consultation, no obligation,
+                confidential.
               </p>
               <div className="mt-4 flex flex-col gap-2.5 sm:flex-row">
                 <a
                   href="tel:+17183604806"
-                  onClick={() => trackToolEvent("phone_clicked", { tool: "debt_settlement" })}
+                  onClick={() =>
+                    trackToolEvent("phone_clicked", { tool: "debt_settlement" })
+                  }
                   className="inline-flex min-h-[48px] flex-1 items-center justify-center gap-2 rounded-full border border-primary bg-background px-5 text-sm font-semibold text-primary transition hover:bg-primary-soft focus:outline-none focus:ring-2 focus:ring-primary/30"
                 >
                   <Phone className="h-4 w-4" aria-hidden="true" />
@@ -382,8 +463,13 @@ export function DebtSettlementCalculator() {
                 <Link
                   href="/get-help"
                   onClick={() => {
-                    trackToolEvent("cta_clicked", { tool: "debt_settlement", cta: "get_free_help" });
-                    trackToolEvent("lead_form_started", { source: "debt_settlement_calculator" });
+                    trackToolEvent("cta_clicked", {
+                      tool: "debt_settlement",
+                      cta: "get_free_help",
+                    });
+                    trackToolEvent("lead_form_started", {
+                      source: "debt_settlement_calculator",
+                    });
                   }}
                   className="btn-cta flex-1 !min-h-[48px] text-sm"
                 >
@@ -392,6 +478,52 @@ export function DebtSettlementCalculator() {
                 </Link>
               </div>
             </div>
+
+            <ToolReportActions
+              data={{
+                toolSlug: "debt_settlement",
+                title: "Debt Settlement Estimate Report",
+                generatedLabel: reportDateLabel(),
+                snapshot: [
+                  {
+                    label: "Total enrolled debt",
+                    value: fmtUSD(inputs!.totalDebt),
+                  },
+                  {
+                    label: "Gross monthly income",
+                    value: fmtUSD(inputs!.monthlyIncome),
+                  },
+                  {
+                    label: "Current monthly payments",
+                    value: fmtUSD(inputs!.currentMonthlyPayments),
+                  },
+                ],
+                results: [
+                  {
+                    label: "Estimated settlement to creditors",
+                    value: fmtUSD(result.settlementAmount),
+                  },
+                  { label: "Program fees", value: fmtUSD(result.programFees) },
+                  {
+                    label: "Estimated total cost",
+                    value: fmtUSD(result.totalCost),
+                  },
+                  {
+                    label: "Monthly deposit",
+                    value: `${fmtUSD(result.monthlyDeposit)}/mo`,
+                  },
+                  { label: "Program length", value: fmtMonths(result.months) },
+                  {
+                    label: "Estimated net savings",
+                    value: fmtUSD(result.netSavings),
+                  },
+                ],
+                assumptions: result.assumptions,
+                methodology: [
+                  "Settlement percentage is applied to today's balance; fees follow the FTC advance-fee rule (collectible only after each account settles).",
+                ],
+              }}
+            />
 
             {/* Assumptions */}
             <details className="rounded-2xl border border-border bg-card p-4 text-sm">
