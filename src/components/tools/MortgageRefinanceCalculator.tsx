@@ -56,16 +56,16 @@ const STATE_OPTIONS = US_STATES.map((s) => ({ value: s.code, label: s.name }));
 
 export function MortgageRefinanceCalculator() {
   // ── Inputs (string state for text fields, per platform pattern) ──
-  const [balanceStr, setBalanceStr] = useState("285,000");
-  const [currentRateStr, setCurrentRateStr] = useState("7.25");
-  const [currentPaymentStr, setCurrentPaymentStr] = useState("2,050");
-  const [remainingYearsStr, setRemainingYearsStr] = useState("26");
-  const [homeValueStr, setHomeValueStr] = useState("390,000");
-  const [newRateStr, setNewRateStr] = useState("6.1");
+  const [balanceStr, setBalanceStr] = useState("");
+  const [currentRateStr, setCurrentRateStr] = useState("");
+  const [currentPaymentStr, setCurrentPaymentStr] = useState("");
+  const [remainingYearsStr, setRemainingYearsStr] = useState("");
+  const [homeValueStr, setHomeValueStr] = useState("");
+  const [newRateStr, setNewRateStr] = useState("");
   const [newTermMonths, setNewTermMonths] = useState(360);
-  const [closingStr, setClosingStr] = useState("6,500");
-  const [incomeStr, setIncomeStr] = useState("7,200");
-  const [debtPaymentsStr, setDebtPaymentsStr] = useState("650");
+  const [closingStr, setClosingStr] = useState("");
+  const [incomeStr, setIncomeStr] = useState("");
+  const [debtPaymentsStr, setDebtPaymentsStr] = useState("");
   const [creditBand, setCreditBand] = useState<CreditBand>("good");
   const [stateCode, setStateCode] = useState("TX");
 
@@ -549,4 +549,3 @@ export function MortgageRefinanceCalculator() {
     </div>
   );
 }
-

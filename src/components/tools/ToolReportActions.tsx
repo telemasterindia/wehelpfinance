@@ -69,9 +69,9 @@ export function ToolReportActions({ data }: { data: ToolReportData }) {
       <style jsx global>{`
         @media print {
           @page { margin: 0.55in; }
-          body * { visibility: hidden !important; }
-          .tool-print-report, .tool-print-report * { visibility: visible !important; }
-          .tool-print-report { display: block !important; position: absolute; inset: 0; color: #17231f; font: 10pt/1.35 Arial, sans-serif; }
+          body *:not(:has(.tool-print-report)):not(.tool-print-report):not(.tool-print-report *) { display: none !important; }
+          body *:has(.tool-print-report) { display: block !important; position: static !important; width: auto !important; max-width: none !important; min-height: 0 !important; margin: 0 !important; padding: 0 !important; }
+          .tool-print-report { display: block !important; position: static !important; color: #17231f; font: 10pt/1.35 Arial, sans-serif; }
           .tool-print-report header { border-bottom: 3px solid #0b6b50; margin-bottom: 18px; padding-bottom: 12px; }
           .tool-print-report .report-brand { color: #0b6b50; font-size: 18pt; font-weight: 800; }
           .tool-print-report h1 { font-size: 20pt; margin: 4px 0; }
