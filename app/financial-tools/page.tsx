@@ -80,6 +80,15 @@ const LIVE_TOOLS = [
     featured: true,
   },
   {
+    href: "/financial-tools/budget-planner",
+    name: "Budget Planner",
+    description:
+      "Map every dollar, get a Budget Health Score with disclosed factors, compare against 50/30/20, and simulate improvements instantly.",
+    icon: PiggyBank,
+    badge: "New",
+    featured: false,
+  },
+  {
     href: "/financial-tools/debt-solutions-comparison",
     name: "Debt Solutions Comparison",
     description:
@@ -132,14 +141,6 @@ const LIVE_TOOLS = [
     icon: Scale,
     badge: "Popular",
     featured: false,
-  },
-];
-
-const COMING_SOON = [
-  {
-    name: "Budget Planner",
-    description: "A simple income vs. expenses planner that shows what's realistically available for debt payments.",
-    icon: PiggyBank,
   },
 ];
 
@@ -248,27 +249,6 @@ export default function Page() {
                   <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" aria-hidden="true" />
                 </span>
               </Link>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* ── Coming soon ── */}
-      <section className="container-page pb-12" aria-labelledby="coming-soon-heading">
-        <h2 id="coming-soon-heading" className="mb-6 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
-          Coming soon
-        </h2>
-        <div className="grid gap-5 md:grid-cols-3">
-          {COMING_SOON.map((t) => {
-            const Icon = t.icon;
-            return (
-              <div key={t.name} className="rounded-3xl border border-dashed border-border bg-card/60 p-6">
-                <span className="grid h-10 w-10 place-items-center rounded-xl bg-muted">
-                  <Icon className="h-5 w-5 text-muted-foreground" aria-hidden="true" />
-                </span>
-                <h3 className="mt-3 font-display text-base font-semibold text-foreground">{t.name}</h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{t.description}</p>
-              </div>
             );
           })}
         </div>

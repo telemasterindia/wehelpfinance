@@ -103,6 +103,12 @@
     <priority>0.85</priority>
   </url>
   <url>
+    <loc>https://www.wehelpfinance.com/financial-tools/budget-planner</loc>
+    <lastmod>2026-07-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://www.wehelpfinance.com/debt-settlement/los-angeles</loc>
     <lastmod>2026-06-27</lastmod>
     <changefreq>monthly</changefreq>
@@ -433,4 +439,3 @@
     <priority>0.3</priority>
   </url>
 </urlset>
-
