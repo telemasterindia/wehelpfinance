@@ -7,7 +7,7 @@ import type { ResourceGroup } from "@/components/RelatedResources";
 import { faqJsonLd, breadcrumbJsonLd } from "@/lib/schema";
 import {
   Calculator, PiggyBank, Scale, Wallet, ArrowRight, ShieldCheck,
-  BookOpen, LockKeyhole, Home, Gauge,
+  BookOpen, LockKeyhole, Home, Gauge, Map,
 } from "lucide-react";
 
 const CANONICAL = "https://www.wehelpfinance.com/financial-tools";
@@ -78,6 +78,24 @@ const LIVE_TOOLS = [
     icon: Gauge,
     badge: "Flagship",
     featured: true,
+  },
+  {
+    href: "/financial-tools/consumer-rights-wizard",
+    name: "Consumer Rights & Debt Options Wizard",
+    description:
+      "Know your rights with debt collectors, understand debt validation, and see every option worth exploring — a guided educational wizard with a printable summary.",
+    icon: Scale,
+    badge: "New",
+    featured: false,
+  },
+  {
+    href: "/financial-tools/debt-freedom-planner",
+    name: "Debt Freedom Planner",
+    description:
+      "Six payoff strategies — minimums, snowball, avalanche, consolidation, settlement, hybrid — priced side by side with a goal-based recommendation and milestone timeline.",
+    icon: Map,
+    badge: "New",
+    featured: false,
   },
   {
     href: "/financial-tools/budget-planner",
