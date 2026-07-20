@@ -7,7 +7,7 @@ import type { ResourceGroup } from "@/components/RelatedResources";
 import { faqJsonLd, breadcrumbJsonLd } from "@/lib/schema";
 import {
   Calculator, PiggyBank, Scale, Wallet, ArrowRight, ShieldCheck,
-  BookOpen, LockKeyhole,
+  BookOpen, LockKeyhole, Home,
 } from "lucide-react";
 
 const CANONICAL = "https://www.wehelpfinance.com/financial-tools";
@@ -70,6 +70,15 @@ const RELATED: ResourceGroup[] = [
 ];
 
 const LIVE_TOOLS = [
+  {
+    href: "/financial-tools/mortgage-refinance-calculator",
+    name: "Mortgage Refinance Calculator",
+    description:
+      "Compare your current mortgage with a refinance — monthly savings, lifetime cost, break-even, LTV, and DTI in one honest view.",
+    icon: Home,
+    badge: "New",
+    featured: true,
+  },
   {
     href: "/financial-tools/debt-solutions-comparison",
     name: "Debt Solutions Comparison Calculator",
