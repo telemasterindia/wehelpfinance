@@ -78,9 +78,9 @@ const STATE_OPTIONS = US_STATES.map((s) => ({ value: s.code, label: s.name }));
 
 export function PersonalLoanCalculator() {
   // ── Raw input state (strings for text fields, per platform pattern) ──
-  const [amountStr, setAmountStr] = useState("15,000");
-  const [incomeStr, setIncomeStr] = useState("5,500");
-  const [debtPaymentsStr, setDebtPaymentsStr] = useState("850");
+  const [amountStr, setAmountStr] = useState("");
+  const [incomeStr, setIncomeStr] = useState("");
+  const [debtPaymentsStr, setDebtPaymentsStr] = useState("");
   const [creditBand, setCreditBand] = useState<CreditBand>("good");
   const [employment, setEmployment] = useState<EmploymentStatus>("employed");
   const [purpose, setPurpose] = useState<LoanPurpose>("debt-consolidation");
