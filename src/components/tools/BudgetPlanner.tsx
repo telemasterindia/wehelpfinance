@@ -55,29 +55,29 @@ function Group({ title, children }: { title: string; children: React.ReactNode }
 
 export function BudgetPlanner() {
   // ── Income ──
-  const [grossStr, setGrossStr] = useState("5,800");
+  const [grossStr, setGrossStr] = useState("");
   const [otherIncStr, setOtherIncStr] = useState("");
   // ── Essentials ──
-  const [housingStr, setHousingStr] = useState("1,600");
-  const [utilitiesStr, setUtilitiesStr] = useState("240");
-  const [insuranceStr, setInsuranceStr] = useState("180");
-  const [transportStr, setTransportStr] = useState("320");
-  const [fuelStr, setFuelStr] = useState("140");
-  const [foodStr, setFoodStr] = useState("650");
-  const [medicalStr, setMedicalStr] = useState("90");
+  const [housingStr, setHousingStr] = useState("");
+  const [utilitiesStr, setUtilitiesStr] = useState("");
+  const [insuranceStr, setInsuranceStr] = useState("");
+  const [transportStr, setTransportStr] = useState("");
+  const [fuelStr, setFuelStr] = useState("");
+  const [foodStr, setFoodStr] = useState("");
+  const [medicalStr, setMedicalStr] = useState("");
   // ── Family ──
   const [childcareStr, setChildcareStr] = useState("");
   const [educationStr, setEducationStr] = useState("");
   // ── Lifestyle ──
-  const [phoneStr, setPhoneStr] = useState("120");
-  const [subsStr, setSubsStr] = useState("65");
-  const [entStr, setEntStr] = useState("180");
-  const [shopStr, setShopStr] = useState("220");
+  const [phoneStr, setPhoneStr] = useState("");
+  const [subsStr, setSubsStr] = useState("");
+  const [entStr, setEntStr] = useState("");
+  const [shopStr, setShopStr] = useState("");
   // ── Money ──
   const [taxesStr, setTaxesStr] = useState("");
-  const [savingsStr, setSavingsStr] = useState("250");
-  const [retireStr, setRetireStr] = useState("200");
-  const [debtStr, setDebtStr] = useState("480");
+  const [savingsStr, setSavingsStr] = useState("");
+  const [retireStr, setRetireStr] = useState("");
+  const [debtStr, setDebtStr] = useState("");
   const [otherExpStr, setOtherExpStr] = useState("");
   // ── Optional context ──
   const [showOptional, setShowOptional] = useState(false);
@@ -646,4 +646,3 @@ export function BudgetPlanner() {
     </div>
   );
 }
-
