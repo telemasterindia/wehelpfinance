@@ -6,15 +6,8 @@ import { RelatedResources } from "@/components/RelatedResources";
 import type { ResourceGroup } from "@/components/RelatedResources";
 import { faqJsonLd, breadcrumbJsonLd } from "@/lib/schema";
 import {
-  Calculator,
-  PiggyBank,
-  Scale,
-  Wallet,
-  ArrowRight,
-  ShieldCheck,
-  BookOpen,
-  LockKeyhole,
-  Home,
+  Calculator, PiggyBank, Scale, Wallet, ArrowRight, ShieldCheck,
+  BookOpen, LockKeyhole, Home, Gauge,
 } from "lucide-react";
 
 const CANONICAL = "https://www.wehelpfinance.com/financial-tools";
@@ -22,7 +15,7 @@ const CANONICAL = "https://www.wehelpfinance.com/financial-tools";
 export const metadata: Metadata = {
   title: "Free Financial Tools & Calculators | WeHelpFinance",
   description:
-    "Free, no-sign-up financial calculators from WeHelpFinance: debt payoff planner, debt settlement estimator, DTI calculator, and debt solutions comparison calculator.",
+    "Free, no-sign-up financial calculators from WeHelpFinance: debt payoff planner with Snowball vs. Avalanche comparison, debt settlement savings estimator, and more tools on the way.",
   alternates: { canonical: CANONICAL },
   openGraph: {
     title: "Free Financial Tools & Calculators | WeHelpFinance",
@@ -34,8 +27,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Free Financial Tools | WeHelpFinance",
-    description:
-      "Debt payoff planner, settlement estimator, and more — free, no sign-up.",
+    description: "Debt payoff planner, settlement estimator, and more — free, no sign-up.",
   },
 };
 
@@ -54,7 +46,7 @@ const FAQS = [
   },
   {
     q: "What tools are coming next?",
-    a: "A simple budget planner is planned next. Every calculator follows the same standard: free, private, and no sign-up.",
+    a: "A loan comparison calculator (personal loan vs. current cards), a debt-to-income ratio checker for mortgage and refinance planning, and a simple budget planner. Each will follow the same standard: free, private, no sign-up.",
   },
 ];
 
@@ -79,31 +71,22 @@ const RELATED: ResourceGroup[] = [
 
 const LIVE_TOOLS = [
   {
-    href: "/financial-tools/mortgage-refinance-calculator",
-    name: "Mortgage Refinance Calculator",
+    href: "/financial-tools/financial-health-score",
+    name: "Financial Health Score",
     description:
-      "Compare your current mortgage with a refinance — monthly savings, lifetime cost, break-even, LTV, and DTI in one honest view.",
-    icon: Home,
-    badge: "New",
-    featured: true,
-  },
-  {
-    href: "/financial-tools/personal-loan-calculator",
-    name: "Personal Loan Calculator",
-    description:
-      "Estimate a realistic APR range, monthly payment, total interest, and DTI before and after the loan — then compare other paths.",
-    icon: Wallet,
-    badge: "New",
+      "Your whole financial picture in one 0–100 score — disclosed weights, a personalized action plan, and a what-if simulator that shows which lever moves your number most.",
+    icon: Gauge,
+    badge: "Flagship",
     featured: true,
   },
   {
     href: "/financial-tools/debt-solutions-comparison",
-    name: "Debt Solutions Comparison Calculator",
+    name: "Debt Solutions Comparison",
     description:
       "Minimum payments vs. settlement vs. consolidation vs. DMP — every path's payment, timeline, cost, and credit impact in one honest table.",
     icon: Scale,
-    badge: "Flagship",
-    featured: true,
+    badge: "Popular",
+    featured: false,
   },
   {
     href: "/financial-tools/debt-payoff-calculator",
@@ -124,6 +107,24 @@ const LIVE_TOOLS = [
     featured: false,
   },
   {
+    href: "/financial-tools/personal-loan-calculator",
+    name: "Personal Loan Calculator",
+    description:
+      "A realistic APR range for your credit profile, your payment, and your DTI before and after the loan — plus how it compares with settlement.",
+    icon: Wallet,
+    badge: "New",
+    featured: false,
+  },
+  {
+    href: "/financial-tools/mortgage-refinance-calculator",
+    name: "Mortgage Refinance Calculator",
+    description:
+      "New payment, break-even on closing costs, true lifetime cost, and your DTI before and after — including when staying put wins.",
+    icon: Home,
+    badge: "New",
+    featured: false,
+  },
+  {
     href: "/debt-settlement-calculator",
     name: "Debt Settlement Calculator",
     description:
@@ -137,8 +138,7 @@ const LIVE_TOOLS = [
 const COMING_SOON = [
   {
     name: "Budget Planner",
-    description:
-      "A simple income vs. expenses planner that shows what's realistically available for debt payments.",
+    description: "A simple income vs. expenses planner that shows what's realistically available for debt payments.",
     icon: PiggyBank,
   },
 ];
@@ -157,7 +157,7 @@ export default function Page() {
             breadcrumbJsonLd([
               { name: "Home", path: "https://www.wehelpfinance.com/" },
               { name: "Financial Tools", path: CANONICAL },
-            ]),
+            ])
           ),
         }}
       />
@@ -187,56 +187,35 @@ export default function Page() {
       {/* ── Hero ── */}
       <section className="bg-gradient-to-b from-primary-soft/40 to-background">
         <div className="container-page max-w-4xl py-14 lg:py-20">
-          <nav
-            className="mb-6 text-sm text-muted-foreground"
-            aria-label="Breadcrumb"
-          >
-            <Link href="/" className="hover:text-primary">
-              Home
-            </Link>
+          <nav className="mb-6 text-sm text-muted-foreground" aria-label="Breadcrumb">
+            <Link href="/" className="hover:text-primary">Home</Link>
             <span className="mx-2">/</span>
             <span className="text-foreground">Financial Tools</span>
           </nav>
 
           <h1>Free Financial Tools &amp; Calculators</h1>
           <p className="mt-4 max-w-2xl text-lg text-muted-foreground">
-            Plan your payoff, estimate settlement savings, and see the honest
-            math behind your options — free, private, and with no sign-up.
-            Numbers first, decisions second.
+            Plan your payoff, estimate settlement savings, and see the honest math behind your
+            options — free, private, and with no sign-up. Numbers first, decisions second.
           </p>
 
           <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-foreground/90">
             <span className="inline-flex items-center gap-1.5">
-              <LockKeyhole
-                className="h-4 w-4 text-primary"
-                aria-hidden="true"
-              />{" "}
-              Nothing saved or submitted
+              <LockKeyhole className="h-4 w-4 text-primary" aria-hidden="true" /> Nothing saved or submitted
             </span>
             <span className="inline-flex items-center gap-1.5">
-              <ShieldCheck
-                className="h-4 w-4 text-primary"
-                aria-hidden="true"
-              />{" "}
-              No email required
+              <ShieldCheck className="h-4 w-4 text-primary" aria-hidden="true" /> No email required
             </span>
             <span className="inline-flex items-center gap-1.5">
-              <BookOpen className="h-4 w-4 text-primary" aria-hidden="true" />{" "}
-              Methodology on every tool
+              <BookOpen className="h-4 w-4 text-primary" aria-hidden="true" /> Methodology on every tool
             </span>
           </div>
         </div>
       </section>
 
       {/* ── Live tools ── */}
-      <section
-        className="container-page py-12"
-        aria-labelledby="live-tools-heading"
-      >
-        <h2
-          id="live-tools-heading"
-          className="mb-6 text-sm font-semibold uppercase tracking-wider text-muted-foreground"
-        >
+      <section className="container-page py-12" aria-labelledby="live-tools-heading">
+        <h2 id="live-tools-heading" className="mb-6 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
           Available now
         </h2>
         <div className="grid gap-6 md:grid-cols-2">
@@ -247,9 +226,7 @@ export default function Page() {
                 key={t.href}
                 href={t.href}
                 className={`group flex flex-col rounded-3xl border bg-card p-6 transition hover:border-primary hover:shadow-md lg:p-8 ${
-                  t.featured
-                    ? "border-primary/40 bg-primary-soft/20"
-                    : "border-border"
+                  t.featured ? "border-primary/40 bg-primary-soft/20" : "border-border"
                 }`}
               >
                 <div className="flex items-start justify-between gap-3">
@@ -268,10 +245,7 @@ export default function Page() {
                 </p>
                 <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
                   Open calculator
-                  <ArrowRight
-                    className="h-4 w-4 transition group-hover:translate-x-1"
-                    aria-hidden="true"
-                  />
+                  <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" aria-hidden="true" />
                 </span>
               </Link>
             );
@@ -280,36 +254,20 @@ export default function Page() {
       </section>
 
       {/* ── Coming soon ── */}
-      <section
-        className="container-page pb-12"
-        aria-labelledby="coming-soon-heading"
-      >
-        <h2
-          id="coming-soon-heading"
-          className="mb-6 text-sm font-semibold uppercase tracking-wider text-muted-foreground"
-        >
+      <section className="container-page pb-12" aria-labelledby="coming-soon-heading">
+        <h2 id="coming-soon-heading" className="mb-6 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
           Coming soon
         </h2>
         <div className="grid gap-5 md:grid-cols-3">
           {COMING_SOON.map((t) => {
             const Icon = t.icon;
             return (
-              <div
-                key={t.name}
-                className="rounded-3xl border border-dashed border-border bg-card/60 p-6"
-              >
+              <div key={t.name} className="rounded-3xl border border-dashed border-border bg-card/60 p-6">
                 <span className="grid h-10 w-10 place-items-center rounded-xl bg-muted">
-                  <Icon
-                    className="h-5 w-5 text-muted-foreground"
-                    aria-hidden="true"
-                  />
+                  <Icon className="h-5 w-5 text-muted-foreground" aria-hidden="true" />
                 </span>
-                <h3 className="mt-3 font-display text-base font-semibold text-foreground">
-                  {t.name}
-                </h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
-                  {t.description}
-                </p>
+                <h3 className="mt-3 font-display text-base font-semibold text-foreground">{t.name}</h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{t.description}</p>
               </div>
             );
           })}
@@ -319,24 +277,17 @@ export default function Page() {
       {/* ── Why these tools exist ── */}
       <section className="container-page max-w-4xl pb-12">
         <div className="rounded-3xl border border-border bg-card p-6 lg:p-8">
-          <h2 className="!mt-0 font-display text-xl text-foreground">
-            Why we build these tools
-          </h2>
+          <h2 className="!mt-0 font-display text-xl text-foreground">Why we build these tools</h2>
           <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">
-            Most debt decisions get made under stress, without clear numbers.
-            These calculators exist to fix that: see your real payoff timeline,
-            your real interest cost, and the real difference between strategies
-            — before you talk to anyone. Every tool documents its assumptions,
-            uses standard financial math, and is reviewed under our{" "}
-            <Link
-              href="/editorial-policy"
-              className="text-primary underline-offset-2 hover:underline"
-            >
+            Most debt decisions get made under stress, without clear numbers. These calculators
+            exist to fix that: see your real payoff timeline, your real interest cost, and the
+            real difference between strategies — before you talk to anyone. Every tool documents
+            its assumptions, uses standard financial math, and is reviewed under our{" "}
+            <Link href="/editorial-policy" className="text-primary underline-offset-2 hover:underline">
               editorial standards
             </Link>
-            . And when the numbers say your situation needs more than a
-            strategy, a free specialist consultation is one click away — never a
-            requirement.
+            . And when the numbers say your situation needs more than a strategy, a free
+            specialist consultation is one click away — never a requirement.
           </p>
         </div>
       </section>
@@ -348,3 +299,4 @@ export default function Page() {
     </>
   );
 }
+
