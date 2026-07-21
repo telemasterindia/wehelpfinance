@@ -32,20 +32,26 @@ import { Download, Printer } from "lucide-react";
 import type { ToolReportData } from "@/lib/calculators/report";
 import { trackToolEvent } from "@/lib/calculators/track";
 import { ToolReportLayout } from "@/components/tools/ToolReport";
-import {
-  PostReportModal,
-  wasReportModalDismissed,
-} from "@/components/tools/PostReportModal";
+import { FinancialConsultationModal } from "@/components/shared/FinancialConsultationModal";
+import { wasConsultationSubmitted } from "@/lib/leads/consultationLead";
+
+type PostReportModalCopy = {
+  title?: string;
+};
 
 export function ToolReportActions({
   data,
   children,
+  modalCopy,
 }: {
   data: ToolReportData;
+  /** optional modal copy overrides (Sprint 11) */
+  modalCopy?: PostReportModalCopy;
   /** optional print-safe visual summary forwarded into the report */
   children?: ReactNode;
 }) {
   const [modalOpen, setModalOpen] = useState(false);
+  const [lastAction, setLastAction] = useState<"download" | "print" | null>(null);
   const initiatedRef = useRef(false);
   // The button that started the last report action — focus returns
   // here after the post-action modal closes (WCAG AA focus order).
@@ -55,8 +61,11 @@ export function ToolReportActions({
     function maybeShowModal() {
       if (!initiatedRef.current) return;
       initiatedRef.current = false;
-      if (wasReportModalDismissed()) return;
-      trackToolEvent("report_action_modal_viewed", { tool: data.toolSlug });
+      if (wasConsultationSubmitted()) return;
+      trackToolEvent("report_action_modal_viewed", {
+        tool: data.toolSlug,
+        source: "financial_consultation_modal",
+      });
       setModalOpen(true);
     }
     window.addEventListener("afterprint", maybeShowModal);
@@ -69,12 +78,13 @@ export function ToolReportActions({
 
   function runReportAction(
     kind: "download" | "print",
-    trigger: HTMLElement | null,
+    trigger: HTMLElement | null
   ) {
     triggerRef.current = trigger;
+    setLastAction(kind);
     trackToolEvent(
       kind === "download" ? "report_download_clicked" : "report_print_clicked",
-      { tool: data.toolSlug },
+      { tool: data.toolSlug }
     );
     initiatedRef.current = true;
     // Let the click's paint settle so the dialog opens over a stable
@@ -117,19 +127,24 @@ export function ToolReportActions({
             &ldquo;Save as PDF&rdquo;
           </span>{" "}
           and save. Works the same on desktop and mobile. (We evaluated
-          direct-PDF libraries; all would add 100&nbsp;KB+ of JavaScript to
-          every calculator, so the platform keeps the dependency-free native
-          path.)
+          direct-PDF libraries; all would add 100&nbsp;KB+ of JavaScript to every
+          calculator, so the platform keeps the dependency-free native path.)
         </p>
       </div>
 
       <ToolReportLayout data={data}>{children}</ToolReportLayout>
 
-      <PostReportModal
+      <FinancialConsultationModal
         open={modalOpen}
-        tool={data.toolSlug}
         onClose={() => setModalOpen(false)}
         returnFocus={triggerRef}
+        intro={modalCopy?.title}
+        meta={{
+          toolName: data.toolSlug,
+          reportGenerated: true,
+          reportPrinted: lastAction === "print",
+          reportDownloaded: lastAction === "download",
+        }}
       />
     </div>
   );
