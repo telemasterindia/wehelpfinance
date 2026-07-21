@@ -44,14 +44,14 @@ const cell = (v: string | number | null, fmt?: (n: number) => string) =>
 
 export function DebtFreedomPlanner() {
   // ── Inputs ──
-  const [debtStr, setDebtStr] = useState("22,000");
+  const [debtStr, setDebtStr] = useState("");
   const [creditBand, setCreditBand] = useState<CreditBand>("good");
-  const [incomeStr, setIncomeStr] = useState("5,800");
-  const [expensesStr, setExpensesStr] = useState("3,100");
-  const [paymentsStr, setPaymentsStr] = useState("560");
-  const [extraStr, setExtraStr] = useState("200");
-  const [aprStr, setAprStr] = useState("22.9");
-  const [accountsStr, setAccountsStr] = useState("4");
+  const [incomeStr, setIncomeStr] = useState("");
+  const [expensesStr, setExpensesStr] = useState("");
+  const [paymentsStr, setPaymentsStr] = useState("");
+  const [extraStr, setExtraStr] = useState("");
+  const [aprStr, setAprStr] = useState("");
+  const [accountsStr, setAccountsStr] = useState("");
   const [delinquency, setDelinquency] = useState<DelinquencyStage>("current");
   const [homeowner, setHomeowner] = useState<"yes" | "no">("no");
   const [stateCode, setStateCode] = useState("TX");
@@ -491,4 +491,3 @@ export function DebtFreedomPlanner() {
     </div>
   );
 }
-

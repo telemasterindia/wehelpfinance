@@ -40,12 +40,12 @@ const CREDIT_ORDER: CreditBand[] = ["poor", "fair", "good", "excellent"];
 
 export function FinancialHealthCalculator() {
   // ── Inputs (platform string-state pattern) ──
-  const [incomeStr, setIncomeStr] = useState("5,800");
-  const [expensesStr, setExpensesStr] = useState("2,900");
-  const [debtPaymentsStr, setDebtPaymentsStr] = useState("720");
-  const [unsecuredStr, setUnsecuredStr] = useState("14,000");
+  const [incomeStr, setIncomeStr] = useState("");
+  const [expensesStr, setExpensesStr] = useState("");
+  const [debtPaymentsStr, setDebtPaymentsStr] = useState("");
+  const [unsecuredStr, setUnsecuredStr] = useState("");
   const [creditBand, setCreditBand] = useState<CreditBand>("good");
-  const [savingsStr, setSavingsStr] = useState("2,500");
+  const [savingsStr, setSavingsStr] = useState("");
   const [employment, setEmployment] = useState<EmploymentStatus>("employed");
   const [homeowner, setHomeowner] = useState<"yes" | "no">("no");
   const [mortgageStr, setMortgageStr] = useState("");
@@ -483,4 +483,3 @@ export function FinancialHealthCalculator() {
     </div>
   );
 }
-

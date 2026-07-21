@@ -19,7 +19,6 @@ import {
   DELINQUENCY_OPTIONS,
   EMPLOYMENT_OPTIONS,
   SETTLEMENT_RANGE_BY_STAGE,
-  DEFAULT_FEE_PCT,
 } from "@/lib/calculators/debtSettlement";
 import type {
   DelinquencyStage,
@@ -55,7 +54,7 @@ export function DebtSettlementCalculator() {
   const [delinquency, setDelinquency] = useState<DelinquencyStage | "">("");
   const [employment, setEmployment] = useState<EmploymentStatus | "">("");
   const [settlePct, setSettlePct] = useState(""); // percent as typed, e.g. "48"
-  const [feePct, setFeePct] = useState(String(DEFAULT_FEE_PCT * 100)); // "22"
+  const [feePct, setFeePct] = useState("");
   const [targetPayment, setTargetPayment] = useState("");
   const settleOverridden = useRef(false);
   const completedHash = useRef("");
